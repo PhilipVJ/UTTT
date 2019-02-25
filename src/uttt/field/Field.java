@@ -15,6 +15,8 @@ import uttt.move.IMove;
  */
 public class Field implements IField
 {
+    
+    private String[][] board;
 
     @Override
     public void clearBoard()
@@ -55,7 +57,7 @@ public class Field implements IField
     @Override
     public String[][] getBoard()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      return board;
     }
 
     @Override
@@ -67,7 +69,7 @@ public class Field implements IField
     @Override
     public void setBoard(String[][] board)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       this.board=board;
     }
 
     @Override
