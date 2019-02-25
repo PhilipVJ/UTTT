@@ -122,8 +122,6 @@ public class GameboardController implements Initializable
        coordinates[0]=r+(r1*3);
        coordinates[1]=c+(c1*3);
        
-        System.out.println(""+coordinates[0]);
-        System.out.println(""+coordinates[1]);
        
         return coordinates;
     }
