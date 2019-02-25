@@ -8,11 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-<<<<<<< HEAD
-    <jar href="UTTT.jar" size="12220" download="eager" />
-=======
-    <jar href="UTTT.jar" size="10071" download="eager" />
->>>>>>> 0a81da50a4cb68b1b4fa6cf3f89ac3aa405edde4
+    <jar href="UTTT.jar" size="12147" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="UTTT" >
     <param name="requiredFXVersion" value="8.0+"/>

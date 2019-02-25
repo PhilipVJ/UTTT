@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import uttt.GUI.Controller.MainViewController;
 
 /**
  *
@@ -21,8 +22,8 @@ public class UTTT extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
-        Parent root = FXMLLoader.load(getClass().getResource("GUI/View/MainView.fxml"));
-        
+        FXMLLoader loader =new FXMLLoader(getClass().getResource("/uttt/GUI/View/MainView.fxml"));
+        Parent root = loader.load();
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
