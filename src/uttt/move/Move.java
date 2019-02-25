@@ -26,13 +26,13 @@ public class Move implements IMove
     @Override
     public int getX()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return x;
     }
 
     @Override
     public int getY()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      return y;
     }
     
 }

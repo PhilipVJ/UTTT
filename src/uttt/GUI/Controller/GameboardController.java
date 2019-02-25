@@ -248,9 +248,9 @@ public class GameboardController implements Initializable
     
     public void setGameManager(int gMode)
     {
-        // Mangler kode
+        // Mangler kode i 2 og 3
          switch (gMode){
-             case 1: 
+             case 1: gManager = new GameManager(new GameState());
              case 2:
              case 3:    
          }
