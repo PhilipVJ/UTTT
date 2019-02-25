@@ -94,6 +94,60 @@ public class GameboardController implements Initializable
     private GridPane gridPane8;
     @FXML
     private GridPane gridPane9;
+    @FXML
+    private Button btn11;
+    @FXML
+    private Button btn12;
+    @FXML
+    private Button btn13;
+    @FXML
+    private Button btn14;
+    @FXML
+    private Button btn17;
+    @FXML
+    private Button btn15;
+    @FXML
+    private Button btn18;
+    @FXML
+    private Button btn16;
+    @FXML
+    private Button btn19;
+    @FXML
+    private Button btn21;
+    @FXML
+    private Button btn22;
+    @FXML
+    private Button btn23;
+    @FXML
+    private Button btn24;
+    @FXML
+    private Button btn25;
+    @FXML
+    private Button btn26;
+    @FXML
+    private Button btn27;
+    @FXML
+    private Button btn28;
+    @FXML
+    private Button btn29;
+    @FXML
+    private Button btn32;
+    @FXML
+    private Button btn31;
+    @FXML
+    private Button btn33;
+    @FXML
+    private Button btn34;
+    @FXML
+    private Button btn35;
+    @FXML
+    private Button btn36;
+    @FXML
+    private Button btn37;
+    @FXML
+    private Button btn38;
+    @FXML
+    private Button btn39;
 
     /**
      * Initializes the controller class.
