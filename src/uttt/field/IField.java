@@ -1,7 +1,7 @@
-package field;
+package uttt.field;
 
 import java.util.List;
-import move.IMove;
+import uttt.move.IMove;
 
 /**
  *
