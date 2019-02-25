@@ -26,13 +26,14 @@ public class Move implements IMove
     @Override
     public int getX()
     {
-       return x;
+        return x;
     }
 
     @Override
     public int getY()
     {
-      return y;
+        return y;
+      
     }
     
 }

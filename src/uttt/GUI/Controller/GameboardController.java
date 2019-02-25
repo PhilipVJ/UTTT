@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import uttt.game.GameManager;
@@ -34,183 +35,24 @@ public class GameboardController implements Initializable
     private GridPane gridPane3;
     @FXML
     private GridPane gridPane4;
-    @FXML
-    private Button btn41;
-    @FXML
-    private Button btn42;
-    @FXML
-    private Button btn44;
-    @FXML
-    private Button btn45;
-    @FXML
-    private Button btn47;
-    @FXML
-    private Button btn48;
-    @FXML
-    private Button btn49;
-    @FXML
-    private Button btn46;
-    @FXML
-    private Button btn43;
+
     @FXML
     private GridPane gridPane5;
-    @FXML
-    private Button btn52;
-    @FXML
-    private Button btn51;
-    @FXML
-    private Button btn54;
-    @FXML
-    private Button btn55;
-    @FXML
-    private Button btn57;
-    @FXML
-    private Button btn58;
-    @FXML
-    private Button btn59;
-    @FXML
-    private Button btn56;
-    @FXML
-    private Button btn53;
+
     @FXML
     private GridPane gridPane6;
-    @FXML
-    private Button btn61;
-    @FXML
-    private Button btn62;
-    @FXML
-    private Button btn64;
-    @FXML
-    private Button btn65;
-    @FXML
-    private Button btn63;
-    @FXML
-    private Button btn66;
-    @FXML
-    private Button btn67;
-    @FXML
-    private Button btn68;
-    @FXML
-    private Button btn69;
+
     @FXML
     private GridPane gridPane7;
     @FXML
     private GridPane gridPane8;
     @FXML
     private GridPane gridPane9;
-    @FXML
-    private Button btn11;
-    @FXML
-    private Button btn12;
-    @FXML
-    private Button btn13;
-    @FXML
-    private Button btn14;
-    @FXML
-    private Button btn17;
-    @FXML
-    private Button btn15;
-    @FXML
-    private Button btn18;
-    @FXML
-    private Button btn16;
-    @FXML
-    private Button btn19;
-    @FXML
-    private Button btn21;
-    @FXML
-    private Button btn22;
-    @FXML
-    private Button btn23;
-    @FXML
-    private Button btn24;
-    @FXML
-    private Button btn25;
-    @FXML
-    private Button btn26;
-    @FXML
-    private Button btn27;
-    @FXML
-    private Button btn28;
-    @FXML
-    private Button btn29;
-    @FXML
-    private Button btn32;
-    @FXML
-    private Button btn31;
-    @FXML
-    private Button btn33;
-    @FXML
-    private Button btn34;
-    @FXML
-    private Button btn35;
-    @FXML
-    private Button btn36;
-    @FXML
-    private Button btn37;
-    @FXML
-    private Button btn38;
-    @FXML
-    private Button btn39;
-    @FXML
-    private Button btn71;
-    @FXML
-    private Button btn73;
-    @FXML
-    private Button btn72;
-    @FXML
-    private Button btn74;
-    @FXML
-    private Button btn75;
-    @FXML
-    private Button btn76;
-    @FXML
-    private Button btn77;
-    @FXML
-    private Button btn78;
-    @FXML
-    private Button btn79;
-    @FXML
-    private Button btn81;
-    @FXML
-    private Button btn82;
-    @FXML
-    private Button btn84;
-    @FXML
-    private Button btn85;
-    @FXML
-    private Button btn83;
-    @FXML
-    private Button btn86;
-    @FXML
-    private Button btn87;
-    @FXML
-    private Button btn88;
-    @FXML
-    private Button btn89;
-    @FXML
-    private Button btn91;
-    @FXML
-    private Button btn92;
-    @FXML
-    private Button btn93;
-    @FXML
-    private Button btn94;
-    @FXML
-    private Button btn95;
-    @FXML
-    private Button btn96;
-    @FXML
-    private Button btn97;
-    @FXML
-    private Button btn98;
-    @FXML
-    private Button btn99;
-    
+
     private GameManager gManager;
-    
+
     private GameState gState;
-    
+
     private int currentPlayer = 0;
 
     /**
@@ -220,57 +62,46 @@ public class GameboardController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
 //        gStage = new GameState();
-    }    
+    }
 
     @FXML
     private void buttonPressed(ActionEvent event)
     {
         Button btn = (Button) event.getSource();
-        Integer[] coordinates = makeCoordinates(btn.getId());
-        
-       if(gManager.updateGame(new Move(coordinates[0], coordinates[1]))==true){
-           if(currentPlayer==0)
-           {
-               
-               btn.setText("0");
-               currentPlayer=1;
-            }
-           
-           if(currentPlayer==1){
-             
-               btn.setText("X");
-               currentPlayer=0;
-           }
-       }
+        Integer row = macroBoard.getRowIndex(macroBoard);
+        Integer col = macroBoard.getColumnIndex(macroBoard);
+        System.out.println(""+row);
+        System.out.println(""+col);
 
-        
+        if (gManager.updateGame(new Move(row,col)) == true)
+        {
+            if (currentPlayer == 0)
+            {
+
+                btn.setText("0");
+                currentPlayer = 1;
+            }
+
+            if (currentPlayer == 1)
+            {
+
+                btn.setText("X");
+                currentPlayer = 0;
+            }
+        }
+
     }
-    
+
     public void setGameManager(int gMode)
     {
         // Mangler kode i 2 og 3
-         switch (gMode){
-             case 1: gManager = new GameManager(new GameState());
-             case 2:
-             case 3:    
-         }
+        switch (gMode)
+        {
+            case 1:
+                gManager = new GameManager(new GameState());
+            case 2:
+            case 3:
+        }
     }
-    
-    public Integer[] makeCoordinates(String buttonName)
-    {
-        int x;
-        int y;
-        Integer[]coordinates = new Integer[2];
-        x=buttonName.charAt(3);
-        y=buttonName.charAt(4);
-        coordinates[0]=x;
-        coordinates[1]=y;
-        
-        return coordinates;
-        
-    }
-    
-    
-    
-    
+
 }
