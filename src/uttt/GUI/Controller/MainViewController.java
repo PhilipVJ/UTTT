@@ -25,9 +25,9 @@ import javafx.stage.Stage;
  */
 public class MainViewController implements Initializable
 {
+
     private Stage stage;
-    
-    
+
     @FXML
     private Button btnHvH;
     @FXML
@@ -44,15 +44,19 @@ public class MainViewController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         // TODO
-    }    
+    }
 
     @FXML
     private void gameAgainstHuman(ActionEvent event) throws IOException
     {
-        Parent root = FXMLLoader.load(getClass().getResource("/uttt/GUI/View/Gameboard.fxml"));
-        stage= (Stage) anchorPane.getScene().getWindow();
-        Scene scene = new Scene(root);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/uttt/GUI/View/Gameboard.fxml"));
+        Parent root = loader.load();
+        GameboardController con = loader.getController();
+        con.setGameManger(1);
         
+        stage = (Stage) anchorPane.getScene().getWindow();
+        Scene scene = new Scene(root);
+
         stage.setScene(scene);
         stage.show();
     }
@@ -60,10 +64,14 @@ public class MainViewController implements Initializable
     @FXML
     private void gameAgainstBot(ActionEvent event) throws IOException
     {
-        Parent root = FXMLLoader.load(getClass().getResource("/uttt/GUI/View/Gameboard.fxml"));
-        stage= (Stage) anchorPane.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/uttt/GUI/View/Gameboard.fxml"));
+            Parent root = loader.load();
+        GameboardController con = loader.getController();
+        con.setGameManger(2);
+    
+        stage = (Stage) anchorPane.getScene().getWindow();
         Scene scene = new Scene(root);
-        
+
         stage.setScene(scene);
         stage.show();
 
@@ -72,18 +80,22 @@ public class MainViewController implements Initializable
     @FXML
     private void botVsBot(ActionEvent event) throws IOException
     {
-        Parent root = FXMLLoader.load(getClass().getResource("/uttt/GUI/View/Gameboard.fxml"));
-        stage= (Stage) anchorPane.getScene().getWindow();
-        Scene scene = new Scene(root);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/uttt/GUI/View/Gameboard.fxml"));
+     Parent root = loader.load();
+        GameboardController con = loader.getController();
+        con.setGameManger(3);
         
+        stage = (Stage) anchorPane.getScene().getWindow();
+        Scene scene = new Scene(root);
+
         stage.setScene(scene);
         stage.show();
 
     }
-    
+
     public void setStage(Stage stage)
     {
         this.stage = stage;
     }
-    
+
 }

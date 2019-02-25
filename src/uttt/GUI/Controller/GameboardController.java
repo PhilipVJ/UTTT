@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import uttt.game.GameManager;
 
 /**
  * FXML Controller class
@@ -203,6 +204,8 @@ public class GameboardController implements Initializable
     private Button btn98;
     @FXML
     private Button btn99;
+    
+    private GameManager gManager;
 
     /**
      * Initializes the controller class.
@@ -217,5 +220,12 @@ public class GameboardController implements Initializable
     private void buttonPressed(ActionEvent event)
     {
     }
+    
+    public void setGameManger(int gMode)
+    {
+         
+    }
+    
+    
     
 }
