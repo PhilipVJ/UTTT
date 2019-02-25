@@ -19,6 +19,13 @@ public class GameState implements IGameState
     private int roundNumber;
     private int moveNumber;
     private Field gField;
+    
+    public GameState()
+    {
+        gField=new Field();
+        roundNumber=0;
+        moveNumber=0;
+    }
 
     @Override
     public IField getField()
