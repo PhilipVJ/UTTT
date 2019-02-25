@@ -52,8 +52,9 @@ public class MainViewController implements Initializable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/uttt/GUI/View/Gameboard.fxml"));
         Parent root = loader.load();
         GameboardController con = loader.getController();
-        con.setGameManger(1);
         
+        con.setGameManager(1);
+
         stage = (Stage) anchorPane.getScene().getWindow();
         Scene scene = new Scene(root);
 
@@ -65,10 +66,11 @@ public class MainViewController implements Initializable
     private void gameAgainstBot(ActionEvent event) throws IOException
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/uttt/GUI/View/Gameboard.fxml"));
-           Parent root = loader.load();
+        Parent root = loader.load();
         GameboardController con = loader.getController();
-        con.setGameManger(2);
-    
+        
+        con.setGameManager(2);
+
         stage = (Stage) anchorPane.getScene().getWindow();
         Scene scene = new Scene(root);
 
@@ -81,10 +83,10 @@ public class MainViewController implements Initializable
     private void botVsBot(ActionEvent event) throws IOException
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/uttt/GUI/View/Gameboard.fxml"));
-     Parent root = loader.load();
+        Parent root = loader.load();
         GameboardController con = loader.getController();
-        con.setGameManger(3);
-        
+        con.setGameManager(3);
+
         stage = (Stage) anchorPane.getScene().getWindow();
         Scene scene = new Scene(root);
 

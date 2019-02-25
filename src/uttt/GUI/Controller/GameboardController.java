@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import uttt.game.GameManager;
+import uttt.game.GameState;
 import uttt.move.Move;
 
 /**
@@ -208,6 +209,8 @@ public class GameboardController implements Initializable
     
     private GameManager gManager;
     
+    private GameState gState;
+    
     private int currentPlayer = 0;
 
     /**
@@ -216,22 +219,25 @@ public class GameboardController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+//        gStage = new GameState();
     }    
 
     @FXML
     private void buttonPressed(ActionEvent event)
     {
-       if(gManager.updateGame(new Move())){
+        Button btn = (Button) event.getSource();
+        Integer[] coordinates = makeCoordinates(btn.getId());
+        
+       if(gManager.updateGame(new Move(coordinates[0], coordinates[1]))==true){
            if(currentPlayer==0)
            {
-               Button btn = (Button) event.getSource();
+               
                btn.setText("0");
                currentPlayer=1;
             }
            
            if(currentPlayer==1){
-               Button btn = (Button) event.getSource();
+             
                btn.setText("X");
                currentPlayer=0;
            }
@@ -240,12 +246,30 @@ public class GameboardController implements Initializable
         
     }
     
-    public void setGameManger(int gMode)
+    public void setGameManager(int gMode)
     {
+        // Mangler kode
          switch (gMode){
-             case 1: break;
+             case 1: 
+             case 2:
+             case 3:    
          }
     }
+    
+    public Integer[] makeCoordinates(String buttonName)
+    {
+        int x;
+        int y;
+        Integer[]coordinates = new Integer[2];
+        x=buttonName.charAt(3);
+        y=buttonName.charAt(4);
+        coordinates[0]=x;
+        coordinates[1]=y;
+        
+        return coordinates;
+        
+    }
+    
     
     
     
