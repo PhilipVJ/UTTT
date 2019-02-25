@@ -5,11 +5,25 @@
  */
 package uttt.move;
 
+import move.IMove;
+
 /**
  *
  * @author Philip
  */
-public class Move
+public class Move implements IMove
 {
+
+    @Override
+    public int getX()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getY()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
