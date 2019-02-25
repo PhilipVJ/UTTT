@@ -5,7 +5,7 @@
  */
 package uttt.move;
 
-import move.IMove;
+import uttt.move.IMove;
 
 /**
  *

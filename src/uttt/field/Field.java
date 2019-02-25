@@ -5,9 +5,9 @@
  */
 package uttt.field;
 
-import field.IField;
+import uttt.field.IField;
 import java.util.List;
-import move.IMove;
+import uttt.move.IMove;
 
 /**
  *

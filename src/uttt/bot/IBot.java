@@ -1,7 +1,7 @@
-package bot;
+package uttt.bot;
 
-import game.IGameState;
-import move.IMove;
+import uttt.game.IGameState;
+import uttt.move.IMove;
 
 /**
  *

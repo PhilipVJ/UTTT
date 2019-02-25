@@ -5,8 +5,8 @@
  */
 package uttt.game;
 
-import field.IField;
-import game.IGameState;
+import uttt.field.IField;
+import uttt.game.IGameState;
 
 /**
  *

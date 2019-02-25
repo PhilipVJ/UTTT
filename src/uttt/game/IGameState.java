@@ -1,6 +1,6 @@
-package game;
+package uttt.game;
 
-import field.IField;
+import uttt.field.IField;
 
 /**
  *

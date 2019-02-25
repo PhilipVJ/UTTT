@@ -5,9 +5,9 @@
  */
 package uttt.bot;
 
-import bot.IBot;
-import game.IGameState;
-import move.IMove;
+import uttt.bot.IBot;
+import uttt.game.IGameState;
+import uttt.move.IMove;
 
 /**
  *
@@ -21,5 +21,6 @@ public class Bot implements IBot
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+
 }
