@@ -148,6 +148,60 @@ public class GameboardController implements Initializable
     private Button btn38;
     @FXML
     private Button btn39;
+    @FXML
+    private Button btn71;
+    @FXML
+    private Button btn73;
+    @FXML
+    private Button btn72;
+    @FXML
+    private Button btn74;
+    @FXML
+    private Button btn75;
+    @FXML
+    private Button btn76;
+    @FXML
+    private Button btn77;
+    @FXML
+    private Button btn78;
+    @FXML
+    private Button btn79;
+    @FXML
+    private Button btn81;
+    @FXML
+    private Button btn82;
+    @FXML
+    private Button btn84;
+    @FXML
+    private Button btn85;
+    @FXML
+    private Button btn83;
+    @FXML
+    private Button btn86;
+    @FXML
+    private Button btn87;
+    @FXML
+    private Button btn88;
+    @FXML
+    private Button btn89;
+    @FXML
+    private Button btn91;
+    @FXML
+    private Button btn92;
+    @FXML
+    private Button btn93;
+    @FXML
+    private Button btn94;
+    @FXML
+    private Button btn95;
+    @FXML
+    private Button btn96;
+    @FXML
+    private Button btn97;
+    @FXML
+    private Button btn98;
+    @FXML
+    private Button btn99;
 
     /**
      * Initializes the controller class.
