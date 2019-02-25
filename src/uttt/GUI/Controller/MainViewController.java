@@ -65,7 +65,7 @@ public class MainViewController implements Initializable
     private void gameAgainstBot(ActionEvent event) throws IOException
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/uttt/GUI/View/Gameboard.fxml"));
-            Parent root = loader.load();
+           Parent root = loader.load();
         GameboardController con = loader.getController();
         con.setGameManger(2);
     

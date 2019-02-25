@@ -13,6 +13,7 @@ import uttt.move.IMove;
  */
 public class Move implements IMove
 {
+    
 
     @Override
     public int getX()

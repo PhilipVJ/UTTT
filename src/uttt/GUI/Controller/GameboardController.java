@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import uttt.game.GameManager;
+import uttt.move.Move;
 
 /**
  * FXML Controller class
@@ -206,6 +207,8 @@ public class GameboardController implements Initializable
     private Button btn99;
     
     private GameManager gManager;
+    
+    private int currentPlayer = 0;
 
     /**
      * Initializes the controller class.
@@ -219,11 +222,29 @@ public class GameboardController implements Initializable
     @FXML
     private void buttonPressed(ActionEvent event)
     {
+       if(gManager.updateGame(new Move())){
+           if(currentPlayer==0)
+           {
+               Button btn = (Button) event.getSource();
+               btn.setText("0");
+               currentPlayer=1;
+            }
+           
+           if(currentPlayer==1){
+               Button btn = (Button) event.getSource();
+               btn.setText("X");
+               currentPlayer=0;
+           }
+       }
+
+        
     }
     
     public void setGameManger(int gMode)
     {
-         
+         switch (gMode){
+             case 1: break;
+         }
     }
     
     
