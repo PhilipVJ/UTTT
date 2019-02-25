@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -33,6 +34,8 @@ public class MainViewController implements Initializable
     private Button btnHvB;
     @FXML
     private Button btnBvB;
+    @FXML
+    private AnchorPane anchorPane;
 
     /**
      * Initializes the controller class.
@@ -47,7 +50,7 @@ public class MainViewController implements Initializable
     private void gameAgainstHuman(ActionEvent event) throws IOException
     {
         Parent root = FXMLLoader.load(getClass().getResource("/uttt/GUI/View/Gameboard.fxml"));
-        
+        stage= (Stage) anchorPane.getScene().getWindow();
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
@@ -58,7 +61,7 @@ public class MainViewController implements Initializable
     private void gameAgainstBot(ActionEvent event) throws IOException
     {
         Parent root = FXMLLoader.load(getClass().getResource("/uttt/GUI/View/Gameboard.fxml"));
-        
+        stage= (Stage) anchorPane.getScene().getWindow();
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
@@ -70,7 +73,7 @@ public class MainViewController implements Initializable
     private void botVsBot(ActionEvent event) throws IOException
     {
         Parent root = FXMLLoader.load(getClass().getResource("/uttt/GUI/View/Gameboard.fxml"));
-        
+        stage= (Stage) anchorPane.getScene().getWindow();
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
