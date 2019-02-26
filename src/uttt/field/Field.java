@@ -17,6 +17,14 @@ public class Field implements IField
 {
     
     private String[][] board;
+    private String[][] macroBoard;
+    private Integer[] lastMove;
+    
+    public Field()
+    {
+        board=new String[9][9];
+        macroBoard = new String[3][3];
+    }
 
     @Override
     public void clearBoard()
@@ -26,6 +34,12 @@ public class Field implements IField
            for (int k=0 ; k<9 ; k++)
            {
                board[i][k] = "-1";
+           }
+       }
+       
+       for(int l=0 ; l<3 ; l++){
+           for(int m=0;m<3;m++){
+               macroBoard[l][m]="-1";
            }
        }
     }
@@ -69,7 +83,7 @@ public class Field implements IField
     @Override
     public String[][] getMacroboard()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      return macroBoard;
     }
 
     @Override
@@ -81,7 +95,7 @@ public class Field implements IField
     @Override
     public void setMacroboard(String[][] macroboard)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      this.macroBoard = macroboard;
     }
     
 }
