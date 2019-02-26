@@ -5,6 +5,7 @@
  */
 package uttt.field;
 
+import java.util.ArrayList;
 import uttt.field.IField;
 import java.util.List;
 import uttt.move.IMove;
@@ -20,14 +21,17 @@ public class Field implements IField
     private String[][] macroBoard;
     private Integer[] lastMove;
     private int activeMicroboard;
-
+    private ArrayList<String[]> microBoards;
 
     public Field()
     {
         board = new String[9][9];
         macroBoard = new String[3][3];
+        // 10 means the current Microboard is the entire arena (all are available)
         activeMicroboard = 10;
         clearBoard();
+        microBoards = new ArrayList();
+
     }
 
     @Override
@@ -97,11 +101,13 @@ public class Field implements IField
     @Override
     public Boolean isInActiveMicroboard(int x, int y)
     {
-        //Virker kun 1%
+
         if (activeMicroboard == 10 && board[x][y] == AVAILABLE_FIELD)
         {
             return true;
         }
+
+        setNextActiveMicroboard(x, y);
 
         return false;
     }
@@ -128,6 +134,27 @@ public class Field implements IField
     public void setMacroboard(String[][] macroboard)
     {
         this.macroBoard = macroboard;
+    }
+
+    private void setNextActiveMicroboard(int x, int y)
+    {
+
+    }
+
+    public void setMicroboardCoordinates()
+    {
+        String[] m1 = {"0.0", "0.1", "0.2", "1.0", "1.1", "1.2", "2.0","2.1","2.2"};
+        String[] m2 = new String[9];
+        String[] m3 = new String[9];
+        String[] m4 = new String[9];
+        String[] m5 = new String[9];
+        String[] m6 = new String[9];
+        String[] m7 = new String[9];
+        String[] m8 = new String[9];
+        String[] m9 = new String[9];
+        
+        
+//        microBoards.add(e)
     }
 
 }
