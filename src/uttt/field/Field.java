@@ -104,7 +104,6 @@ public class Field implements IField
     @Override
     public Boolean isInActiveMicroboard(int x, int y)
     {
-        // This only happens the first move in the game
         if (activeMicroboard == 10 && board[x][y] == AVAILABLE_FIELD)
         {
             activeMicroboard = (findMicroBoard(x, y));
@@ -124,7 +123,6 @@ public class Field implements IField
             {
                 if (curBoard[i].equals(coordinate))
                 {
-
                     isInBoard = true;
                     indexOfCoordinateInMicroBoard = i;
                 }
@@ -185,12 +183,15 @@ public class Field implements IField
         this.board = newBoard;
 
     }
-
+/**
+ * Vi laver alle punktummer i nuværende microboard om til -1'ere
+ * @param newBoard 
+ */
     private void makePlayableFieldsToMinusOne(String[][] newBoard)
     {
         String[] currentMicroBoard = microBoards.get(activeMicroboard - 1);
         
-        // Vi laver alle punktummer i nuværende microboard om til -1'ere
+       
         for (int i = 0; i < 9; i++)
         {
             String coordinate = currentMicroBoard[i];
@@ -287,9 +288,9 @@ public class Field implements IField
 
     private void arrivedAtFullMicroBoard()
     {
-        System.out.println("Arrived");
         activeMicroboard = 10;
-        //Makes all empty spaces an avilable field
+        
+        //Makes all empty spaces an available field
         for (int i = 0; i < 9; i++)
         {
             for (int k = 0; k < 9; k++)
@@ -305,7 +306,6 @@ public class Field implements IField
 
     private boolean checkForFullMicroBoard()
     {
-        System.out.println("Checking");
         String[] curBoard = microBoards.get(activeMicroboard - 1);
         int foundPlayerMarks = 0;
 
