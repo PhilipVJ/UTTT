@@ -72,7 +72,7 @@ public class GameboardController implements Initializable
         Button btn = (Button) event.getSource();
         Integer[] coordinates = makeCoordinates(btn);
         Move toDo = new Move(coordinates[0], coordinates[1]);
-        System.out.println(""+toDo.getX()+"     "+toDo.getY());
+        System.out.println(""+currentPlayer);
 
         if (gManager.updateGame(toDo) == true)
         {
@@ -81,6 +81,7 @@ public class GameboardController implements Initializable
 
                 btn.setText("0");
                 currentPlayer = 1;
+                return;
             }
 
             if (currentPlayer == 1)
@@ -88,6 +89,7 @@ public class GameboardController implements Initializable
 
                 btn.setText("X");
                 currentPlayer = 0;
+                return;
             }
         }
 

@@ -19,11 +19,15 @@ public class Field implements IField
     private String[][] board;
     private String[][] macroBoard;
     private Integer[] lastMove;
+    private int activeMicroboard;
+
 
     public Field()
     {
         board = new String[9][9];
         macroBoard = new String[3][3];
+        activeMicroboard = 10;
+        clearBoard();
     }
 
     @Override
@@ -33,7 +37,7 @@ public class Field implements IField
         {
             for (int k = 0; k < 9; k++)
             {
-                board[i][k] = "-1";
+                board[i][k] = AVAILABLE_FIELD;
             }
         }
 
@@ -41,7 +45,7 @@ public class Field implements IField
         {
             for (int m = 0; m < 3; m++)
             {
-                macroBoard[l][m] = "-1";
+                macroBoard[l][m] = AVAILABLE_FIELD;
             }
         }
     }
@@ -65,7 +69,7 @@ public class Field implements IField
         {
             for (int k = 0; k < 9; k++)
             {
-                if (board[i][k] != "-1")
+                if (board[i][k] != AVAILABLE_FIELD)
                 {
                     return false;
                 }
@@ -81,7 +85,7 @@ public class Field implements IField
         {
             for (int k = 0; k < 9; k++)
             {
-                if (board[i][k] == "-1" || board[i][k] == ".")
+                if (board[i][k] == AVAILABLE_FIELD || board[i][k] == EMPTY_FIELD)
                 {
                     return false;
                 }
@@ -93,7 +97,13 @@ public class Field implements IField
     @Override
     public Boolean isInActiveMicroboard(int x, int y)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Virker kun 1%
+        if (activeMicroboard == 10 && board[x][y] == AVAILABLE_FIELD)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     @Override
