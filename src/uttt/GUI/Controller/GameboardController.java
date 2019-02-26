@@ -12,7 +12,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import uttt.field.Field;
 import uttt.game.GameManager;
 import uttt.game.GameState;
 import uttt.move.Move;
@@ -50,6 +53,7 @@ public class GameboardController implements Initializable
     private GridPane gridPane9;
 
     private GameManager gManager;
+    private Field fieldModel;
 
     private GameState gState;
 
@@ -64,6 +68,7 @@ public class GameboardController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
 //        gStage = new GameState();
+        boardLigth(5);
     }
 
     @FXML
@@ -139,7 +144,66 @@ public class GameboardController implements Initializable
     @FXML
     private void clearTheBoard(ActionEvent event)
     {
-        //button to clear the board
+            
     }
-
+          
+    public void boardLigth(int grid)
+    {
+        /* case 10 er hele gridpane som lyser op og ellers så hver case passer til 
+         hvert sit grid "nummer" */
+        switch (grid)
+        {
+            case 1:
+                DropShadow grid1 = new DropShadow();
+                grid1.setColor(Color.BLUE);
+                gridPane1.setEffect(grid1);
+                break;
+            case 2:
+                DropShadow grid2 = new DropShadow();
+                grid2.setColor(Color.BLUE);
+                gridPane2.setEffect(grid2);
+                break;
+            case 3:
+                DropShadow grid3 = new DropShadow();
+                grid3.setColor(Color.BLUE);
+                gridPane3.setEffect(grid3);
+                break;
+            case 4:
+                DropShadow grid4 = new DropShadow();
+                grid4.setColor(Color.BLUE);
+                gridPane4.setEffect(grid4);
+                break;
+            case 5:
+                DropShadow grid5 = new DropShadow();
+                grid5.setColor(Color.BLUE);
+                gridPane5.setEffect(grid5);
+                break;
+            case 6:
+                DropShadow grid6 = new DropShadow();
+                grid6.setColor(Color.BLUE);
+                gridPane6.setEffect(grid6);
+                break;
+            case 7:
+                DropShadow grid7 = new DropShadow();
+                grid7.setColor(Color.BLUE);
+                gridPane7.setEffect(grid7);
+                break;
+            case 8:
+                DropShadow grid8 = new DropShadow();
+                grid8.setColor(Color.BLUE);
+                gridPane8.setEffect(grid8);
+                break;
+            case 9:
+                DropShadow grid9 = new DropShadow();
+                grid9.setColor(Color.BLUE);
+                gridPane9.setEffect(grid9);
+                break; 
+            case 10:
+                DropShadow ds = new DropShadow();
+                ds.setColor(Color.BLUE);
+                macroBoard.setEffect(ds);
+                break;    
+        } 
+    }  
+    
 }
