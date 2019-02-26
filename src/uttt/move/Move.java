@@ -18,7 +18,7 @@ public class Move implements IMove
     
     public Move(int x, int y)
     {
-        this.x = y;
+        this.x = x;
         this.y=y;
     }
     

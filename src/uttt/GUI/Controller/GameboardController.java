@@ -71,8 +71,10 @@ public class GameboardController implements Initializable
     {
         Button btn = (Button) event.getSource();
         Integer[] coordinates = makeCoordinates(btn);
+        Move toDo = new Move(coordinates[0], coordinates[1]);
+        System.out.println(""+toDo.getX()+"     "+toDo.getY());
 
-        if (gManager.updateGame(new Move(coordinates[0], coordinates[1])) == true)
+        if (gManager.updateGame(toDo) == true)
         {
             if (currentPlayer == 0)
             {
