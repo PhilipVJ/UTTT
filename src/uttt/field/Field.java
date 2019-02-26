@@ -21,7 +21,13 @@ public class Field implements IField
     @Override
     public void clearBoard()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       for (int i=0 ; i<9 ; i++)
+       {
+           for (int k=0 ; k<9 ; k++)
+           {
+               board[i][k] = "-1";
+           }
+       }
     }
 
     @Override
@@ -33,7 +39,7 @@ public class Field implements IField
     @Override
     public String getPlayerId(int column, int row)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return board[row][column];
     }
 
     @Override

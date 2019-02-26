@@ -95,9 +95,5 @@ public class MainViewController implements Initializable
 
     }
 
-    public void setStage(Stage stage)
-    {
-        this.stage = stage;
-    }
 
 }
