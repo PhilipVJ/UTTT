@@ -131,7 +131,12 @@ public class Field implements IField
             if (isInBoard == true && board[x][y] == AVAILABLE_FIELD)
             {
                 activeMicroboard = indexOfCoordinateInMicroBoard + 1;
-                System.out.println("" + activeMicroboard);
+                if (checkForFullMicroBoard() == true)
+                {
+                    arrivedAtFullMicroBoard();
+                }
+
+
                 return true;
 
             }
@@ -156,9 +161,14 @@ public class Field implements IField
     public void setBoard(String[][] board)
     {
         String[][] newBoard = board;
-
+        
+        // HUSK AT TILFØJE HVAD DER SKAL SKE HVIS CURRENT MICROBOARD ER 10
+        
+        if(activeMicroboard!=10){
         String[] currentMicroBoard = microBoards.get(activeMicroboard - 1);
-
+        
+        
+        // Vi laver alle punktummer i nuværende microboard om til -1'ere
         for (int i = 0; i < 9; i++)
         {
             String coordinate = currentMicroBoard[i];
@@ -166,8 +176,7 @@ public class Field implements IField
             char xCor = coordinate.charAt(0);
             char yCor = coordinate.charAt(2);
             int x = Character.getNumericValue(xCor);
-             int y = Character.getNumericValue(yCor);
-            
+            int y = Character.getNumericValue(yCor);
 
             String mBoard = newBoard[x][y];
 
@@ -176,14 +185,8 @@ public class Field implements IField
                 newBoard[x][y] = AVAILABLE_FIELD;
             }
         }
-        
-        for (int i = 0; i < 9; i++)
-        {
-            for (int k = 0; k < 9; k++)
-            {
-                System.out.println(""+i+"  "+k+"   "+newBoard[i][k]);
-            }
         }
+
         this.board = newBoard;
 
     }
@@ -261,6 +264,54 @@ public class Field implements IField
         }
         //Couldn't find coordinate
         return 100;
+    }
+
+    private void arrivedAtFullMicroBoard()
+    {
+        System.out.println("Arrived");
+        activeMicroboard = 10;
+        for (int i = 0; i < 9; i++)
+        {
+            for (int k = 0; k < 9; k++)
+            {
+                if (board[i][k] == ".")
+                {
+                    board[i][k] = AVAILABLE_FIELD;
+                }
+            }
+        }
+
+    }
+
+    private boolean checkForFullMicroBoard()
+    {
+        System.out.println("Checking");
+        String[] curBoard = microBoards.get(activeMicroboard - 1);
+        int foundPlayerMarks=0;
+        
+        for (int i = 0; i < 9; i++)
+        {
+            String coordinate = curBoard[i];
+
+            char xCor = coordinate.charAt(0);
+            char yCor = coordinate.charAt(2);
+            int x = Character.getNumericValue(xCor);
+            int y = Character.getNumericValue(yCor);
+
+            if (board[x][y].equals("X") || board[x][y].equals("O"))
+            {
+                foundPlayerMarks++;
+            }
+        }
+        System.out.println(""+foundPlayerMarks);
+        if(foundPlayerMarks==9)
+        {
+            System.out.println("Found");
+            return true;
+        }
+        
+        return false;
+
     }
 
 }
