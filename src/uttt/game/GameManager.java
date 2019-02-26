@@ -151,7 +151,8 @@ public class GameManager
         {
             currentBoard[move.getX()][move.getY()] = "X";
         }
-
+        
+// Makes all empty fields ".". In setBoard we will make available fields "-1"
         for (int i = 0; i < 9; i++)
         {
             for (int k = 0; k < 9; k++)
