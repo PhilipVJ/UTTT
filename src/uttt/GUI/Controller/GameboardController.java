@@ -144,12 +144,12 @@ public class GameboardController implements Initializable
     @FXML
     private void clearTheBoard(ActionEvent event)
     {
-            
+
     }
-          
+
     public void boardLigth(int grid)
     {
-        /* case 10 er hele gridpane som lyser op og ellers så hver case passer til 
+        /* case 10 er hele gridpane som lyser op og ellers så hver case passer til
          hvert sit grid "nummer" */
         switch (grid)
         {
@@ -197,13 +197,13 @@ public class GameboardController implements Initializable
                 DropShadow grid9 = new DropShadow();
                 grid9.setColor(Color.BLUE);
                 gridPane9.setEffect(grid9);
-                break; 
+                break;
             case 10:
                 DropShadow ds = new DropShadow();
                 ds.setColor(Color.BLUE);
                 macroBoard.setEffect(ds);
-                break;    
-        } 
-    }  
-    
+                break;
+        }
+    }
+
 }

@@ -152,7 +152,18 @@ public class GameManager
             currentBoard[move.getX()][move.getY()] = "X";
         }
         
-// Makes all empty fields ".". In setBoard we will make available fields "-1"
+        makeAllEmptyFieldsToDot(currentBoard);
+        
+        currentState.getField().setBoard(currentBoard);
+
+    }
+/**
+ * Makes all empty fields to ".". In setBoard we will make available fields "-1"
+ * @param currentBoard 
+ */
+    private void makeAllEmptyFieldsToDot(String[][] currentBoard)
+    {
+        
         for (int i = 0; i < 9; i++)
         {
             for (int k = 0; k < 9; k++)
@@ -163,9 +174,6 @@ public class GameManager
                 }
             }
         }
-        
-        currentState.getField().setBoard(currentBoard);
-
     }
 
     private void updateMacroboard(IMove move)
