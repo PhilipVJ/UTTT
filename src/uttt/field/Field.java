@@ -106,8 +106,6 @@ public class Field implements IField
         if (activeMicroboard == 10 && board[x][y] == AVAILABLE_FIELD)
         {
             activeMicroboard=(findMicroBoard(x, y));
- 
-            System.out.println("first move");
             return true;
         }
         
@@ -120,16 +118,18 @@ public class Field implements IField
         String[] curBoard = microBoards.get(activeMicroboard-1);
        
         String coordinate = ""+x+"."+y;
-        
+
+       
         boolean isInBoard=false;
         int indexOfCoordinateInMicroBoard=100;
         
         for(int i=0;i<9;i++)
         {
-            if(curBoard[i].equals(coordinate))
-                System.out.println(""+curBoard[i]);
+            if(curBoard[i].equals(coordinate)){
+
                 isInBoard=true;
                 indexOfCoordinateInMicroBoard=i;
+            }
         }
         
         if(isInBoard==true && board[x][y] == AVAILABLE_FIELD)
