@@ -262,10 +262,10 @@ public class GameboardController implements Initializable
                 gManager = new GameManager(new GameState());
                 break;
             case 2:
-                gManager = new GameManager(gState, bot);
+                gManager = new GameManager(new GameState(), bot);
                 break;
             case 3:
-                gManager = new GameManager(gState, bot, bot2);
+                gManager = new GameManager(new GameState(), bot, bot2);
                 break;
         }
     }
