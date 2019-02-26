@@ -15,33 +15,35 @@ import uttt.move.IMove;
  */
 public class Field implements IField
 {
-    
+
     private String[][] board;
     private String[][] macroBoard;
     private Integer[] lastMove;
-    
+
     public Field()
     {
-        board=new String[9][9];
+        board = new String[9][9];
         macroBoard = new String[3][3];
     }
 
     @Override
     public void clearBoard()
     {
-       for (int i=0 ; i<9 ; i++)
-       {
-           for (int k=0 ; k<9 ; k++)
-           {
-               board[i][k] = "-1";
-           }
-       }
-       
-       for(int l=0 ; l<3 ; l++){
-           for(int m=0;m<3;m++){
-               macroBoard[l][m]="-1";
-           }
-       }
+        for (int i = 0; i < 9; i++)
+        {
+            for (int k = 0; k < 9; k++)
+            {
+                board[i][k] = "-1";
+            }
+        }
+
+        for (int l = 0; l < 3; l++)
+        {
+            for (int m = 0; m < 3; m++)
+            {
+                macroBoard[l][m] = "-1";
+            }
+        }
     }
 
     @Override
@@ -53,19 +55,39 @@ public class Field implements IField
     @Override
     public String getPlayerId(int column, int row)
     {
-       return board[row][column];
+        return board[row][column];
     }
 
     @Override
     public boolean isEmpty()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int i = 0; i < 9; i++)
+        {
+            for (int k = 0; k < 9; k++)
+            {
+                if (board[i][k] != "-1")
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override
     public boolean isFull()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int i = 0; i < 9; i++)
+        {
+            for (int k = 0; k < 9; k++)
+            {
+                if (board[i][k] == "-1" || board[i][k] == ".")
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override
@@ -77,25 +99,25 @@ public class Field implements IField
     @Override
     public String[][] getBoard()
     {
-      return board;
+        return board;
     }
 
     @Override
     public String[][] getMacroboard()
     {
-      return macroBoard;
+        return macroBoard;
     }
 
     @Override
     public void setBoard(String[][] board)
     {
-       this.board=board;
+        this.board = board;
     }
 
     @Override
     public void setMacroboard(String[][] macroboard)
     {
-      this.macroBoard = macroboard;
+        this.macroBoard = macroboard;
     }
-    
+
 }
