@@ -1,6 +1,7 @@
 package uttt.game;
 
 import uttt.bot.IBot;
+import static uttt.field.IField.AVAILABLE_FIELD;
 import uttt.move.IMove;
 
 /**
@@ -134,8 +135,8 @@ public class GameManager
     {
         //Test if the move is legal   
         //NOTE: should also check whether the move is placed on an occupied spot.
-//        System.out.println("Checking move validity against macroboard available field");
-//        System.out.println("Not currently checking move validity actual board");
+        System.out.println("Checking move validity against macroboard available field");
+        System.out.println("Not currently checking move validity actual board");
         return currentState.getField().isInActiveMicroboard(move.getX(), move.getY());
     }
 
@@ -151,7 +152,19 @@ public class GameManager
             currentBoard[move.getX()][move.getY()] = "X";
         }
 
+        for (int i = 0; i < 9; i++)
+        {
+            for (int k = 0; k < 9; k++)
+            {
+                if (currentBoard[i][k] == AVAILABLE_FIELD)
+                {
+                    currentBoard[i][k] = ".";
+                }
+            }
+        }
+        
         currentState.getField().setBoard(currentBoard);
+
     }
 
     private void updateMacroboard(IMove move)

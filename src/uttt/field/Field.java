@@ -6,7 +6,6 @@
 package uttt.field;
 
 import java.util.ArrayList;
-import uttt.field.IField;
 import java.util.List;
 import uttt.move.IMove;
 
@@ -105,42 +104,39 @@ public class Field implements IField
         // This only happens the first move in the game
         if (activeMicroboard == 10 && board[x][y] == AVAILABLE_FIELD)
         {
-            activeMicroboard=(findMicroBoard(x, y));
+            activeMicroboard = (findMicroBoard(x, y));
             return true;
         }
-        
- 
-        
-        
-        if(activeMicroboard!=10)
+
+        if (activeMicroboard != 10)
         {
 
-        String[] curBoard = microBoards.get(activeMicroboard-1);
-       
-        String coordinate = ""+x+"."+y;
+            String[] curBoard = microBoards.get(activeMicroboard - 1);
 
-       
-        boolean isInBoard=false;
-        int indexOfCoordinateInMicroBoard=100;
-        
-        for(int i=0;i<9;i++)
-        {
-            if(curBoard[i].equals(coordinate)){
+            String coordinate = "" + x + "." + y;
 
-                isInBoard=true;
-                indexOfCoordinateInMicroBoard=i;
+            boolean isInBoard = false;
+            int indexOfCoordinateInMicroBoard = 100;
+
+            for (int i = 0; i < 9; i++)
+            {
+                if (curBoard[i].equals(coordinate))
+                {
+
+                    isInBoard = true;
+                    indexOfCoordinateInMicroBoard = i;
+                }
+            }
+
+            if (isInBoard == true && board[x][y] == AVAILABLE_FIELD)
+            {
+                activeMicroboard = indexOfCoordinateInMicroBoard + 1;
+                System.out.println("" + activeMicroboard);
+                return true;
+
             }
         }
-        
-        if(isInBoard==true && board[x][y] == AVAILABLE_FIELD)
-        {
-            activeMicroboard=indexOfCoordinateInMicroBoard+1;
-            System.out.println(""+activeMicroboard);
-            return true;
-            
-        }
-        }
- 
+
         return false;
     }
 
@@ -159,7 +155,37 @@ public class Field implements IField
     @Override
     public void setBoard(String[][] board)
     {
-        this.board = board;
+        String[][] newBoard = board;
+
+        String[] currentMicroBoard = microBoards.get(activeMicroboard - 1);
+
+        for (int i = 0; i < 9; i++)
+        {
+            String coordinate = currentMicroBoard[i];
+
+            char xCor = coordinate.charAt(0);
+            char yCor = coordinate.charAt(2);
+            int x = Character.getNumericValue(xCor);
+             int y = Character.getNumericValue(yCor);
+            
+
+            String mBoard = newBoard[x][y];
+
+            if (mBoard.equals("."))
+            {
+                newBoard[x][y] = AVAILABLE_FIELD;
+            }
+        }
+        
+        for (int i = 0; i < 9; i++)
+        {
+            for (int k = 0; k < 9; k++)
+            {
+                System.out.println(""+i+"  "+k+"   "+newBoard[i][k]);
+            }
+        }
+        this.board = newBoard;
+
     }
 
     @Override
@@ -168,20 +194,45 @@ public class Field implements IField
         this.macroBoard = macroboard;
     }
 
-
     public void setMicroboardCoordinates()
     {
-        String[] m1 = {"0.0", "0.1", "0.2", "1.0", "1.1", "1.2", "2.0", "2.1", "2.2"};
-        String[] m2 = {"0.3", "0.4", "0.5", "1.3", "1.4", "1.5", "2.3", "2.4", "2.5"};
-        String[] m3 = {"0.6", "0.7", "0.8", "1.6", "1.7", "1.8", "2.6", "2.7", "2.8"};
-        String[] m4 = {"3.0", "3.1", "3.2", "4.0", "4.1", "4.2", "5.0", "5.1", "5.2"};
-        String[] m5 = {"3.3", "3.4", "3.5", "4.3", "4.4", "4.5", "5.3", "5.4", "5.5"};
-        String[] m6 = {"3.6", "3.7", "3.8", "4.6", "4.7", "4.8", "5.6", "5.7", "5.8"};
-        String[] m7 = {"6.0", "6.1", "6.2", "7.0", "7.1", "7.2", "8.0", "8.1", "8.2"};
-        String[] m8 = {"6.3", "6.4", "6.5", "7.3", "7.4", "7.5", "8.3", "8.4", "8.5"};
-        String[] m9 = {"6.6", "6.7", "6.8", "7.6", "7.7", "7.8", "8.6", "8.7", "8.8"};
-        
-        
+        String[] m1 =
+        {
+            "0.0", "0.1", "0.2", "1.0", "1.1", "1.2", "2.0", "2.1", "2.2"
+        };
+        String[] m2 =
+        {
+            "0.3", "0.4", "0.5", "1.3", "1.4", "1.5", "2.3", "2.4", "2.5"
+        };
+        String[] m3 =
+        {
+            "0.6", "0.7", "0.8", "1.6", "1.7", "1.8", "2.6", "2.7", "2.8"
+        };
+        String[] m4 =
+        {
+            "3.0", "3.1", "3.2", "4.0", "4.1", "4.2", "5.0", "5.1", "5.2"
+        };
+        String[] m5 =
+        {
+            "3.3", "3.4", "3.5", "4.3", "4.4", "4.5", "5.3", "5.4", "5.5"
+        };
+        String[] m6 =
+        {
+            "3.6", "3.7", "3.8", "4.6", "4.7", "4.8", "5.6", "5.7", "5.8"
+        };
+        String[] m7 =
+        {
+            "6.0", "6.1", "6.2", "7.0", "7.1", "7.2", "8.0", "8.1", "8.2"
+        };
+        String[] m8 =
+        {
+            "6.3", "6.4", "6.5", "7.3", "7.4", "7.5", "8.3", "8.4", "8.5"
+        };
+        String[] m9 =
+        {
+            "6.6", "6.7", "6.8", "7.6", "7.7", "7.8", "8.6", "8.7", "8.8"
+        };
+
         microBoards.add(m1);
         microBoards.add(m2);
         microBoards.add(m3);
@@ -192,21 +243,21 @@ public class Field implements IField
         microBoards.add(m8);
         microBoards.add(m9);
     }
-    
+
     public int findMicroBoard(int x, int y)
     {
-        String coordinate = ""+x+"."+y;
-        for(String[] k : microBoards)
+        String coordinate = "" + x + "." + y;
+        for (String[] k : microBoards)
         {
-            for(int i=0;i<9;i++)
+            for (int i = 0; i < 9; i++)
             {
-                if(k[i].equals(coordinate))
+                if (k[i].equals(coordinate))
                 {
-                    return i+1;
+                    return i + 1;
                 }
-            
-        }
-            
+
+            }
+
         }
         //Couldn't find coordinate
         return 100;
