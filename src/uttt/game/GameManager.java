@@ -134,8 +134,8 @@ public class GameManager
     {
         //Test if the move is legal   
         //NOTE: should also check whether the move is placed on an occupied spot.
-        System.out.println("Checking move validity against macroboard available field");
-        System.out.println("Not currently checking move validity actual board");
+//        System.out.println("Checking move validity against macroboard available field");
+//        System.out.println("Not currently checking move validity actual board");
         return currentState.getField().isInActiveMicroboard(move.getX(), move.getY());
     }
 
@@ -156,6 +156,6 @@ public class GameManager
 
     private void updateMacroboard(IMove move)
     {
-        System.out.println("test");
+
     }
 }

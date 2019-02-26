@@ -31,6 +31,7 @@ public class Field implements IField
         activeMicroboard = 10;
         clearBoard();
         microBoards = new ArrayList();
+        setMicroboardCoordinates();
 
     }
 
@@ -105,21 +106,28 @@ public class Field implements IField
         if (activeMicroboard == 10 && board[x][y] == AVAILABLE_FIELD)
         {
             activeMicroboard=(findMicroBoard(x, y));
+ 
+            System.out.println("first move");
             return true;
         }
+        
+ 
         
         
         if(activeMicroboard!=10)
         {
+
         String[] curBoard = microBoards.get(activeMicroboard-1);
-     
+       
         String coordinate = ""+x+"."+y;
+        
         boolean isInBoard=false;
         int indexOfCoordinateInMicroBoard=100;
         
         for(int i=0;i<9;i++)
         {
             if(curBoard[i].equals(coordinate))
+                System.out.println(""+curBoard[i]);
                 isInBoard=true;
                 indexOfCoordinateInMicroBoard=i;
         }
@@ -127,6 +135,7 @@ public class Field implements IField
         if(isInBoard==true && board[x][y] == AVAILABLE_FIELD)
         {
             activeMicroboard=indexOfCoordinateInMicroBoard+1;
+            System.out.println(""+activeMicroboard);
             return true;
             
         }
@@ -186,18 +195,20 @@ public class Field implements IField
     
     public int findMicroBoard(int x, int y)
     {
+        String coordinate = ""+x+"."+y;
         for(String[] k : microBoards)
         {
             for(int i=0;i<9;i++)
             {
-                if(k[i].equals(""+x+"."+y))
+                if(k[i].equals(coordinate))
                 {
-                    return i;
+                    return i+1;
                 }
             
         }
             
         }
+        //Couldn't find coordinate
         return 100;
     }
 
