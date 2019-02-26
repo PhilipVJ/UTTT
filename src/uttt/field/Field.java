@@ -101,14 +101,37 @@ public class Field implements IField
     @Override
     public Boolean isInActiveMicroboard(int x, int y)
     {
-
+        // This only happens the first move in the game
         if (activeMicroboard == 10 && board[x][y] == AVAILABLE_FIELD)
         {
+            activeMicroboard=(findMicroBoard(x, y));
             return true;
         }
-
-        setNextActiveMicroboard(x, y);
-
+        
+        
+        if(activeMicroboard!=10)
+        {
+        String[] curBoard = microBoards.get(activeMicroboard-1);
+     
+        String coordinate = ""+x+"."+y;
+        boolean isInBoard=false;
+        int indexOfCoordinateInMicroBoard=100;
+        
+        for(int i=0;i<9;i++)
+        {
+            if(curBoard[i].equals(coordinate))
+                isInBoard=true;
+                indexOfCoordinateInMicroBoard=i;
+        }
+        
+        if(isInBoard==true && board[x][y] == AVAILABLE_FIELD)
+        {
+            activeMicroboard=indexOfCoordinateInMicroBoard+1;
+            return true;
+            
+        }
+        }
+ 
         return false;
     }
 
@@ -136,10 +159,6 @@ public class Field implements IField
         this.macroBoard = macroboard;
     }
 
-    private void setNextActiveMicroboard(int x, int y)
-    {
-
-    }
 
     public void setMicroboardCoordinates()
     {
@@ -163,6 +182,23 @@ public class Field implements IField
         microBoards.add(m7);
         microBoards.add(m8);
         microBoards.add(m9);
+    }
+    
+    public int findMicroBoard(int x, int y)
+    {
+        for(String[] k : microBoards)
+        {
+            for(int i=0;i<9;i++)
+            {
+                if(k[i].equals(""+x+"."+y))
+                {
+                    return i;
+                }
+            
+        }
+            
+        }
+        return 100;
     }
 
 }
