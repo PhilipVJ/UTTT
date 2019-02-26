@@ -18,6 +18,7 @@ public class Field implements IField
 
     private String[][] board;
     private String[][] macroBoard;
+    
     private Integer[] lastMove;
     //The current - to be played in - microboard (3x3)
     private int activeMicroboard;
@@ -167,41 +168,46 @@ public class Field implements IField
             {
                 for (int k = 0; k < 9; k++)
                 {
-                    if (board[i][k].equals(EMPTY_FIELD))
+                    if (newBoard[i][k].equals(EMPTY_FIELD))
                     {
-                        board[i][k]=AVAILABLE_FIELD;
+                        newBoard[i][k]=AVAILABLE_FIELD;
                     }
                 }
             }
-            this.board = newBoard;
+            
         }
 
         if (activeMicroboard != 10)
         {
-            String[] currentMicroBoard = microBoards.get(activeMicroboard - 1);
-
-            // Vi laver alle punktummer i nuværende microboard om til -1'ere
-            for (int i = 0; i < 9; i++)
-            {
-                String coordinate = currentMicroBoard[i];
-
-                char xCor = coordinate.charAt(0);
-                char yCor = coordinate.charAt(2);
-                int x = Character.getNumericValue(xCor);
-                int y = Character.getNumericValue(yCor);
-
-                String mBoard = newBoard[x][y];
-
-                if (mBoard.equals("."))
-                {
-
-                    newBoard[x][y] = AVAILABLE_FIELD;
-                }
-            }
+            makePlayableFieldsToMinusOne(newBoard);
         }
 
         this.board = newBoard;
 
+    }
+
+    private void makePlayableFieldsToMinusOne(String[][] newBoard)
+    {
+        String[] currentMicroBoard = microBoards.get(activeMicroboard - 1);
+        
+        // Vi laver alle punktummer i nuværende microboard om til -1'ere
+        for (int i = 0; i < 9; i++)
+        {
+            String coordinate = currentMicroBoard[i];
+            
+            char xCor = coordinate.charAt(0);
+            char yCor = coordinate.charAt(2);
+            int x = Character.getNumericValue(xCor);
+            int y = Character.getNumericValue(yCor);
+            
+            String mBoard = newBoard[x][y];
+            
+            if (mBoard.equals("."))
+            {
+                
+                newBoard[x][y] = AVAILABLE_FIELD;
+            }
+        }
     }
 
     @Override
@@ -320,7 +326,6 @@ public class Field implements IField
 
         if (foundPlayerMarks == 9)
         {
-            System.out.println("Found");
             return true;
         }
 

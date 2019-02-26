@@ -63,7 +63,8 @@ public class GameboardController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-//        gStage = new GameState();
+
+        
     }
 
     @FXML
@@ -141,5 +142,7 @@ public class GameboardController implements Initializable
     {
         //button to clear the board
     }
+    
+    
 
 }
