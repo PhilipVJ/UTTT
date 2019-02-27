@@ -7,7 +7,6 @@ package uttt.GUI.Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,7 +16,6 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import uttt.field.Field;
 import uttt.game.GameManager;
 import uttt.game.GameState;
 import uttt.move.Move;
@@ -63,6 +61,8 @@ public class GameboardController implements Initializable
     @FXML
     private Label winnerIs;
     private int gMode;
+    
+    private boolean gameOver=false;
 
     /**
      * Initializes the controller class.
@@ -79,6 +79,10 @@ public class GameboardController implements Initializable
         Button btn = (Button) event.getSource();
         Integer[] coordinates = makeCoordinates(btn);
         Move toDo = new Move(coordinates[0], coordinates[1]);
+        if(gameOver==true)
+        {
+            return;
+        }
 
         if (gManager.updateGame(toDo) == true)
         {
@@ -160,7 +164,6 @@ public class GameboardController implements Initializable
     {
         /* case 10 er hele gridpane som lyser op og ellers så hver case passer til
          hvert sit grid "nummer" */
-        System.out.println("UDPRINT AF ACTIVEMB " + activeMicroboard);
         DropShadow grid = new DropShadow();
         grid.setColor(Color.BLUE);
         switch (activeMicroboard)
@@ -216,20 +219,22 @@ public class GameboardController implements Initializable
 
         if (winner.equals("" + 0) || winner.equals("" + 1))
         {
-            System.out.println("Happsn");
             if (winner.equals("" + 0))
             {
                 winnerIs.setText("Vinderen er spiller: O");
+                gameOver=true;
             }
             if (winner.equals("" + 1))
             {
                 winnerIs.setText("Vinderen er spiller: X");
+                gameOver=true;
             }
 
         }
         if (winner.equals("" + 2))
         {
             winnerIs.setText("Uafgjort");
+            gameOver=true;
         }
     }
 
@@ -274,5 +279,7 @@ public class GameboardController implements Initializable
 
         }
     }
+    
+
 
 }

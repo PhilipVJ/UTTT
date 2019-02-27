@@ -89,7 +89,7 @@ public class Field implements IField
         {
             for (int k = 0; k < 9; k++)
             {
-                if (board[i][k] == AVAILABLE_FIELD ||board[i][k] == EMPTY_FIELD)
+                if (board[i][k] == AVAILABLE_FIELD || board[i][k] == EMPTY_FIELD)
                 {
                     return true;
                 }
@@ -101,21 +101,21 @@ public class Field implements IField
     @Override
     public boolean isFull()
     {
-     int occupiedSpaces = 0;   
-        
+        int occupiedSpaces = 0;
+
         for (int i = 0; i < 9; i++)
         {
             for (int k = 0; k < 9; k++)
             {
-                if (board[i][k].equals(""+0) || board[i][k].equals(""+1))
+                if (board[i][k].equals("" + 0) || board[i][k].equals("" + 1))
                 {
                     occupiedSpaces++;
                 }
             }
         }
-        System.out.println(""+occupiedSpaces);
-        if(occupiedSpaces==81){
-        return true;
+        if (occupiedSpaces == 81)
+        {
+            return true;
         }
         return false;
     }
@@ -160,6 +160,7 @@ public class Field implements IField
                 }
                 if (checkForWonMicroBoard() == true)
                 {
+                    System.out.println("HER ER JEG");
                     activeMicroboard = 10;
                 }
 
@@ -201,7 +202,6 @@ public class Field implements IField
             }
 
         }
-               
 
         if (activeMicroboard != 10)
         {
@@ -318,6 +318,7 @@ public class Field implements IField
 
     private void arrivedAtFullMicroBoard()
     {
+        System.out.println("ARRIVED AT FULLMICROBOARD");
         activeMicroboard = 10;
 
         //Makes all empty spaces an available field
@@ -661,8 +662,6 @@ public class Field implements IField
         }
     }
 
-
-
     private void makeAllFieldsToOneOrZero(int player, int microboard, String[][] newBoard)
     {
         String[] currentMicroBoard = microBoards.get(microboard - 1);
@@ -682,8 +681,8 @@ public class Field implements IField
     private void printBoard()
     {
 
-//System.out.println("Printing macro");
-//       for (int i = 0; i < 3; i++)
+//        System.out.println("Printing macro");
+//        for (int i = 0; i < 3; i++)
 //        {
 //            for (int k = 0; k < 3; k++)
 //            {
@@ -695,66 +694,87 @@ public class Field implements IField
     private boolean checkForWonMicroBoard()
     {
         int aM = activeMicroboard;
-
+        boolean found = false;
+        System.out.println("Active " + aM);
         switch (activeMicroboard)
         {
             case 1:
                 if (micro1Done)
                 {
-                    return true;
+                    System.out.println("Printing1");
+                    found = true;
+                    break;
 
                 }
             case 2:
                 if (micro2Done)
                 {
-                    return true;
+                    System.out.println("Printing2");
+                    found = true;
+                    break;
 
                 }
             case 3:
-                if (micro4Done)
+                if (micro3Done)
                 {
-                    return true;
+                    System.out.println("Printing3");
+                    found = true;
+                    break;
 
                 }
             case 4:
                 if (micro4Done)
                 {
-                    return true;
+                    System.out.println("Printing4");
+                    found = true;
+                    break;
 
                 }
             case 5:
                 if (micro5Done)
                 {
-                    return true;
+
+                    System.out.println("Printing5");
+                    found = true;
+                    break;
 
                 }
             case 6:
                 if (micro6Done)
                 {
-                    return true;
+
+                    System.out.println("Printing6");
+                    found = true;
+                    break;
 
                 }
             case 7:
                 if (micro7Done)
                 {
-                    return true;
+                    System.out.println("Printing7");
+                    found = true;
+                    break;
 
                 }
             case 8:
                 if (micro8Done)
                 {
-                    return true;
+                    System.out.println("Printing8");
+                    found = true;
+                    break;
 
                 }
             case 9:
                 if (micro9Done)
                 {
-                    return true;
+                    System.out.println("Printing9");
+                    found = true;
+                    break;
 
                 }
 
         }
-        return false;
+        return found;
     }
 
     public int getActiveMicroboard()
@@ -762,6 +782,4 @@ public class Field implements IField
         return activeMicroboard;
     }
 
-
-    
 }
