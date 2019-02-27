@@ -693,9 +693,9 @@ public class Field implements IField
 
     private boolean checkForWonMicroBoard()
     {
-        int aM = activeMicroboard;
+
         boolean found = false;
-        System.out.println("Active " + aM);
+        System.out.println("" + activeMicroboard);
         switch (activeMicroboard)
         {
             case 1:
@@ -703,75 +703,77 @@ public class Field implements IField
                 {
                     System.out.println("Printing1");
                     found = true;
-                    break;
 
                 }
+                break;
             case 2:
                 if (micro2Done)
                 {
                     System.out.println("Printing2");
                     found = true;
-                    break;
 
                 }
+                break;
             case 3:
                 if (micro3Done)
                 {
                     System.out.println("Printing3");
                     found = true;
-                    break;
 
                 }
+                break;
+
             case 4:
                 if (micro4Done)
                 {
                     System.out.println("Printing4");
                     found = true;
-                    break;
 
                 }
+                break;
             case 5:
                 if (micro5Done)
                 {
 
                     System.out.println("Printing5");
                     found = true;
-                    break;
 
                 }
+                break;
             case 6:
                 if (micro6Done)
                 {
 
                     System.out.println("Printing6");
                     found = true;
-                    break;
 
                 }
+                break;
             case 7:
                 if (micro7Done)
                 {
+
                     System.out.println("Printing7");
                     found = true;
-                    break;
 
                 }
+                break;
             case 8:
                 if (micro8Done)
                 {
                     System.out.println("Printing8");
                     found = true;
-                    break;
 
                 }
+                break;
             case 9:
                 if (micro9Done)
                 {
                     System.out.println("Printing9");
                     found = true;
-                    break;
 
                 }
+                break;
 
         }
         return found;
