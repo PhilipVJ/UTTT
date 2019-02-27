@@ -107,7 +107,7 @@ public class GameboardController implements Initializable
 
     public void setGameManager(int gMode)
     {
-       this.gMode = gMode;
+        this.gMode = gMode;
         // Mangler kode i 2 og 3
         switch (gMode)
         {
@@ -150,9 +150,9 @@ public class GameboardController implements Initializable
     @FXML
     private void clearTheBoard(ActionEvent event)
     {
-clearLight();
-boardLight(10);
-clearButtons();
+        clearLight();
+        boardLight(10);
+        clearButtons();
         setGameManager(gMode);
     }
 
@@ -213,11 +213,21 @@ clearButtons();
     {
 
         String winner = "" + gManager.getWinnerIs();
-        if (winner.equals(0) || winner.equals(1))
+
+        if (winner.equals("" + 0) || winner.equals("" + 1))
         {
-            winnerIs.setText("Vinderen er spiller " + winner);
+            System.out.println("Happsn");
+            if (winner.equals("" + 0))
+            {
+                winnerIs.setText("Vinderen er spiller: O");
+            }
+            if (winner.equals("" + 1))
+            {
+                winnerIs.setText("Vinderen er spiller: X");
+            }
+
         }
-        if (winner.equals(2))
+        if (winner.equals("" + 2))
         {
             winnerIs.setText("Uafgjort");
         }
@@ -252,17 +262,16 @@ clearButtons();
 
     private void clearButtons()
     {
-      for(Node n : macroBoard.getChildren())
+        for (Node n : macroBoard.getChildren())
         {
             GridPane pane = (GridPane) n;
-            for(Node k : pane.getChildren())
+            for (Node k : pane.getChildren())
             {
-            Button btn = (Button) k;
-            btn.setText("");
-       
+                Button btn = (Button) k;
+                btn.setText("");
+
             }
-            
-            
+
         }
     }
 
