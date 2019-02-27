@@ -89,6 +89,7 @@ public class GameManager
         //Verify the new move
         if (!verifyMoveLegality(move))
         {
+            System.out.println("FALSE MOVE");
             return false;
         }
         //Update the currentState
