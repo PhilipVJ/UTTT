@@ -158,12 +158,14 @@ public class GameboardController implements Initializable
         boardLight(10);
         clearButtons();
         setGameManager(gMode);
+        winnerIs.setText("");
     }
 
     public void boardLight(int activeMicroboard)
     {
         /* case 10 er hele gridpane som lyser op og ellers så hver case passer til
          hvert sit grid "nummer" */
+       
         DropShadow grid = new DropShadow();
         grid.setColor(Color.BLUE);
         switch (activeMicroboard)

@@ -199,6 +199,7 @@ public class GameManager
 
     private boolean checkForWin()
     {
+
         String[][] grid = currentState.getField().getMacroboard();
         // checker for en vandret sejr
         for (int w = 0; w < 2; w++)
@@ -215,7 +216,7 @@ public class GameManager
         }
 
         // checker for en lodret sejr
-        for (int w = 1; w <= 2; w++)
+        for (int w = 0; w <2; w++)
         {
             String player = "" + w;
             for (int i = 0; i < grid.length; i++)
@@ -228,7 +229,7 @@ public class GameManager
             }
         }
         // checker for en diagonal sejr
-        for (int w = 1; w <= 2; w++)
+        for (int w = 0; w < 2; w++)
         {
             String player = "" + w;
             if (grid[0][0].equals(player) && grid[1][1].equals(player) && grid[2][2].equals(player))
@@ -237,7 +238,7 @@ public class GameManager
                 return true;
             }
         }
-        for (int w = 1; w <= 2; w++)
+        for (int w = 0; w < 2; w++)
         {
             String player = "" + w;
             if (grid[0][2].equals(player) && grid[1][1].equals(player) && grid[2][0].equals(player))
@@ -246,7 +247,7 @@ public class GameManager
                 return true;
             }
         }
-
+   
         return false;
     }
 
