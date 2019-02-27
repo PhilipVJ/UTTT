@@ -89,29 +89,35 @@ public class Field implements IField
         {
             for (int k = 0; k < 9; k++)
             {
-                if (board[i][k] != AVAILABLE_FIELD)
+                if (board[i][k] == AVAILABLE_FIELD ||board[i][k] == EMPTY_FIELD)
                 {
-                    return false;
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
     }
 
     @Override
     public boolean isFull()
     {
+     int occupiedSpaces = 0;   
+        
         for (int i = 0; i < 9; i++)
         {
             for (int k = 0; k < 9; k++)
             {
-                if (board[i][k] == AVAILABLE_FIELD || board[i][k] == EMPTY_FIELD)
+                if (board[i][k].equals(""+0) || board[i][k].equals(""+1))
                 {
-                    return false;
+                    occupiedSpaces++;
                 }
             }
         }
+        System.out.println(""+occupiedSpaces);
+        if(occupiedSpaces==81){
         return true;
+        }
+        return false;
     }
 
     @Override
@@ -120,7 +126,6 @@ public class Field implements IField
         if (activeMicroboard == 10 && board[x][y] == AVAILABLE_FIELD)
         {
             activeMicroboard = (findMicroBoard(x, y));
-            isItNewGame();
             if (checkForWonMicroBoard() == true)
             {
                 activeMicroboard = 10;
@@ -656,16 +661,7 @@ public class Field implements IField
         }
     }
 
-    public boolean isItNewGame()
-    {
-        if (activeMicroboard == 10)
-        {
-            gbModel.boardLigth(10);
-            System.out.println("lyset skulle virke");
-            return true;
-        }
-        return false;
-    }
+
 
     private void makeAllFieldsToOneOrZero(int player, int microboard, String[][] newBoard)
     {
@@ -686,14 +682,14 @@ public class Field implements IField
     private void printBoard()
     {
 
-System.out.println("Printing macro");
-       for (int i = 0; i < 3; i++)
-        {
-            for (int k = 0; k < 3; k++)
-            {
-                System.out.println("" + macroBoard[i][k]);
-            }
-        }
+//System.out.println("Printing macro");
+//       for (int i = 0; i < 3; i++)
+//        {
+//            for (int k = 0; k < 3; k++)
+//            {
+//                System.out.println("" + macroBoard[i][k]);
+//            }
+//        }
     }
 
     private boolean checkForWonMicroBoard()
@@ -760,4 +756,12 @@ System.out.println("Printing macro");
         }
         return false;
     }
+
+    public int getActiveMicroboard()
+    {
+        return activeMicroboard;
+    }
+
+
+    
 }

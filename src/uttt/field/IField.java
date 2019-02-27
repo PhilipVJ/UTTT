@@ -70,4 +70,6 @@ public interface IField {
      */
     void setMacroboard(String[][] macroboard);
     
+    int getActiveMicroboard();
+    
 }

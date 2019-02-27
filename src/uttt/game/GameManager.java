@@ -32,6 +32,7 @@ public class GameManager
     private GameMode mode = GameMode.HumanVsHuman;
     private IBot bot = null;
     private IBot bot2 = null;
+    private int winnerIs=100;
 
     /**
      * Set's the currentState so the game can begin. Game expected to be played
@@ -89,12 +90,23 @@ public class GameManager
         //Verify the new move
         if (!verifyMoveLegality(move))
         {
-            System.out.println("FALSE MOVE");
             return false;
         }
         //Update the currentState
         updateBoard(move);
         updateMacroboard(move);
+        
+        
+        if (checkForWin() == true)
+        {
+            System.out.println("VINDER FUNDET");
+        }
+        
+        if(currentState.getField().isFull()==true)
+        {
+            System.out.println("UAFGJORT");
+            winnerIs=2;
+        }
 
         //Update currentPlayer
         currentPlayer = (currentPlayer + 1) % 2;
@@ -152,19 +164,22 @@ public class GameManager
         {
             currentBoard[move.getX()][move.getY()] = "1";
         }
-        
+
         makeAllEmptyFieldsToDot(currentBoard);
-        
+
         currentState.getField().setBoard(currentBoard);
 
     }
-/**
- * Makes all empty fields to ".". In setBoard we will make available fields "-1"
- * @param currentBoard 
- */
+
+    /**
+     * Makes all empty fields to ".". In setBoard we will make available fields
+     * "-1"
+     *
+     * @param currentBoard
+     */
     private void makeAllEmptyFieldsToDot(String[][] currentBoard)
     {
-        
+
         for (int i = 0; i < 9; i++)
         {
             for (int k = 0; k < 9; k++)
@@ -179,7 +194,74 @@ public class GameManager
 
     private void updateMacroboard(IMove move)
     {
-        
 
     }
+
+    private boolean checkForWin()
+    {
+        String[][] grid = currentState.getField().getMacroboard();
+        // checker for en vandret sejr
+        for (int w = 0; w < 2; w++)
+        {
+            String player = "" + w;
+            for (int i = 0; i < 3; i++)
+            {
+                if (grid[i][0].equals(player) && grid[i][1].equals(player) && grid[i][2].equals(player))
+                {
+                    winnerIs=w;
+                    return true;
+                }
+            }
+        }
+
+        // checker for en lodret sejr
+        for (int w = 1; w <= 2; w++)
+        {
+            String player = "" + w;
+            for (int i = 0; i < grid.length; i++)
+            {
+                if (grid[0][i].equals(player) && grid[1][i].equals(player) && grid[2][i].equals(player))
+                {
+                    winnerIs=w;
+                    return true;
+                }
+            }
+        }
+        // checker for en diagonal sejr
+        for (int w = 1; w <= 2; w++)
+        {
+            String player = "" + w;
+            if (grid[0][0].equals(player) && grid[1][1].equals(player) && grid[2][2].equals(player))
+            {
+                winnerIs=w;
+                return true;
+            }
+        }
+        for (int w = 1; w <= 2; w++)
+        {
+            String player = "" + w;
+            if (grid[0][2].equals(player) && grid[1][1].equals(player) && grid[2][0].equals(player))
+            {
+                winnerIs=w;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public int getWinnerIs()
+    {
+        return winnerIs;
+    }
+
+    public IGameState getCurrentState()
+    {
+        return currentState;
+    }
+    
+    
+    
+    
+
 }

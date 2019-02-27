@@ -7,11 +7,13 @@ package uttt.GUI.Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -53,13 +55,14 @@ public class GameboardController implements Initializable
     private GridPane gridPane9;
 
     private GameManager gManager;
-    private Field fieldModel;
-
-    private GameState gState;
 
     private int currentPlayer = 0;
     @FXML
     private Button btnClear;
+
+    @FXML
+    private Label winnerIs;
+    private int gMode;
 
     /**
      * Initializes the controller class.
@@ -67,8 +70,7 @@ public class GameboardController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-//        gStage = new GameState();
-        boardLigth(5);
+        boardLight(10);
     }
 
     @FXML
@@ -78,9 +80,11 @@ public class GameboardController implements Initializable
         Integer[] coordinates = makeCoordinates(btn);
         Move toDo = new Move(coordinates[0], coordinates[1]);
 
-
         if (gManager.updateGame(toDo) == true)
         {
+            setWinner();
+            clearLight();
+            boardLight(gManager.getCurrentState().getField().getActiveMicroboard());
             if (currentPlayer == 0)
             {
 
@@ -96,12 +100,14 @@ public class GameboardController implements Initializable
                 currentPlayer = 0;
                 return;
             }
+
         }
 
     }
 
     public void setGameManager(int gMode)
     {
+       this.gMode = gMode;
         // Mangler kode i 2 og 3
         switch (gMode)
         {
@@ -144,65 +150,119 @@ public class GameboardController implements Initializable
     @FXML
     private void clearTheBoard(ActionEvent event)
     {
-
+clearLight();
+boardLight(10);
+clearButtons();
+        setGameManager(gMode);
     }
 
-    public void boardLigth(int grid)
+    public void boardLight(int activeMicroboard)
     {
         /* case 10 er hele gridpane som lyser op og ellers så hver case passer til
          hvert sit grid "nummer" */
-        switch (grid)
+        System.out.println("UDPRINT AF ACTIVEMB " + activeMicroboard);
+        DropShadow grid = new DropShadow();
+        grid.setColor(Color.BLUE);
+        switch (activeMicroboard)
         {
+
             case 1:
-                DropShadow grid1 = new DropShadow();
-                grid1.setColor(Color.BLUE);
-                gridPane1.setEffect(grid1);
+
+                gridPane1.setEffect(grid);
                 break;
             case 2:
-                DropShadow grid2 = new DropShadow();
-                grid2.setColor(Color.BLUE);
-                gridPane2.setEffect(grid2);
+
+                gridPane2.setEffect(grid);
                 break;
             case 3:
-                DropShadow grid3 = new DropShadow();
-                grid3.setColor(Color.BLUE);
-                gridPane3.setEffect(grid3);
+
+                gridPane3.setEffect(grid);
                 break;
             case 4:
-                DropShadow grid4 = new DropShadow();
-                grid4.setColor(Color.BLUE);
-                gridPane4.setEffect(grid4);
+
+                gridPane4.setEffect(grid);
                 break;
             case 5:
-                DropShadow grid5 = new DropShadow();
-                grid5.setColor(Color.BLUE);
-                gridPane5.setEffect(grid5);
+
+                gridPane5.setEffect(grid);
                 break;
             case 6:
-                DropShadow grid6 = new DropShadow();
-                grid6.setColor(Color.BLUE);
-                gridPane6.setEffect(grid6);
+
+                gridPane6.setEffect(grid);
                 break;
             case 7:
-                DropShadow grid7 = new DropShadow();
-                grid7.setColor(Color.BLUE);
-                gridPane7.setEffect(grid7);
+
+                gridPane7.setEffect(grid);
                 break;
             case 8:
-                DropShadow grid8 = new DropShadow();
-                grid8.setColor(Color.BLUE);
-                gridPane8.setEffect(grid8);
+
+                gridPane8.setEffect(grid);
                 break;
             case 9:
-                DropShadow grid9 = new DropShadow();
-                grid9.setColor(Color.BLUE);
-                gridPane9.setEffect(grid9);
+
+                gridPane9.setEffect(grid);
                 break;
             case 10:
-                DropShadow ds = new DropShadow();
-                ds.setColor(Color.BLUE);
-                macroBoard.setEffect(ds);
+
+                macroBoard.setEffect(grid);
                 break;
+        }
+    }
+
+    private void setWinner()
+    {
+
+        String winner = "" + gManager.getWinnerIs();
+        if (winner.equals(0) || winner.equals(1))
+        {
+            winnerIs.setText("Vinderen er spiller " + winner);
+        }
+        if (winner.equals(2))
+        {
+            winnerIs.setText("Uafgjort");
+        }
+    }
+
+    private void clearLight()
+    {
+
+        DropShadow grid = new DropShadow();
+        grid.setColor(Color.WHITE);
+        gridPane1.setEffect(grid);
+
+        gridPane2.setEffect(grid);
+
+        gridPane3.setEffect(grid);
+
+        gridPane4.setEffect(grid);
+
+        gridPane5.setEffect(grid);
+
+        gridPane6.setEffect(grid);
+
+        gridPane7.setEffect(grid);
+
+        gridPane8.setEffect(grid);
+
+        gridPane9.setEffect(grid);
+
+        macroBoard.setEffect(grid);
+
+    }
+
+    private void clearButtons()
+    {
+      for(Node n : macroBoard.getChildren())
+        {
+            GridPane pane = (GridPane) n;
+            for(Node k : pane.getChildren())
+            {
+            Button btn = (Button) k;
+            btn.setText("");
+       
+            }
+            
+            
         }
     }
 
