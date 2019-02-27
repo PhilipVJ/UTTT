@@ -7,6 +7,7 @@ package uttt.field;
 
 import java.util.ArrayList;
 import java.util.List;
+import uttt.GUI.Controller.GameboardController;
 import uttt.move.IMove;
 
 /**
@@ -15,7 +16,8 @@ import uttt.move.IMove;
  */
 public class Field implements IField
 {
-
+    GameboardController gbModel;
+    
     private String[][] board;
     private String[][] macroBoard;
 
@@ -34,7 +36,7 @@ public class Field implements IField
         clearBoard();
         microBoards = new ArrayList();
         setMicroboardCoordinates();
-
+ 
     }
 
     @Override
@@ -107,6 +109,7 @@ public class Field implements IField
         if (activeMicroboard == 10 && board[x][y] == AVAILABLE_FIELD)
         {
             activeMicroboard = (findMicroBoard(x, y));
+            isItNewGame();
             return true;
         }
 
@@ -334,6 +337,7 @@ public class Field implements IField
 
     }
 
+
     private void checkForWinInMicro(String[][] newBoard)
     {
 //        checker for en vandret  sejr 
@@ -545,5 +549,18 @@ public class Field implements IField
         }
     }
 
+
+    public boolean isItNewGame()
+    {
+        if (activeMicroboard == 10)
+        {
+            gbModel.boardLigth(10);
+            System.out.println("lyset skulle virke");
+            return true;
+        }
+        return false;
+    }
+
+    
 
 }
