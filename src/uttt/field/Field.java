@@ -18,7 +18,7 @@ public class Field implements IField
 
     private String[][] board;
     private String[][] macroBoard;
-    
+
     private Integer[] lastMove;
     //The current - to be played in - microboard (3x3)
     private int activeMicroboard;
@@ -168,44 +168,45 @@ public class Field implements IField
                 {
                     if (newBoard[i][k].equals(EMPTY_FIELD))
                     {
-                        newBoard[i][k]=AVAILABLE_FIELD;
+                        newBoard[i][k] = AVAILABLE_FIELD;
                     }
                 }
             }
-            
+
         }
 
         if (activeMicroboard != 10)
         {
             makePlayableFieldsToMinusOne(newBoard);
         }
-
+        checkForWinInMicro(newBoard);
         this.board = newBoard;
 
     }
-/**
- * Vi laver alle punktummer i nuværende microboard om til -1'ere
- * @param newBoard 
- */
+
+    /**
+     * Vi laver alle punktummer i nuværende microboard om til -1'ere
+     *
+     * @param newBoard
+     */
     private void makePlayableFieldsToMinusOne(String[][] newBoard)
     {
         String[] currentMicroBoard = microBoards.get(activeMicroboard - 1);
-        
-       
+
         for (int i = 0; i < 9; i++)
         {
             String coordinate = currentMicroBoard[i];
-            
+
             char xCor = coordinate.charAt(0);
             char yCor = coordinate.charAt(2);
             int x = Character.getNumericValue(xCor);
             int y = Character.getNumericValue(yCor);
-            
+
             String mBoard = newBoard[x][y];
-            
+
             if (mBoard.equals("."))
             {
-                
+
                 newBoard[x][y] = AVAILABLE_FIELD;
             }
         }
@@ -289,7 +290,7 @@ public class Field implements IField
     private void arrivedAtFullMicroBoard()
     {
         activeMicroboard = 10;
-        
+
         //Makes all empty spaces an available field
         for (int i = 0; i < 9; i++)
         {
@@ -318,7 +319,7 @@ public class Field implements IField
             int x = Character.getNumericValue(xCor);
             int y = Character.getNumericValue(yCor);
 
-            if (board[x][y].equals("X") || board[x][y].equals("O"))
+            if (board[x][y].equals("0") || board[x][y].equals("1"))
             {
                 foundPlayerMarks++;
             }
@@ -332,5 +333,217 @@ public class Field implements IField
         return false;
 
     }
+
+    private void checkForWinInMicro(String[][] newBoard)
+    {
+//        checker for en vandret  sejr 
+
+        for (int w = 0; w < 2; w++)
+        {
+            String player = "" + w;
+            for (int i = 0; i < 3; i++)
+            {
+                // microboard 1
+                if (newBoard[i][0].equals(player) && newBoard[i][1].equals(player) && newBoard[i][2].equals(player))
+                {
+                    System.out.println("FUNDET 1");
+                }
+                // microboard 2
+                if (newBoard[i][3].equals(player) && newBoard[i][4].equals(player) && newBoard[i][5].equals(player))
+                {
+                    System.out.println("FUNDET 2");
+                }
+                // microboard 3
+                if (newBoard[i][6].equals(player) && newBoard[i][7].equals(player) && newBoard[i][8].equals(player))
+                {
+                    System.out.println("FUNDET 3");
+                }
+
+                // microboard 4
+                if (newBoard[i + 3][0].equals(player) && newBoard[i + 3][1].equals(player) && newBoard[i + 3][2].equals(player))
+                {
+                    System.out.println("FUNDET 4");
+                }
+                // microboard 5
+                if (newBoard[i + 3][3].equals(player) && newBoard[i + 3][4].equals(player) && newBoard[i + 3][5].equals(player))
+                {
+                    System.out.println("FUNDET 5");
+                }
+                // microboard 6
+                if (newBoard[i + 3][6].equals(player) && newBoard[i + 3][7].equals(player) && newBoard[i + 3][8].equals(player))
+                {
+                    System.out.println("FUNDET 6");
+                }
+
+                // microboard 7
+                if (newBoard[i + 6][0].equals(player) && newBoard[i + 6][1].equals(player) && newBoard[i + 6][2].equals(player))
+                {
+                    System.out.println("FUNDET 7");
+                }
+                // microboard 8
+                if (newBoard[i + 6][3].equals(player) && newBoard[i + 6][4].equals(player) && newBoard[i + 6][5].equals(player))
+                {
+                    System.out.println("FUNDET 8");
+                }
+                // microboard 9
+                if (newBoard[i + 6][6].equals(player) && newBoard[i + 6][7].equals(player) && newBoard[i + 6][8].equals(player))
+                {
+                    System.out.println("FUNDET 9");
+                }
+
+            }
+        }
+        // checker for en lodret sejr
+        for (int k = 0; k < 2; k++)
+        {
+            String player = "" + k;
+            for (int i = 0; i < 3; i++)
+            {
+                // microboard 1
+                if (newBoard[0][i].equals(player) && newBoard[1][i].equals(player) && newBoard[2][i].equals(player))
+                {
+                    System.out.println("FUNDET 1");
+                }
+                // microboard 2
+                if (newBoard[0][i + 3].equals(player) && newBoard[1][i + 3].equals(player) && newBoard[2][i + 3].equals(player))
+                {
+                    System.out.println("FUNDET 2");
+                }
+                // microboard 3
+                if (newBoard[0][i + 6].equals(player) && newBoard[1][i + 6].equals(player) && newBoard[2][i + 6].equals(player))
+                {
+                    System.out.println("FUNDET 3");
+                }
+                // microboard 4
+                if (newBoard[3][i].equals(player) && newBoard[4][i].equals(player) && newBoard[5][i].equals(player))
+                {
+                    System.out.println("FUNDET 4");
+                }
+                // microboard 5
+                if (newBoard[3][i + 3].equals(player) && newBoard[4][i + 3].equals(player) && newBoard[5][i + 3].equals(player))
+                {
+                    System.out.println("FUNDET 5");
+                }
+                // microboard 6
+                if (newBoard[3][i + 6].equals(player) && newBoard[4][i + 6].equals(player) && newBoard[5][i + 6].equals(player))
+                {
+                    System.out.println("FUNDET 6");
+                }
+                // microboard 7
+                if (newBoard[6][i].equals(player) && newBoard[7][i].equals(player) && newBoard[8][i].equals(player))
+                {
+                    System.out.println("FUNDET 7");
+                }
+                // microboard 8
+                if (newBoard[6][i + 3].equals(player) && newBoard[7][i + 3].equals(player) && newBoard[8][i + 3].equals(player))
+                {
+                    System.out.println("FUNDET 8");
+                }
+                // microboard 9
+                if (newBoard[6][i + 6].equals(player) && newBoard[7][i + 6].equals(player) && newBoard[8][i + 6].equals(player))
+                {
+                    System.out.println("FUNDET 9");
+                }
+
+            }
+        }
+
+        // checker for en diagonal sejr
+        for (int w = 0; w < 2; w++)
+        {
+            String player = "" + w;
+            // microboard 1
+            if (board[0][0].equals(player) && board[1][1].equals(player) && board[2][2].equals(player))
+            {
+                System.out.println("FUNDET 1");
+            }
+
+            if (board[0][2].equals(player) && board[1][1].equals(player) && board[2][0].equals(player))
+            {
+                System.out.println("FUNDET 1");
+            }
+                        // microboard 2
+            if (board[0][3].equals(player) && board[1][4].equals(player) && board[2][5].equals(player))
+            {
+                System.out.println("FUNDET 2");
+            }
+
+            if (board[0][5].equals(player) && board[1][4].equals(player) && board[2][3].equals(player))
+            {
+                System.out.println("FUNDET 2");
+            }
+                                    // microboard 3
+            if (board[0][6].equals(player) && board[1][7].equals(player) && board[2][8].equals(player))
+            {
+                System.out.println("FUNDET 3");
+            }
+
+            if (board[0][8].equals(player) && board[1][7].equals(player) && board[2][6].equals(player))
+            {
+                System.out.println("FUNDET 3");
+            }
+                        // microboard 4
+            if (board[3][0].equals(player) && board[4][1].equals(player) && board[5][2].equals(player))
+            {
+                System.out.println("FUNDET 4");
+            }
+
+            if (board[3][2].equals(player) && board[4][1].equals(player) && board[5][0].equals(player))
+            {
+                System.out.println("FUNDET 4");
+            }
+                        // microboard 5
+            if (board[3][3].equals(player) && board[4][4].equals(player) && board[5][5].equals(player))
+            {
+                System.out.println("FUNDET 5");
+            }
+
+            if (board[3][5].equals(player) && board[4][4].equals(player) && board[5][3].equals(player))
+            {
+                System.out.println("FUNDET 5");
+            }
+                                    // microboard 6
+            if (board[3][6].equals(player) && board[4][7].equals(player) && board[5][8].equals(player))
+            {
+                System.out.println("FUNDET 6");
+            }
+
+            if (board[3][8].equals(player) && board[4][7].equals(player) && board[5][6].equals(player))
+            {
+                System.out.println("FUNDET 6");
+            }
+                                    // microboard 7
+            if (board[6][0].equals(player) && board[7][1].equals(player) && board[8][2].equals(player))
+            {
+                System.out.println("FUNDET 7");
+            }
+
+            if (board[6][2].equals(player) && board[7][1].equals(player) && board[8][0].equals(player))
+            {
+                System.out.println("FUNDET 7");
+            }
+                        // microboard 8
+            if (board[6][3].equals(player) && board[7][4].equals(player) && board[8][5].equals(player))
+            {
+                System.out.println("FUNDET 8");
+            }
+
+            if (board[6][5].equals(player) && board[7][4].equals(player) && board[8][3].equals(player))
+            {
+                System.out.println("FUNDET 8");
+            }
+                                    // microboard 9
+            if (board[6][6].equals(player) && board[7][7].equals(player) && board[8][8].equals(player))
+            {
+                System.out.println("FUNDET 9");
+            }
+
+            if (board[6][8].equals(player) && board[7][7].equals(player) && board[8][6].equals(player))
+            {
+                System.out.println("FUNDET 9");
+            }
+        }
+    }
+
 
 }

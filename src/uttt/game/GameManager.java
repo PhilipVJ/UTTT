@@ -146,10 +146,10 @@ public class GameManager
 
         if (currentPlayer == 0)
         {
-            currentBoard[move.getX()][move.getY()] = "O";
+            currentBoard[move.getX()][move.getY()] = "0";
         } else if (currentPlayer == 1)
         {
-            currentBoard[move.getX()][move.getY()] = "X";
+            currentBoard[move.getX()][move.getY()] = "1";
         }
         
         makeAllEmptyFieldsToDot(currentBoard);
