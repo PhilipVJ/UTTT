@@ -119,12 +119,10 @@ public class Field implements IField
     {
         if (activeMicroboard == 10 && board[x][y] == AVAILABLE_FIELD)
         {
-            System.out.println("THIS ONE");
             activeMicroboard = (findMicroBoard(x, y));
             isItNewGame();
             if (checkForWonMicroBoard() == true)
             {
-                System.out.println("SETTING UP TO 10");
                 activeMicroboard = 10;
             }
             return true;
@@ -133,7 +131,6 @@ public class Field implements IField
         if (activeMicroboard != 10)
         {
             String[] curBoard = microBoards.get(activeMicroboard - 1);
-            System.out.println("THAT ONE");
             String coordinate = "" + x + "." + y;
 
             boolean isInBoard = false;
@@ -150,16 +147,14 @@ public class Field implements IField
 
             if (isInBoard == true && board[x][y] == AVAILABLE_FIELD)
             {
-                System.out.println("IS IN BOARD");
                 activeMicroboard = indexOfCoordinateInMicroBoard + 1;
+
                 if (checkForFullMicroBoard() == true)
                 {
-                    System.out.println("ARRIVED AT FULL MICROBOARD");
                     arrivedAtFullMicroBoard();
                 }
                 if (checkForWonMicroBoard() == true)
                 {
-                    System.out.println("SETTING UP TO 10");
                     activeMicroboard = 10;
                 }
 
@@ -201,6 +196,7 @@ public class Field implements IField
             }
 
         }
+               
 
         if (activeMicroboard != 10)
         {
@@ -208,7 +204,6 @@ public class Field implements IField
         }
         checkForWinInMicro(newBoard);
         this.board = newBoard;
-        System.out.println("" + activeMicroboard);
         printBoard();
 
     }
@@ -685,40 +680,79 @@ public class Field implements IField
             int y = Character.getNumericValue(yCor);
 
             newBoard[x][y] = "" + player;
-            arrivedAtFullMicroBoard();
         }
     }
 
     private void printBoard()
     {
-//        for (int i = 0; i < 9; i++)
-//        {
-//            for (int k = 0; k < 9; k++)
-//            {
-//                System.out.println("" + board[i][k]);
-//            }
-//        }
-//System.out.println("Printing macro");
-//        for (int i = 0; i < 3; i++)
-//        {
-//            for (int k = 0; k < 3; k++)
-//            {
-//                System.out.println("" + macroBoard[i][k]);
-//            }
-//        }
+
+System.out.println("Printing macro");
+       for (int i = 0; i < 3; i++)
+        {
+            for (int k = 0; k < 3; k++)
+            {
+                System.out.println("" + macroBoard[i][k]);
+            }
+        }
     }
 
     private boolean checkForWonMicroBoard()
     {
         int aM = activeMicroboard;
-        System.out.println("CHECKING");
 
         switch (activeMicroboard)
         {
             case 1:
                 if (micro1Done)
                 {
-                    System.out.println("FOUND");
+                    return true;
+
+                }
+            case 2:
+                if (micro2Done)
+                {
+                    return true;
+
+                }
+            case 3:
+                if (micro4Done)
+                {
+                    return true;
+
+                }
+            case 4:
+                if (micro4Done)
+                {
+                    return true;
+
+                }
+            case 5:
+                if (micro5Done)
+                {
+                    return true;
+
+                }
+            case 6:
+                if (micro6Done)
+                {
+                    return true;
+
+                }
+            case 7:
+                if (micro7Done)
+                {
+                    return true;
+
+                }
+            case 8:
+                if (micro8Done)
+                {
+                    return true;
+
+                }
+            case 9:
+                if (micro9Done)
+                {
                     return true;
 
                 }
