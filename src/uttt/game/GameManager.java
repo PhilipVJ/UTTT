@@ -95,7 +95,7 @@ public class GameManager
         //Update the currentState
         updateBoard(move);
         updateMacroboard(move);
-        
+   
         
         if (checkForWin() == true)
         {
@@ -148,8 +148,8 @@ public class GameManager
     {
         //Test if the move is legal   
         //NOTE: should also check whether the move is placed on an occupied spot.
-        System.out.println("Checking move validity against macroboard available field");
-        System.out.println("Not currently checking move validity actual board");
+//        System.out.println("Checking move validity against macroboard available field");
+//        System.out.println("Not currently checking move validity actual board");
         return currentState.getField().isInActiveMicroboard(move.getX(), move.getY());
     }
 
@@ -196,7 +196,10 @@ public class GameManager
     {
 
     }
-
+/**
+ * Checks if the overall game is won (macro)
+ * @return 
+ */
     private boolean checkForWin()
     {
 
