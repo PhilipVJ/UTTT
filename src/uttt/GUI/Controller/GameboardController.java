@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.InnerShadow;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import uttt.game.GameManager;
@@ -84,6 +85,10 @@ public class GameboardController implements Initializable {
     private int numberOfXWins = 0;
     private int numberOfOWins = 0;
     private int numberOfDraws = 0;
+    
+    
+    
+    
 
     /**
      * Initializes the controller class.
@@ -91,6 +96,7 @@ public class GameboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         startLight();
+        
     }
 
     @FXML
@@ -254,20 +260,20 @@ public class GameboardController implements Initializable {
             if (winner.equals("" + 0)) {
                 winnerIs.setText("Vinderen er spiller: O");
                 numberOfOWins++;
-                lblOWins.setText("Player O wins:" + numberOfOWins);
+                lblOWins.setText(""+numberOfOWins);
                 gameOver = true;
             }
             if (winner.equals("" + 1)) {
                 winnerIs.setText("Vinderen er spiller: X");
                 numberOfXWins++;
-                lblXWins.setText("Player X wins:" + numberOfXWins);
+                lblXWins.setText("" + numberOfXWins);
                 gameOver = true;
 
             }
             if (winner.equals("" + 2)) {
                 winnerIs.setText("Uafgjort");
                 numberOfDraws++;
-                lblDraw.setText("Draw:" + numberOfDraws);
+                lblDraw.setText("" + numberOfDraws);
                 gameOver = true;
 
             }
@@ -566,5 +572,5 @@ public class GameboardController implements Initializable {
             macroBoard.getChildren().remove(toDelList.get(i));
         }
 
-    }
+    }    
 }

@@ -2,12 +2,16 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="864.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uttt.GUI.Controller.GameboardController">
+<AnchorPane id="AnchorPane" prefHeight="864.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uttt.GUI.Controller.GameboardController">
    <children>
       <GridPane fx:id="macroBoard" hgap="5.0" layoutX="48.0" layoutY="61.0" prefHeight="700.0" prefWidth="700.0" vgap="5.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="60.0">
         <columnConstraints>
@@ -232,11 +236,40 @@
             </GridPane>
          </children>
       </GridPane>
-      <Button fx:id="btnClear" layoutX="708.0" layoutY="756.0" mnemonicParsing="false" onAction="#clearTheBoard" text="Clear Board" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="30.0" />
-      <Label fx:id="winnerIs" layoutX="289.0" layoutY="28.0" prefHeight="21.0" prefWidth="223.0" />
-      <Label layoutX="60.0" layoutY="11.0" text="Score:" />
-      <Label fx:id="lblXWins" layoutX="99.0" layoutY="11.0" prefHeight="17.0" prefWidth="98.0" text="Player X wins:" textFill="#f52e50" />
-      <Label fx:id="lblOWins" layoutX="197.0" layoutY="11.0" prefHeight="17.0" prefWidth="98.0" text="Player O wins:" textFill="#3230ff" />
-      <Label fx:id="lblDraw" layoutX="306.0" layoutY="11.0" prefHeight="17.0" prefWidth="55.0" text="Draws:" />
+      <Button fx:id="btnClear" layoutX="708.0" layoutY="756.0" mnemonicParsing="false" onAction="#clearTheBoard" text="New Game" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="60.0">
+         <effect>
+            <DropShadow height="50.0" radius="24.5" width="50.0" />
+         </effect></Button>
+      <Label fx:id="lblXWins" layoutX="688.0" layoutY="5.0" prefHeight="17.0" prefWidth="98.0" textFill="#f52e50" AnchorPane.rightAnchor="-9.0" AnchorPane.topAnchor="1.0">
+         <font>
+            <Font size="36.0" />
+         </font></Label>
+      <Label fx:id="lblOWins" contentDisplay="CENTER" layoutX="198.0" layoutY="5.0" prefHeight="53.0" prefWidth="73.0" textFill="#3230ff" AnchorPane.leftAnchor="198.0" AnchorPane.topAnchor="1.0">
+         <font>
+            <Font size="36.0" />
+         </font></Label>
+      <Label fx:id="lblDraw" layoutX="395.0" layoutY="2.0" prefHeight="17.0" prefWidth="55.0" AnchorPane.leftAnchor="435.0" AnchorPane.topAnchor="-2.0">
+         <font>
+            <Font size="36.0" />
+         </font></Label>
+      <ImageView fitHeight="47.0" fitWidth="138.0" layoutX="60.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="10.0">
+         <image>
+            <Image url="@../../../Picture/PlayerO.png" />
+         </image></ImageView>
+      <ImageView fitHeight="37.0" fitWidth="119.0" layoutX="284.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="325.0" AnchorPane.topAnchor="5.0">
+         <image>
+            <Image url="@../../../Picture/Draw.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="53.0" fitWidth="138.0" layoutX="555.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="85.0" AnchorPane.topAnchor="10.0">
+         <image>
+            <Image url="@../../../Picture/PlayerX.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="winnerIs" alignment="CENTER" layoutX="60.0" layoutY="412.0" prefHeight="53.0" prefWidth="680.0" textAlignment="CENTER" AnchorPane.bottomAnchor="405.0" AnchorPane.leftAnchor="60.0">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
