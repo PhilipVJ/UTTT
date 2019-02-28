@@ -19,9 +19,8 @@
 *.rar
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-nbproject/private/private.properties
-dist/web-files/dtjava.js
-dist/UTTT.jnlp
-dist/UTTT.html
-build/built-jar.properties
+
+# NetBeans
+dist/
+build/
+
