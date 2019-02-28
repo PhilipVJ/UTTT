@@ -19,7 +19,6 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import static uttt.field.IField.AVAILABLE_FIELD;
 import uttt.game.GameManager;
 import uttt.game.GameState;
 import uttt.move.Move;
@@ -53,26 +52,25 @@ public class GameboardController implements Initializable {
     private GridPane gridPane9;
     @FXML
     private Button btnClear;
-
-    private String[][] mBoard;
-
-    @FXML
-    private Label winnerIs;
-
-    private GameManager gManager;
-    private HighScore hScore;
-
-    private int currentPlayer = 0;
-    private int gMode;
-
-    private boolean gameOver = false;
-
     @FXML
     private Label lblXWins;
     @FXML
     private Label lblOWins;
     @FXML
     private Label lblDraw;
+    @FXML
+    private Label winnerIs;
+    
+    private String[][] mBoard;
+
+    
+    private GameManager gManager;
+  
+    private int currentPlayer = 0;
+    private int gMode;
+
+    private boolean gameOver = false;
+ 
     private boolean grid1isDone = false;
     private boolean grid9isDone = false;
     private boolean grid8isDone = false;
@@ -93,8 +91,6 @@ public class GameboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         startLight();
-        hScore = new HighScore();
-        getScores();
     }
 
     @FXML
@@ -103,9 +99,6 @@ public class GameboardController implements Initializable {
         Integer[] coordinates = makeCoordinates(btn);
         Move toDo = new Move(coordinates[0], coordinates[1]);
         if (gameOver == true) {
-            int winner = gManager.getWinnerIs();
-            hScore.incrementScore(winner);
-            getScores();
             return;
         }
 
@@ -131,7 +124,6 @@ public class GameboardController implements Initializable {
                 btn.setStyle("-fx-font-size: 34px;");
 
                 btn.setText("X");
-
                 currentPlayer = 0;
                 fixBigMarkings();
                 return;
@@ -281,14 +273,6 @@ public class GameboardController implements Initializable {
             }
 
         }
-    }
-
-    private void getScores(){
-
-        lblOWins.setText(String.valueOf(hScore.getScoreOne()));
-        lblXWins.setText(String.valueOf(hScore.getScoreTwo()));
-        lblDraw.setText(String.valueOf(hScore.getScoreDraw()));
-
     }
 
     private void clearLight() {
