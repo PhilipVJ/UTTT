@@ -192,6 +192,7 @@ public class GameboardController implements Initializable {
         grid4isDone = false;
         grid3isDone = false;
         grid2isDone = false;
+        currentPlayer=0;
 
     }
 
