@@ -60,7 +60,6 @@ public class GameboardController implements Initializable {
     private Label winnerIs;
 
     private GameManager gManager;
-    private HighScore hScore;
 
     private int currentPlayer = 0;
     private int gMode;
@@ -93,8 +92,7 @@ public class GameboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         startLight();
-        hScore = new HighScore();
-        getScores();
+
     }
 
     @FXML
@@ -104,8 +102,8 @@ public class GameboardController implements Initializable {
         Move toDo = new Move(coordinates[0], coordinates[1]);
         if (gameOver == true) {
             int winner = gManager.getWinnerIs();
-            hScore.incrementScore(winner);
-            getScores();
+
+            
             return;
         }
 
@@ -281,14 +279,6 @@ public class GameboardController implements Initializable {
             }
 
         }
-    }
-
-    private void getScores(){
-
-        lblOWins.setText(String.valueOf(hScore.getScoreOne()));
-        lblXWins.setText(String.valueOf(hScore.getScoreTwo()));
-        lblDraw.setText(String.valueOf(hScore.getScoreDraw()));
-
     }
 
     private void clearLight() {
