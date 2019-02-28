@@ -117,7 +117,7 @@ public class GameboardController implements Initializable {
             if(gameOver)
             {
                 DropShadow h = new DropShadow();
-                h.setColor(Color.GREEN);
+                h.setColor(Color.BLACK);
                 macroBoard.setEffect(h);
             }
             if (currentPlayer == 0) {
