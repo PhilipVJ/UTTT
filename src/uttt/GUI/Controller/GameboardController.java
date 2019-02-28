@@ -50,8 +50,7 @@ public class GameboardController implements Initializable {
     private GridPane gridPane8;
     @FXML
     private GridPane gridPane9;
-    @FXML
-    private Button btnClear;
+
     @FXML
     private Label lblXWins;
     @FXML
@@ -144,12 +143,12 @@ public class GameboardController implements Initializable {
 
     }
 
-    public void setGameManager(int gMode) {
+    public void setGameManager(int gMode, int playerToStart) {
         this.gMode = gMode;
         // Mangler kode i 2 og 3
         switch (gMode) {
             case 1:
-                gManager = new GameManager(new GameState());
+                gManager = new GameManager(new GameState(), playerToStart);
                 System.out.println("New gManager");
                 break;
 //            case 2:
@@ -189,7 +188,8 @@ public class GameboardController implements Initializable {
         clearLight();
         startLight();
         clearButtons();
-        setGameManager(gMode);
+        System.out.println("Current player"+currentPlayer);
+        setGameManager(gMode,currentPlayer);
         gameOver = false;
         winnerIs.setText("");
 
@@ -202,7 +202,7 @@ public class GameboardController implements Initializable {
         grid4isDone = false;
         grid3isDone = false;
         grid2isDone = false;
-        currentPlayer = 0;
+   
 
     }
 

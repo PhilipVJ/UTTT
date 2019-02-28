@@ -53,7 +53,7 @@ public class MainViewController implements Initializable
         Parent root = loader.load();
         GameboardController con = loader.getController();
         
-        con.setGameManager(1);
+        con.setGameManager(1,0);
 
         stage = (Stage) anchorPane.getScene().getWindow();
         Scene scene = new Scene(root);
@@ -69,7 +69,7 @@ public class MainViewController implements Initializable
         Parent root = loader.load();
         GameboardController con = loader.getController();
         
-        con.setGameManager(2);
+        con.setGameManager(2,0);
 
         stage = (Stage) anchorPane.getScene().getWindow();
         Scene scene = new Scene(root);
@@ -85,7 +85,7 @@ public class MainViewController implements Initializable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/uttt/GUI/View/Gameboard.fxml"));
         Parent root = loader.load();
         GameboardController con = loader.getController();
-        con.setGameManager(3);
+        con.setGameManager(3,0);
 
         stage = (Stage) anchorPane.getScene().getWindow();
         Scene scene = new Scene(root);
