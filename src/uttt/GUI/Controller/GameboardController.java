@@ -60,6 +60,174 @@ public class GameboardController implements Initializable
     private int gMode;
      
     private boolean gameOver=false;
+    @FXML
+    private Button btn11;
+    @FXML
+    private Button btn12;
+    @FXML
+    private Button btn13;
+    @FXML
+    private Button btn14;
+    @FXML
+    private Button btn17;
+    @FXML
+    private Button btn15;
+    @FXML
+    private Button btn18;
+    @FXML
+    private Button btn16;
+    @FXML
+    private Button btn19;
+    @FXML
+    private Button btn21;
+    @FXML
+    private Button btn22;
+    @FXML
+    private Button btn23;
+    @FXML
+    private Button btn24;
+    @FXML
+    private Button btn25;
+    @FXML
+    private Button btn26;
+    @FXML
+    private Button btn27;
+    @FXML
+    private Button btn28;
+    @FXML
+    private Button btn29;
+    @FXML
+    private Button btn32;
+    @FXML
+    private Button btn31;
+    @FXML
+    private Button btn33;
+    @FXML
+    private Button btn34;
+    @FXML
+    private Button btn35;
+    @FXML
+    private Button btn36;
+    @FXML
+    private Button btn37;
+    @FXML
+    private Button btn38;
+    @FXML
+    private Button btn39;
+    @FXML
+    private Button btn41;
+    @FXML
+    private Button btn42;
+    @FXML
+    private Button btn44;
+    @FXML
+    private Button btn45;
+    @FXML
+    private Button btn47;
+    @FXML
+    private Button btn48;
+    @FXML
+    private Button btn49;
+    @FXML
+    private Button btn46;
+    @FXML
+    private Button btn43;
+    @FXML
+    private Button btn52;
+    @FXML
+    private Button btn51;
+    @FXML
+    private Button btn54;
+    @FXML
+    private Button btn55;
+    @FXML
+    private Button btn57;
+    @FXML
+    private Button btn58;
+    @FXML
+    private Button btn59;
+    @FXML
+    private Button btn56;
+    @FXML
+    private Button btn53;
+    @FXML
+    private Button btn61;
+    @FXML
+    private Button btn62;
+    @FXML
+    private Button btn64;
+    @FXML
+    private Button btn65;
+    @FXML
+    private Button btn63;
+    @FXML
+    private Button btn66;
+    @FXML
+    private Button btn67;
+    @FXML
+    private Button btn68;
+    @FXML
+    private Button btn69;
+    @FXML
+    private Button btn71;
+    @FXML
+    private Button btn73;
+    @FXML
+    private Button btn72;
+    @FXML
+    private Button btn74;
+    @FXML
+    private Button btn75;
+    @FXML
+    private Button btn76;
+    @FXML
+    private Button btn77;
+    @FXML
+    private Button btn78;
+    @FXML
+    private Button btn79;
+    @FXML
+    private Button btn81;
+    @FXML
+    private Button btn82;
+    @FXML
+    private Button btn84;
+    @FXML
+    private Button btn85;
+    @FXML
+    private Button btn83;
+    @FXML
+    private Button btn86;
+    @FXML
+    private Button btn87;
+    @FXML
+    private Button btn88;
+    @FXML
+    private Button btn89;
+    @FXML
+    private Button btn91;
+    @FXML
+    private Button btn92;
+    @FXML
+    private Button btn93;
+    @FXML
+    private Button btn94;
+    @FXML
+    private Button btn95;
+    @FXML
+    private Button btn96;
+    @FXML
+    private Button btn97;
+    @FXML
+    private Button btn98;
+    @FXML
+    private Button btn99;
+    @FXML
+    private Label lblOWins;
+    @FXML
+    private Label lblDraw;
+    @FXML
+    private Label lblXWins;
 
     /**
      * Initializes the controller class.
@@ -228,11 +396,13 @@ public class GameboardController implements Initializable
             if (winner.equals("" + 0))
             {
                 winnerIs.setText("Vinderen er spiller: O");
+                lblOWins.setText("O wins:" +1);
                 gameOver=true;
             }
             if (winner.equals("" + 1))
             {
                 winnerIs.setText("Vinderen er spiller: X");
+                lblXWins.setText("X wins:" +1);
                 gameOver=true;
             }
 
@@ -240,6 +410,7 @@ public class GameboardController implements Initializable
         if (winner.equals("" + 2))
         {
             winnerIs.setText("Uafgjort");
+            lblDraw.setText("Uafgjort:" +1);
             gameOver=true;
         }
     }
