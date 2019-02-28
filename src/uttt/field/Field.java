@@ -585,7 +585,7 @@ public class Field implements IField {
                     macroBoard[0][2] = player;
                     micro3Done = true;
                     numberOfLines++;
-                    System.out.println("BINGO");
+             
                 }
 
                 // microboard 4

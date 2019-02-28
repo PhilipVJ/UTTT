@@ -33,6 +33,8 @@ public class GameManager
     private IBot bot = null;
     private IBot bot2 = null;
     private int winnerIs=100;
+    
+    
 
     /**
      * Set's the currentState so the game can begin. Game expected to be played
@@ -41,9 +43,13 @@ public class GameManager
      * @param currentState Current game state, usually an empty board, but could
      * load a saved game.
      */
-    public GameManager(IGameState currentState)
+    public GameManager(IGameState currentState, int playerToStart)
     {
         this.currentState = currentState;
+       
+        currentPlayer=playerToStart;
+         System.out.println("playerToStart:"+currentPlayer);
+        
         mode = GameMode.HumanVsHuman;
     }
 
@@ -267,6 +273,8 @@ public class GameManager
     {
         return currentState;
     }
+    
+
     
     
     

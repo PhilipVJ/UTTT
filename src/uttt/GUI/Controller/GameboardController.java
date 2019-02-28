@@ -51,8 +51,7 @@ public class GameboardController implements Initializable {
     private GridPane gridPane8;
     @FXML
     private GridPane gridPane9;
-    @FXML
-    private Button btnClear;
+
     @FXML
     private Label lblXWins;
     @FXML
@@ -111,8 +110,16 @@ public class GameboardController implements Initializable {
         if (gManager.updateGame(toDo) == true) {
             setWinner();
             mBoard = gManager.getCurrentState().getField().getMacroboard();
+            if(!gameOver){
             clearLight();
             boardLight(gManager.getCurrentState().getField().getActiveMicroboard());
+            }
+            if(gameOver)
+            {
+                DropShadow h = new DropShadow();
+                h.setColor(Color.GREEN);
+                macroBoard.setEffect(h);
+            }
             if (currentPlayer == 0) {
                 InnerShadow bolle = new InnerShadow(25, Color.BLUE);
                 btn.setEffect(bolle);
@@ -121,6 +128,8 @@ public class GameboardController implements Initializable {
                 btn.setText("O");
                 currentPlayer = 1;
                 fixBigMarkings();
+
+                    
                 return;
             }
 
@@ -132,6 +141,7 @@ public class GameboardController implements Initializable {
                 btn.setText("X");
                 currentPlayer = 0;
                 fixBigMarkings();
+
                 return;
             }
 
@@ -139,12 +149,12 @@ public class GameboardController implements Initializable {
 
     }
 
-    public void setGameManager(int gMode) {
+    public void setGameManager(int gMode, int playerToStart) {
         this.gMode = gMode;
         // Mangler kode i 2 og 3
         switch (gMode) {
             case 1:
-                gManager = new GameManager(new GameState());
+                gManager = new GameManager(new GameState(), playerToStart);
                 System.out.println("New gManager");
                 break;
 //            case 2:
@@ -184,7 +194,8 @@ public class GameboardController implements Initializable {
         clearLight();
         startLight();
         clearButtons();
-        setGameManager(gMode);
+        System.out.println("Current player"+currentPlayer);
+        setGameManager(gMode,currentPlayer);
         gameOver = false;
         winnerIs.setText("");
 
@@ -197,7 +208,7 @@ public class GameboardController implements Initializable {
         grid4isDone = false;
         grid3isDone = false;
         grid2isDone = false;
-        currentPlayer = 0;
+   
 
     }
 
@@ -262,6 +273,7 @@ public class GameboardController implements Initializable {
                 numberOfOWins++;
                 lblOWins.setText(""+numberOfOWins);
                 gameOver = true;
+                
             }
             if (winner.equals("" + 1)) {
                 winnerIs.setText("Vinderen er spiller: X");
