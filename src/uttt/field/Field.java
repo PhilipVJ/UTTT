@@ -393,6 +393,7 @@ public class Field implements IField {
                 macroBoard[0][2] = player;
                 micro3Done = true;
                 numberOfLines++;
+                
             }
             // microboard 4
             if (board[3][0].equals(player) && board[4][1].equals(player) && board[5][2].equals(player) && !micro4Done) {
@@ -580,10 +581,11 @@ public class Field implements IField {
                 }
                 // microboard 3
                 if (newBoard[i][6].equals(player) && newBoard[i][7].equals(player) && newBoard[i][8].equals(player) && !micro3Done) {
-                    makeAllFieldsToOneOrZero(w, 4, newBoard);
+                    makeAllFieldsToOneOrZero(w, 3, newBoard);
                     macroBoard[0][2] = player;
                     micro3Done = true;
                     numberOfLines++;
+                    System.out.println("BINGO");
                 }
 
                 // microboard 4
@@ -661,18 +663,18 @@ public class Field implements IField {
      * Prints the macro board - used for testing
      */
     private void printBoard() {
-        System.out.println("PRINTING MICRO");
+        System.out.println("PRINT MICRO");
         for (int i = 0; i < 9; i++) {
             for (int k = 0; k < 9; k++) {
                 System.out.println("" + board[i][k]);
             }
         }
-        System.out.println("Printing macro");
-        for (int i = 0; i < 3; i++) {
-            for (int k = 0; k < 3; k++) {
-                System.out.println("" + macroBoard[i][k]);
-            }
-        }
+//        System.out.println("Printing macro");
+//        for (int i = 0; i < 3; i++) {
+//            for (int k = 0; k < 3; k++) {
+//                System.out.println("" + macroBoard[i][k]);
+//            }
+//        }
     }
 
     /**

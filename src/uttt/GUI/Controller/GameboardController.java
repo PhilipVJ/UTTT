@@ -19,7 +19,6 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import static uttt.field.IField.AVAILABLE_FIELD;
 import uttt.game.GameManager;
 import uttt.game.GameState;
 import uttt.move.Move;
