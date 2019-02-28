@@ -191,7 +191,11 @@ public class GameManager
             }
         }
     }
-
+/**
+ * We don't use this method. Update microboard is connected to the macroboard and it all happens at once
+ * 
+ * @param move 
+ */
     private void updateMacroboard(IMove move)
     {
 
