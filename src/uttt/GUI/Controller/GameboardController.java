@@ -60,7 +60,10 @@ public class GameboardController implements Initializable {
     private Label lblDraw;
     @FXML
     private Label winnerIs;
-
+    @FXML
+    private Label lblPlayerTurn;
+    
+    
     private String[][] mBoard;
 
 
@@ -95,7 +98,7 @@ public class GameboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         startLight();
-        
+        playerTurn();
     }
 
     @FXML
@@ -128,6 +131,7 @@ public class GameboardController implements Initializable {
                 btn.setText("O");
                 currentPlayer = 1;
                 fixBigMarkings();
+                playerTurn();
 
                     
                 return;
@@ -141,6 +145,7 @@ public class GameboardController implements Initializable {
                 btn.setText("X");
                 currentPlayer = 0;
                 fixBigMarkings();
+                playerTurn();
 
                 return;
             }
@@ -149,6 +154,17 @@ public class GameboardController implements Initializable {
 
     }
 
+    public void playerTurn(){
+        if (currentPlayer == 0)
+        {
+            lblPlayerTurn.setText("Player O turn");
+        }
+        if (currentPlayer == 1)
+        {
+            lblPlayerTurn.setText("Player X turn");
+        }
+    }
+    
     public void setGameManager(int gMode, int playerToStart) {
         this.gMode = gMode;
         // Mangler kode i 2 og 3

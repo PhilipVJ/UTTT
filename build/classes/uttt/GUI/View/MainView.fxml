@@ -2,32 +2,47 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="602.0" prefWidth="741.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uttt.GUI.Controller.MainViewController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="864.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uttt.GUI.Controller.MainViewController">
    <children>
-      <Button fx:id="btnHvH" layoutX="110.0" layoutY="368.0" mnemonicParsing="false" onAction="#gameAgainstHuman" text="Human vs Human" AnchorPane.leftAnchor="110.0" />
-      <Button fx:id="btnHvB" layoutX="325.0" layoutY="368.0" mnemonicParsing="false" onAction="#gameAgainstBot" text="Human vs Bot" />
-      <Button fx:id="btnBvB" layoutX="557.0" layoutY="368.0" mnemonicParsing="false" onAction="#botVsBot" text="Bot vs Bot" AnchorPane.rightAnchor="114.0" />
-      <ImageView fitHeight="92.0" fitWidth="164.0" layoutX="288.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="864.0" fitWidth="800.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@mvr.png" />
+            <Image url="@../../../Picture/Numbers.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="127.0" fitWidth="127.0" layoutX="529.0" layoutY="193.0" pickOnBounds="true" preserveRatio="true">
+      <Button fx:id="btnHvH" layoutX="100.0" layoutY="383.0" mnemonicParsing="false" onAction="#gameAgainstHuman" text="Human vs Human" AnchorPane.leftAnchor="100.0">
+         <effect>
+            <DropShadow height="50.0" radius="24.5" width="50.0" />
+         </effect></Button>
+      <Button fx:id="btnHvB" layoutX="335.0" layoutY="383.0" mnemonicParsing="false" onAction="#gameAgainstBot" prefHeight="30.0" prefWidth="131.0" text="Human vs Bot">
+         <effect>
+            <DropShadow height="50.0" radius="24.5" width="50.0" />
+         </effect></Button>
+      <Button fx:id="btnBvB" layoutX="583.0" layoutY="383.0" mnemonicParsing="false" onAction="#botVsBot" prefHeight="30.0" prefWidth="131.0" text="Bot vs Bot" AnchorPane.rightAnchor="100.0">
+         <effect>
+            <DropShadow height="50.0" radius="24.5" width="50.0" />
+         </effect></Button>
+      <ImageView fitHeight="87.0" fitWidth="164.0" layoutX="323.0" layoutY="231.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@rvr.jpg" />
+            <Image url="@../../../Picture/mvr.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="107.0" fitWidth="164.0" layoutX="85.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="104.0" fitWidth="107.0" layoutX="583.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="113.0">
          <image>
-            <Image url="@hvh.png" />
+            <Image url="@../../../Picture/rvr.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="110.0" layoutY="63.0" text="Ultimate Tick Tack Toe" textAlignment="CENTER">
+      <ImageView fitHeight="92.0" fitWidth="131.0" layoutX="97.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="100.0">
+         <image>
+            <Image url="@../../../Picture/hvh.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="140.0" layoutY="52.0" text="Ultimate Tick Tack Toe" textAlignment="CENTER">
          <font>
             <Font name="Consolas" size="43.0" />
          </font>
