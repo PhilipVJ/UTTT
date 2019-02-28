@@ -100,17 +100,22 @@ public class GameboardController implements Initializable {
         Integer[] coordinates = makeCoordinates(btn);
         Move toDo = new Move(coordinates[0], coordinates[1]);
         if (gameOver == true) {
-            int winner = gManager.getWinnerIs();
-
-            
             return;
         }
 
         if (gManager.updateGame(toDo) == true) {
             setWinner();
             mBoard = gManager.getCurrentState().getField().getMacroboard();
+            if(!gameOver){
             clearLight();
             boardLight(gManager.getCurrentState().getField().getActiveMicroboard());
+            }
+            if(gameOver)
+            {
+                DropShadow h = new DropShadow();
+                h.setColor(Color.GREEN);
+                macroBoard.setEffect(h);
+            }
             if (currentPlayer == 0) {
                 InnerShadow bolle = new InnerShadow(25, Color.BLUE);
                 btn.setEffect(bolle);
@@ -119,6 +124,8 @@ public class GameboardController implements Initializable {
                 btn.setText("O");
                 currentPlayer = 1;
                 fixBigMarkings();
+
+                    
                 return;
             }
 
@@ -131,6 +138,7 @@ public class GameboardController implements Initializable {
 
                 currentPlayer = 0;
                 fixBigMarkings();
+
                 return;
             }
 
@@ -261,6 +269,7 @@ public class GameboardController implements Initializable {
                 numberOfOWins++;
                 lblOWins.setText("Player O wins:" + numberOfOWins);
                 gameOver = true;
+                
             }
             if (winner.equals("" + 1)) {
                 winnerIs.setText("Vinderen er spiller: X");

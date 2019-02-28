@@ -585,7 +585,7 @@ public class Field implements IField {
                     macroBoard[0][2] = player;
                     micro3Done = true;
                     numberOfLines++;
-                    System.out.println("BINGO");
+             
                 }
 
                 // microboard 4
@@ -663,12 +663,12 @@ public class Field implements IField {
      * Prints the macro board - used for testing
      */
     private void printBoard() {
-        System.out.println("PRINT MICRO");
-        for (int i = 0; i < 9; i++) {
-            for (int k = 0; k < 9; k++) {
-                System.out.println("" + board[i][k]);
-            }
-        }
+//        System.out.println("PRINT MICRO");
+//        for (int i = 0; i < 9; i++) {
+//            for (int k = 0; k < 9; k++) {
+//                System.out.println("" + board[i][k]);
+//            }
+//        }
 //        System.out.println("Printing macro");
 //        for (int i = 0; i < 3; i++) {
 //            for (int k = 0; k < 3; k++) {
