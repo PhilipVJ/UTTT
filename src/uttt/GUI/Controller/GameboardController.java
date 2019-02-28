@@ -396,13 +396,13 @@ public class GameboardController implements Initializable
             if (winner.equals("" + 0))
             {
                 winnerIs.setText("Vinderen er spiller: O");
-                lblOWins.setText("O wins:" +1);
+                lblOWins.setText("Player O wins:" +1);
                 gameOver=true;
             }
             if (winner.equals("" + 1))
             {
                 winnerIs.setText("Vinderen er spiller: X");
-                lblXWins.setText("X wins:" +1);
+                lblXWins.setText("Player X wins:" +1);
                 gameOver=true;
             }
 
@@ -410,7 +410,7 @@ public class GameboardController implements Initializable
         if (winner.equals("" + 2))
         {
             winnerIs.setText("Uafgjort");
-            lblDraw.setText("Uafgjort:" +1);
+            lblDraw.setText("Draw:" +1);
             gameOver=true;
         }
     }
