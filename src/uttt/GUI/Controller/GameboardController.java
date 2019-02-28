@@ -309,7 +309,7 @@ public class GameboardController implements Initializable {
     private void startLight() {
 
         DropShadow grid = new DropShadow();
-        grid.setColor(Color.BLUE);
+        grid.setColor(Color.BLACK);
         macroBoard.setEffect(grid);
     }
 
