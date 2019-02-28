@@ -14,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import uttt.game.GameManager;
@@ -38,30 +39,26 @@ public class GameboardController implements Initializable
     private GridPane gridPane3;
     @FXML
     private GridPane gridPane4;
-
     @FXML
     private GridPane gridPane5;
-
     @FXML
     private GridPane gridPane6;
-
     @FXML
     private GridPane gridPane7;
     @FXML
     private GridPane gridPane8;
     @FXML
     private GridPane gridPane9;
-
+    @FXML
+    private Button btnClear;
+    @FXML
+    private Label winnerIs;
+    
     private GameManager gManager;
 
     private int currentPlayer = 0;
-    @FXML
-    private Button btnClear;
-
-    @FXML
-    private Label winnerIs;
     private int gMode;
-    
+     
     private boolean gameOver=false;
 
     /**
@@ -91,16 +88,23 @@ public class GameboardController implements Initializable
             boardLight(gManager.getCurrentState().getField().getActiveMicroboard());
             if (currentPlayer == 0)
             {
-
-                btn.setText("0");
+                InnerShadow bolle = new InnerShadow(25, Color.BLUE);
+                btn.setEffect(bolle);
+                btn.setStyle("-fx-font-size: 34px;");
+                
+                btn.setText("O");
                 currentPlayer = 1;
                 return;
             }
 
             if (currentPlayer == 1)
             {
-
+                InnerShadow kryds = new InnerShadow(20, Color.RED);
+                btn.setEffect(kryds);
+                btn.setStyle("-fx-font-size: 34px;");
+                
                 btn.setText("X");
+                
                 currentPlayer = 0;
                 return;
             }
@@ -167,7 +171,7 @@ public class GameboardController implements Initializable
          hvert sit grid "nummer" */
        
         DropShadow grid = new DropShadow();
-        grid.setColor(Color.BLUE);
+        grid.setColor(Color.BLACK);
         switch (activeMicroboard)
         {
 
@@ -276,7 +280,7 @@ public class GameboardController implements Initializable
             {
                 Button btn = (Button) k;
                 btn.setText("");
-
+                btn.setEffect(null);
             }
 
         }
