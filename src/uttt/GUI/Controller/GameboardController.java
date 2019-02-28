@@ -6,6 +6,7 @@
 package uttt.GUI.Controller;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import static uttt.field.IField.AVAILABLE_FIELD;
 import uttt.game.GameManager;
 import uttt.game.GameState;
 import uttt.move.Move;
@@ -57,6 +59,10 @@ public class GameboardController implements Initializable
     private int currentPlayer = 0;
     @FXML
     private Button btnClear;
+    
+    private String[][] mBoard;
+    
+    
 
     @FXML
     private Label winnerIs;
@@ -70,7 +76,7 @@ public class GameboardController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        boardLight(10);
+        startLight();
     }
 
     @FXML
@@ -87,6 +93,7 @@ public class GameboardController implements Initializable
         if (gManager.updateGame(toDo) == true)
         {
             setWinner();
+            mBoard=gManager.getCurrentState().getField().getMacroboard();
             clearLight();
             boardLight(gManager.getCurrentState().getField().getActiveMicroboard());
             if (currentPlayer == 0)
@@ -209,7 +216,7 @@ public class GameboardController implements Initializable
                 break;
             case 10:
 
-                macroBoard.setEffect(grid);
+                setBigLight(grid);
                 break;
         }
     }
@@ -280,6 +287,39 @@ public class GameboardController implements Initializable
             }
 
         }
+    }
+
+    private void setBigLight(DropShadow grid) {
+        System.out.println("SETTING UP BIG LIGHT");
+        ArrayList<Integer> availableGrids = new ArrayList<>();
+        String playerX = ""+1;
+        String playerO = ""+0;
+        String draw = ".";
+        Integer boardNumber =0;
+        for (int i = 0; i < 3; i++) {
+            for (int k = 0; k < 3; k++) {
+                boardNumber++;
+                String mMarking = mBoard[i][k];
+                if(!mMarking.equals(playerX) && !mMarking.equals(playerO) && !mMarking.equals(draw) )
+                {
+                    availableGrids.add(boardNumber);
+                }
+            }
+        }
+        for(Integer x:availableGrids){
+        boardLight(x);
+System.out.println("LIGHTING UP");
+        }
+        System.out.println(""+availableGrids.size());
+        
+        
+    }
+
+    private void startLight() {
+       
+        DropShadow grid = new DropShadow();
+        grid.setColor(Color.BLUE);
+       macroBoard.setEffect(grid);
     }
     
 
