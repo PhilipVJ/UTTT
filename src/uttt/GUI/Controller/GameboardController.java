@@ -125,6 +125,7 @@ public class GameboardController implements Initializable {
         switch (gMode) {
             case 1:
                 gManager = new GameManager(new GameState());
+                System.out.println("New gManager");
                 break;
 //            case 2:
 //                gManager = new GameManager(new GameState(), bot);
@@ -161,10 +162,12 @@ public class GameboardController implements Initializable {
     @FXML
     private void clearTheBoard(ActionEvent event) {
         clearLight();
-        boardLight(10);
+        startLight();
         clearButtons();
         setGameManager(gMode);
+        gameOver=false;
         winnerIs.setText("");
+        
     }
 
     public void boardLight(int activeMicroboard) {
