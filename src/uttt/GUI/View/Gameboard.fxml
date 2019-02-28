@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="864.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uttt.GUI.Controller.GameboardController">
+<AnchorPane id="AnchorPane" prefHeight="864.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uttt.GUI.Controller.GameboardController">
    <children>
       <GridPane fx:id="macroBoard" hgap="5.0" layoutX="48.0" layoutY="61.0" prefHeight="700.0" prefWidth="700.0" vgap="5.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="60.0">
         <columnConstraints>
@@ -233,6 +233,10 @@
          </children>
       </GridPane>
       <Button fx:id="btnClear" layoutX="708.0" layoutY="756.0" mnemonicParsing="false" onAction="#clearTheBoard" text="Clear Board" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="30.0" />
-      <Label fx:id="winnerIs" layoutX="304.0" layoutY="27.0" prefHeight="21.0" prefWidth="223.0" />
+      <Label fx:id="winnerIs" layoutX="289.0" layoutY="28.0" prefHeight="21.0" prefWidth="223.0" />
+      <Label layoutX="60.0" layoutY="11.0" text="Score:" />
+      <Label fx:id="lblXWins" layoutX="99.0" layoutY="11.0" prefHeight="17.0" prefWidth="98.0" text="Player X wins:" textFill="#3b2ef8" />
+      <Label fx:id="lblOWins" layoutX="197.0" layoutY="11.0" prefHeight="17.0" prefWidth="98.0" text="Player O wins:" textFill="#ff2f2f" />
+      <Label fx:id="lblDraw" layoutX="306.0" layoutY="11.0" prefHeight="17.0" prefWidth="55.0" text="Draws:" />
    </children>
 </AnchorPane>
