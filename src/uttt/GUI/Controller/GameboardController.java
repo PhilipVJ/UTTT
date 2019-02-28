@@ -52,11 +52,17 @@ public class GameboardController implements Initializable {
     private GridPane gridPane9;
     @FXML
     private Button btnClear;
+    @FXML
+    private Label lblXWins;
+    @FXML
+    private Label lblOWins;
+    @FXML
+    private Label lblDraw;
+    @FXML
+    private Label winnerIs;
 
     private String[][] mBoard;
 
-    @FXML
-    private Label winnerIs;
 
     private GameManager gManager;
 
@@ -65,12 +71,6 @@ public class GameboardController implements Initializable {
 
     private boolean gameOver = false;
 
-    @FXML
-    private Label lblXWins;
-    @FXML
-    private Label lblOWins;
-    @FXML
-    private Label lblDraw;
     private boolean grid1isDone = false;
     private boolean grid9isDone = false;
     private boolean grid8isDone = false;
@@ -91,7 +91,6 @@ public class GameboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         startLight();
-
     }
 
     @FXML
@@ -135,7 +134,6 @@ public class GameboardController implements Initializable {
                 btn.setStyle("-fx-font-size: 34px;");
 
                 btn.setText("X");
-
                 currentPlayer = 0;
                 fixBigMarkings();
 
