@@ -197,7 +197,7 @@ public class GameboardController implements Initializable {
         System.out.println("Current player"+currentPlayer);
         setGameManager(gMode,currentPlayer);
         gameOver = false;
-        winnerIs.setText("");
+        winnerIs.setVisible(false);
 
         grid1isDone = false;
         grid9isDone = false;
@@ -269,6 +269,7 @@ public class GameboardController implements Initializable {
 
         if (winner.equals("" + 0) || winner.equals("" + 1)) {
             if (winner.equals("" + 0)) {
+                winnerIs.setVisible(true);
                 winnerIs.setText("Vinderen er spiller: O");
                 numberOfOWins++;
                 lblOWins.setText(""+numberOfOWins);
@@ -276,6 +277,7 @@ public class GameboardController implements Initializable {
                 
             }
             if (winner.equals("" + 1)) {
+                winnerIs.setVisible(true);
                 winnerIs.setText("Vinderen er spiller: X");
                 numberOfXWins++;
                 lblXWins.setText("" + numberOfXWins);
@@ -283,6 +285,7 @@ public class GameboardController implements Initializable {
 
             }
             if (winner.equals("" + 2)) {
+                winnerIs.setVisible(true);
                 winnerIs.setText("Uafgjort");
                 numberOfDraws++;
                 lblDraw.setText("" + numberOfDraws);
