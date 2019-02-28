@@ -235,8 +235,8 @@
       <Button fx:id="btnClear" layoutX="708.0" layoutY="756.0" mnemonicParsing="false" onAction="#clearTheBoard" text="Clear Board" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="30.0" />
       <Label fx:id="winnerIs" layoutX="289.0" layoutY="28.0" prefHeight="21.0" prefWidth="223.0" />
       <Label layoutX="60.0" layoutY="11.0" text="Score:" />
-      <Label fx:id="lblXWins" layoutX="99.0" layoutY="11.0" prefHeight="17.0" prefWidth="98.0" text="Player X wins:" textFill="#3b2ef8" />
-      <Label fx:id="lblOWins" layoutX="197.0" layoutY="11.0" prefHeight="17.0" prefWidth="98.0" text="Player O wins:" textFill="#ff2f2f" />
+      <Label fx:id="lblXWins" layoutX="99.0" layoutY="11.0" prefHeight="17.0" prefWidth="98.0" text="Player X wins:" textFill="#f52e50" />
+      <Label fx:id="lblOWins" layoutX="197.0" layoutY="11.0" prefHeight="17.0" prefWidth="98.0" text="Player O wins:" textFill="#3230ff" />
       <Label fx:id="lblDraw" layoutX="306.0" layoutY="11.0" prefHeight="17.0" prefWidth="55.0" text="Draws:" />
    </children>
 </AnchorPane>
