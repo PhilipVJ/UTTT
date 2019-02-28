@@ -60,17 +60,17 @@ public class GameboardController implements Initializable {
     private Label lblDraw;
     @FXML
     private Label winnerIs;
-    
+
     private String[][] mBoard;
 
-    
+
     private GameManager gManager;
-  
+
     private int currentPlayer = 0;
     private int gMode;
 
     private boolean gameOver = false;
- 
+
     private boolean grid1isDone = false;
     private boolean grid9isDone = false;
     private boolean grid8isDone = false;
