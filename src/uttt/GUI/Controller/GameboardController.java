@@ -94,7 +94,7 @@ public class GameboardController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         startLight();
         hScore = new HighScore();
-        setScore();
+        getScores();
     }
 
     @FXML
@@ -103,6 +103,9 @@ public class GameboardController implements Initializable {
         Integer[] coordinates = makeCoordinates(btn);
         Move toDo = new Move(coordinates[0], coordinates[1]);
         if (gameOver == true) {
+            int winner = gManager.getWinnerIs();
+            hScore.incrementScore(winner);
+            getScores();
             return;
         }
 
@@ -277,14 +280,10 @@ public class GameboardController implements Initializable {
 
             }
 
-        
-    
-}
-}
-    
-    
+        }
+    }
 
-    private void setScore() {
+    private void getScores(){
 
         lblOWins.setText(String.valueOf(hScore.getScoreOne()));
         lblXWins.setText(String.valueOf(hScore.getScoreTwo()));
