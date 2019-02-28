@@ -59,10 +59,11 @@ public class GameboardController implements Initializable {
     private Label winnerIs;
 
     private GameManager gManager;
+    private HighScore hScore;
 
     private int currentPlayer = 0;
     private int gMode;
-
+    
     private boolean gameOver = false;
     
     @FXML
@@ -78,6 +79,8 @@ public class GameboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         startLight();
+        hScore = new HighScore();
+        setScore();
     }
 
     @FXML
@@ -221,31 +224,39 @@ public class GameboardController implements Initializable {
     private void setWinner() {
 
         String winner = "" + gManager.getWinnerIs();
-
+     
         if (winner.equals("" + 0) || winner.equals("" + 1))
         {
             if (winner.equals("" + 0))
             {
                 winnerIs.setText("Vinderen er spiller: O");
-                lblOWins.setText("Player O wins:" +1);
+                
                 gameOver=true;
             }
             if (winner.equals("" + 1))
             {
                 winnerIs.setText("Vinderen er spiller: X");
-                lblXWins.setText("Player X wins:" +1);
+                
                 gameOver=true;
             }
-
         }
         if (winner.equals("" + 2))
         {
             winnerIs.setText("Uafgjort");
-            lblDraw.setText("Draw:" +1);
+            
             gameOver=true;
         }
+     
     }
-
+    
+    private void setScore(){
+        
+        lblOWins.setText(String.valueOf(hScore.getScoreOne()));
+        lblXWins.setText(String.valueOf(hScore.getScoreTwo()));
+        lblDraw.setText(String.valueOf(hScore.getScoreDraw()));
+    
+    }
+    
     private void clearLight() {
 
         DropShadow grid = new DropShadow();
@@ -279,6 +290,7 @@ public class GameboardController implements Initializable {
                 Button btn = (Button) k;
                 btn.setText("");
                 btn.setEffect(null);
+                gameOver=false;
             }
 
         }
