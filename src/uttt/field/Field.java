@@ -121,8 +121,6 @@ public class Field implements IField
     @Override
     public Boolean isInActiveMicroboard(int x, int y)
     {
-        
-        System.out.println("Active microboard CURRENT at beginning"+activeMicroboard);
         prevActiveMicroBoard = activeMicroboard;
         if (activeMicroboard == 10 && board[x][y] == AVAILABLE_FIELD)
         {
@@ -131,13 +129,11 @@ public class Field implements IField
             {
                 activeMicroboard = 10;
             }
-            System.out.println("THIS");
             return true;
         }
 
         if (activeMicroboard != 10)
         {
-            System.out.println("THAT");
             String[] curBoard = microBoards.get(activeMicroboard - 1);
             String coordinate = "" + x + "." + y;
 
@@ -152,27 +148,22 @@ public class Field implements IField
                     indexOfCoordinateInMicroBoard = i;
                 }
             }
-            System.out.println("isInBoard boolean: "+isInBoard);
             if (isInBoard == true && board[x][y] == AVAILABLE_FIELD)
             {
-                System.out.println("Going here");
                 activeMicroboard = indexOfCoordinateInMicroBoard + 1;
 
                 if (checkForFullMicroBoard() == true)
                 {
-                    System.out.println("Test 1");
                     arrivedAtFullMicroBoard();
                 }
                 if (checkForAlreadyWonMicroBoard() == true)
                 {
-                    System.out.println("Test2");
                     activeMicroboard = 10;
                 }
                 return true;
 
             }
         }
-        System.out.println("RETURNING FALSE");
         return false;
     }
 
@@ -216,15 +207,11 @@ public class Field implements IField
         if(numberOfLines>prevLines && activeMicroboard==prevActiveMicroBoard)
         {
             activeMicroboard=10;
-            System.out.println("FIXING");
             makeAllEmptyFieldsToMinusOne(newBoard);
         }
-        
         prevLines = numberOfLines;
         this.board = newBoard;
-     
         printBoard();
-        System.out.println("ACTIVE BOARD END:"+activeMicroboard);
 
     }
 
