@@ -83,6 +83,10 @@ public class GameboardController implements Initializable {
     private boolean grid3isDone = false;
     private boolean grid2isDone = false;
 
+    private int numberOfXWins = 0;
+    private int numberOfOWins = 0;
+    private int numberOfDraws = 0;
+
     /**
      * Initializes the controller class.
      */
@@ -192,7 +196,7 @@ public class GameboardController implements Initializable {
         grid4isDone = false;
         grid3isDone = false;
         grid2isDone = false;
-        currentPlayer=0;
+        currentPlayer = 0;
 
     }
 
@@ -254,35 +258,29 @@ public class GameboardController implements Initializable {
         if (winner.equals("" + 0) || winner.equals("" + 1)) {
             if (winner.equals("" + 0)) {
                 winnerIs.setText("Vinderen er spiller: O");
-                lblOWins.setText("Player O wins:" + 1);
+                numberOfOWins++;
+                lblOWins.setText("Player O wins:" + numberOfOWins);
+                gameOver = true;
+            }
+            if (winner.equals("" + 1)) {
+                winnerIs.setText("Vinderen er spiller: X");
+                numberOfXWins++;
+                lblXWins.setText("Player X wins:" + numberOfXWins);
                 gameOver = true;
 
-                if (winner.equals("" + 0) || winner.equals("" + 1)) {
-                    if (winner.equals("" + 0)) {
-                        winnerIs.setText("Vinderen er spiller: O");
-
-                        gameOver = true;
-
-                    }
-                    if (winner.equals("" + 1)) {
-                        winnerIs.setText("Vinderen er spiller: X");
-
-                        lblXWins.setText("Player X wins:" + 1);
-                        gameOver = true;
-
-                    }
-                    if (winner.equals("" + 2)) {
-                        winnerIs.setText("Uafgjort");
-
-                        lblDraw.setText("Draw:" + 1);
-                        gameOver = true;
-
-                    }
-
-                }
             }
-        }
-    }
+            if (winner.equals("" + 2)) {
+                winnerIs.setText("Uafgjort");
+                numberOfDraws++;
+                lblDraw.setText("Draw:" + numberOfDraws);
+                gameOver = true;
+
+            }
+
+        
+    
+}
+}
     
     
 
