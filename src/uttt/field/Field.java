@@ -378,7 +378,13 @@ public class Field implements IField
         return false;
 
     }
-
+/**
+ * Checks for a win in all microboards. If it is found - the macroboard will update as well. Each method returns a total number of three-in-a-rows.
+ * This is used later to determine if a line is made - and the last placed X or O makes you stay in the current active microboard.
+ * 
+ * @param newBoard
+ * @return 
+ */
     private int checkForWinInMicro(String[][] newBoard)
     {
        int lines1= checkForHorizontalWin(newBoard);
