@@ -8,6 +8,7 @@ package uttt.GUI.Controller;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -64,13 +65,22 @@ public class GameboardController implements Initializable {
     private int gMode;
 
     private boolean gameOver = false;
-    
+
     @FXML
     private Label lblXWins;
     @FXML
     private Label lblOWins;
     @FXML
     private Label lblDraw;
+    private boolean grid1isDone = false;
+    private boolean grid9isDone = false;
+    private boolean grid8isDone = false;
+    private boolean grid7isDone = false;
+    private boolean grid6isDone = false;
+    private boolean grid5isDone = false;
+    private boolean grid4isDone = false;
+    private boolean grid3isDone = false;
+    private boolean grid2isDone = false;
 
     /**
      * Initializes the controller class.
@@ -101,6 +111,7 @@ public class GameboardController implements Initializable {
 
                 btn.setText("O");
                 currentPlayer = 1;
+                fixBigMarkings();
                 return;
             }
 
@@ -112,6 +123,7 @@ public class GameboardController implements Initializable {
                 btn.setText("X");
 
                 currentPlayer = 0;
+                fixBigMarkings();
                 return;
             }
 
@@ -165,9 +177,19 @@ public class GameboardController implements Initializable {
         startLight();
         clearButtons();
         setGameManager(gMode);
-        gameOver=false;
+        gameOver = false;
         winnerIs.setText("");
-        
+
+        grid1isDone = false;
+        grid9isDone = false;
+        grid8isDone = false;
+        grid7isDone = false;
+        grid6isDone = false;
+        grid5isDone = false;
+        grid4isDone = false;
+        grid3isDone = false;
+        grid2isDone = false;
+
     }
 
     public void boardLight(int activeMicroboard) {
@@ -225,27 +247,23 @@ public class GameboardController implements Initializable {
 
         String winner = "" + gManager.getWinnerIs();
 
-        if (winner.equals("" + 0) || winner.equals("" + 1))
-        {
-            if (winner.equals("" + 0))
-            {
+        if (winner.equals("" + 0) || winner.equals("" + 1)) {
+            if (winner.equals("" + 0)) {
                 winnerIs.setText("Vinderen er spiller: O");
-                lblOWins.setText("Player O wins:" +1);
-                gameOver=true;
+                lblOWins.setText("Player O wins:" + 1);
+                gameOver = true;
             }
-            if (winner.equals("" + 1))
-            {
+            if (winner.equals("" + 1)) {
                 winnerIs.setText("Vinderen er spiller: X");
-                lblXWins.setText("Player X wins:" +1);
-                gameOver=true;
+                lblXWins.setText("Player X wins:" + 1);
+                gameOver = true;
             }
 
         }
-        if (winner.equals("" + 2))
-        {
+        if (winner.equals("" + 2)) {
             winnerIs.setText("Uafgjort");
-            lblDraw.setText("Draw:" +1);
-            gameOver=true;
+            lblDraw.setText("Draw:" + 1);
+            gameOver = true;
         }
     }
 
@@ -276,6 +294,9 @@ public class GameboardController implements Initializable {
     }
 
     private void clearButtons() {
+        removeAllBigWinButtons();
+        System.out.println("STOERRELSE " + macroBoard.getChildren().size());
+
         for (Node n : macroBoard.getChildren()) {
             GridPane pane = (GridPane) n;
             for (Node k : pane.getChildren()) {
@@ -288,7 +309,7 @@ public class GameboardController implements Initializable {
     }
 
     private void setBigLight(DropShadow grid) {
-        System.out.println("SETTING UP BIG LIGHT");
+
         ArrayList<Integer> availableGrids = new ArrayList<>();
         String playerX = "" + 1;
         String playerO = "" + 0;
@@ -316,4 +337,225 @@ public class GameboardController implements Initializable {
         macroBoard.setEffect(grid);
     }
 
+    public void fixBigMarkings() {
+
+        int boardNumber = 0;
+        String playerX = "" + 1;
+        String playerO = "" + 0;
+        String draw = ".";
+
+        for (int i = 0; i < 3; i++) {
+            for (int k = 0; k < 3; k++) {
+                boardNumber++;
+                String mMarking = mBoard[i][k];
+
+                if (mMarking.equals(playerX)) {
+                    fixBigGrids(boardNumber, playerX);
+                }
+                if (mMarking.equals(playerO)) {
+                    fixBigGrids(boardNumber, playerO);
+                }
+                if (mMarking.equals(draw)) {
+                    fixBigGrids(boardNumber, draw);
+                }
+            }
+        }
+
+    }
+
+    public void fixBigGrids(int grid, String player) {
+        Button newB = new Button();
+        newB.setStyle("-fx-font-size: 34px;");
+        newB.setPrefSize(224, 245);
+
+        switch (grid) {
+
+            case 1:
+                if (!grid1isDone) {
+                    if (player.equals("" + 1)) {
+                        makeBigXButton(newB);
+                    }
+                    if (player.equals("" + 0)) {
+                        makeBigOButton(newB);
+                    }
+                    if (player.equals(".")) {
+                        makeBigDrawButton(newB);
+                    }
+                    grid1isDone = true;
+                    macroBoard.add(newB, 0, 0);
+                    System.out.println("GRID 1");
+                }
+                break;
+
+            case 2:
+                if (!grid2isDone) {
+                    if (player.equals("" + 1)) {
+                        makeBigXButton(newB);
+                    }
+                    if (player.equals("" + 0)) {
+                        makeBigOButton(newB);
+                    }
+                    if (player.equals(".")) {
+                        makeBigDrawButton(newB);
+                    }
+                    grid2isDone = true;
+                    macroBoard.add(newB, 1, 0);
+                    System.out.println("GRID 2");
+                }
+                break;
+            case 3:
+                if (!grid3isDone) {
+                    if (player.equals("" + 1)) {
+                        makeBigXButton(newB);
+                    }
+                    if (player.equals("" + 0)) {
+                        makeBigOButton(newB);
+                    }
+                    if (player.equals(".")) {
+                        makeBigDrawButton(newB);
+                    }
+                    grid3isDone = true;
+                    macroBoard.add(newB, 2, 0);
+                }
+                break;
+            case 4:
+                if (!grid4isDone) {
+                    if (player.equals("" + 1)) {
+                        makeBigXButton(newB);
+                    }
+                    if (player.equals("" + 0)) {
+                        makeBigOButton(newB);
+                    }
+                    if (player.equals(".")) {
+                        makeBigDrawButton(newB);
+                    }
+                    grid4isDone = true;
+                    macroBoard.add(newB, 0, 1);
+                }
+                break;
+            case 5:
+                if (!grid5isDone) {
+                    if (player.equals("" + 1)) {
+                        makeBigXButton(newB);
+
+                    }
+                    if (player.equals("" + 0)) {
+                        makeBigOButton(newB);
+                    }
+                    if (player.equals(".")) {
+                        makeBigDrawButton(newB);
+                    }
+                    grid5isDone = true;
+                    macroBoard.add(newB, 1, 1);
+                }
+                break;
+
+            case 6:
+                if (!grid6isDone) {
+                    if (player.equals("" + 1)) {
+                        makeBigXButton(newB);
+
+                    }
+                    if (player.equals("" + 0)) {
+                        makeBigOButton(newB);
+                    }
+                    if (player.equals(".")) {
+                        makeBigDrawButton(newB);
+                    }
+                    grid6isDone = true;
+                    macroBoard.add(newB, 2, 1);
+                }
+                break;
+            case 7:
+                if (!grid7isDone) {
+                    if (player.equals("" + 1)) {
+                        makeBigXButton(newB);
+                    }
+                    if (player.equals("" + 0)) {
+                        makeBigOButton(newB);
+                    }
+                    if (player.equals(".")) {
+                        makeBigDrawButton(newB);
+                    }
+                    grid7isDone = true;
+                    macroBoard.add(newB, 0, 2);
+                }
+                break;
+            case 8:
+                if (!grid8isDone) {
+                    if (player.equals("" + 1)) {
+                        makeBigXButton(newB);
+                    }
+                    if (player.equals("" + 0)) {
+                        makeBigOButton(newB);
+                    }
+                    if (player.equals(".")) {
+                        makeBigDrawButton(newB);
+                    }
+                    grid8isDone = true;
+                    macroBoard.add(newB, 1, 2);
+                }
+                break;
+            case 9:
+                if (!grid9isDone) {
+                    if (player.equals("" + 1)) {
+                        makeBigXButton(newB);
+                    }
+                    if (player.equals("" + 0)) {
+                        makeBigOButton(newB);
+                    }
+                    if (player.equals(".")) {
+                        makeBigDrawButton(newB);
+                    }
+                    grid9isDone = true;
+                    macroBoard.add(newB, 2, 2);
+                }
+                break;
+
+        }
+    }
+
+    private void makeBigOButton(Button newB) {
+        newB.setText("O");
+        InnerShadow bolle = new InnerShadow(25, Color.BLUE);
+        newB.setEffect(bolle);
+        newB.setStyle("-fx-font-size: 34px;");
+    }
+
+    private void makeBigDrawButton(Button newB) {
+        newB.setText("DRAW");
+        InnerShadow draw = new InnerShadow(25, Color.YELLOW);
+        newB.setEffect(draw);
+        newB.setStyle("-fx-font-size: 34px;");
+    }
+
+    private void makeBigXButton(Button newB) {
+        newB.setText("X");
+        InnerShadow kryds = new InnerShadow(20, Color.RED);
+        newB.setEffect(kryds);
+        newB.setStyle("-fx-font-size: 34px;");
+    }
+
+    private void removeAllBigWinButtons() {
+        ObservableList<Node> allnodes = macroBoard.getChildren();
+
+        ArrayList<Node> toDelList = new ArrayList<>();
+
+        for (Node x : allnodes) {
+
+            if (x instanceof Button) {
+                toDelList.add(x);
+            }
+
+        }
+
+        int sizeOfList = toDelList.size();
+        System.out.println("HERE: " + sizeOfList);
+
+        for (int i = sizeOfList - 1; i > -1; i--) {
+
+            macroBoard.getChildren().remove(toDelList.get(i));
+        }
+
+    }
 }
