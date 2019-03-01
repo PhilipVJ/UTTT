@@ -180,7 +180,6 @@ public class GameboardController implements Initializable {
         switch (gMode) {
             case 1:
                 gManager = new GameManager(new GameState(), playerToStart);
-                System.out.println("New gManager");
                 break;
 //            case 2:
 //                gManager = new GameManager(new GameState(), bot);
@@ -302,9 +301,7 @@ public class GameboardController implements Initializable {
     private void setWinner() {
 
         String winner = "" + gManager.getWinnerIs();
-        System.out.println("WINNER IS"+winner);
-
-       
+     
             if (winner.equals("" + 0)) {
                 winnerIs.setVisible(true);
                 winnerIs.setText("Vinderen er spiller: O");
@@ -323,7 +320,6 @@ public class GameboardController implements Initializable {
             }
             if (winner.equals("" + 2)) {
                 winnerIs.setVisible(true);
-                System.out.println("CATCHING DRAW");
                 winnerIs.setText("Uafgjort");
                 numberOfDraws++;
                 lblDraw.setText("" + numberOfDraws);
@@ -616,7 +612,6 @@ public class GameboardController implements Initializable {
         }
 
         int sizeOfList = toDelList.size();
-        System.out.println("HERE: " + sizeOfList);
 
         for (int i = sizeOfList - 1; i > -1; i--) {
 

@@ -100,7 +100,7 @@ public class GameManager
         //Update the currentState
         updateBoard(move);
         updateMacroboard(move);
-        System.out.println("ACTIVE MB "+getCurrentState().getField().getActiveMicroboard());
+
    
         
         if (checkForWin() == true)

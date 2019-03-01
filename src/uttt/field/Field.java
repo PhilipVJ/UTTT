@@ -5,7 +5,6 @@
  */
 package uttt.field;
 
-
 import java.time.Clock;
 import java.util.ArrayList;
 import java.util.List;
@@ -123,17 +122,21 @@ public class Field implements IField {
             for (int i = 0; i < 9; i++) {
                 if (curBoard[i].equals(coordinate)) {
                     isInBoard = true;
+                   
                     indexOfCoordinateInMicroBoard = i;
                 }
             }
             if (isInBoard == true && board[x][y] == AVAILABLE_FIELD) {
                 activeMicroboard = indexOfCoordinateInMicroBoard + 1;
+                
 
                 if (checkForFullMicroBoard() == true) {
                     arrivedAtFullMicroBoard();
+                    
                 }
                 if (checkForAlreadyWonMicroBoard() == true) {
                     activeMicroboard = 10;
+                    
                 }
                 return true;
 
@@ -168,17 +171,29 @@ public class Field implements IField {
         }
 
         if (activeMicroboard != 10) {
+
             makePlayableFieldsToMinusOne(newBoard);
         }
         int numberOfLines = checkForWinInMicro(newBoard);
+
+        // Makes sure that if you ends up in same microboard after a LINE it will set to microboard 10
         if (numberOfLines > prevLines && activeMicroboard == prevActiveMicroBoard) {
             activeMicroboard = 10;
+
             makeAllEmptyFieldsToMinusOne(newBoard);
         }
+
+        if (numberOfLines == 1 && prevLines == 1 && prevActiveMicroBoard == activeMicroboard) {
+            activeMicroboard = 10;
+
+            makeAllEmptyFieldsToMinusOne(newBoard);
+        }
+
         prevLines = numberOfLines;
+      
         this.board = newBoard;
 
-        printBoard();
+      
 
     }
 
@@ -393,7 +408,7 @@ public class Field implements IField {
                 macroBoard[0][2] = player;
                 micro3Done = true;
                 numberOfLines++;
-                
+
             }
             // microboard 4
             if (board[3][0].equals(player) && board[4][1].equals(player) && board[5][2].equals(player) && !micro4Done) {
@@ -585,7 +600,7 @@ public class Field implements IField {
                     macroBoard[0][2] = player;
                     micro3Done = true;
                     numberOfLines++;
-             
+
                 }
 
                 // microboard 4
@@ -663,18 +678,13 @@ public class Field implements IField {
      * Prints the macro board - used for testing
      */
     private void printBoard() {
-//        System.out.println("PRINT MICRO");
-//        for (int i = 0; i < 9; i++) {
-//            for (int k = 0; k < 9; k++) {
-//                System.out.println("" + board[i][k]);
-//            }
-//        }
-//        System.out.println("Printing macro");
-//        for (int i = 0; i < 3; i++) {
-//            for (int k = 0; k < 3; k++) {
-//                System.out.println("" + macroBoard[i][k]);
-//            }
-//        }
+        System.out.println("PRINT MICRO");
+        for (int i = 0; i < 9; i++) {
+            for (int k = 0; k < 9; k++) {
+                System.out.println("" + board[i][k]);
+            }
+        }
+
     }
 
     /**
@@ -791,34 +801,31 @@ public class Field implements IField {
                     case 0:
                         macroBoard[0][0] = ".";
                         break;
-                        case 1:
+                    case 1:
                         macroBoard[0][1] = ".";
                         break;
-                        case 2:
+                    case 2:
                         macroBoard[0][2] = ".";
                         break;
-                        case 3:
+                    case 3:
                         macroBoard[1][0] = ".";
                         break;
-                        case 4:
+                    case 4:
                         macroBoard[1][1] = ".";
                         break;
-                        case 5:
+                    case 5:
                         macroBoard[1][2] = ".";
                         break;
-                        case 6:
+                    case 6:
                         macroBoard[2][0] = ".";
                         break;
-                        case 7:
+                    case 7:
                         macroBoard[2][1] = ".";
                         break;
-                        case 8:
+                    case 8:
                         macroBoard[2][2] = ".";
                         break;
 
-                        
-
-                        
                 }
 
             }
