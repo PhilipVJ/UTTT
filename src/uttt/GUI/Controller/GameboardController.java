@@ -219,7 +219,6 @@ public class GameboardController implements Initializable {
         clearLight();
         startLight();
         clearButtons();
-        System.out.println("Current player"+currentPlayer);
         setGameManager(gMode,currentPlayer);
         gameOver = false;
         winnerIs.setVisible(false);
@@ -303,8 +302,9 @@ public class GameboardController implements Initializable {
     private void setWinner() {
 
         String winner = "" + gManager.getWinnerIs();
+        System.out.println("WINNER IS"+winner);
 
-        if (winner.equals("" + 0) || winner.equals("" + 1)) {
+       
             if (winner.equals("" + 0)) {
                 winnerIs.setVisible(true);
                 winnerIs.setText("Vinderen er spiller: O");
@@ -323,6 +323,7 @@ public class GameboardController implements Initializable {
             }
             if (winner.equals("" + 2)) {
                 winnerIs.setVisible(true);
+                System.out.println("CATCHING DRAW");
                 winnerIs.setText("Uafgjort");
                 numberOfDraws++;
                 lblDraw.setText("" + numberOfDraws);
@@ -330,7 +331,7 @@ public class GameboardController implements Initializable {
 
             }
 
-        }
+        
     }
 
     private void clearLight() {
@@ -361,7 +362,6 @@ public class GameboardController implements Initializable {
 
     private void clearButtons() {
         removeAllBigWinButtons();
-        System.out.println("STOERRELSE " + macroBoard.getChildren().size());
 
         for (Node n : macroBoard.getChildren()) {
             GridPane pane = (GridPane) n;
@@ -450,7 +450,7 @@ public class GameboardController implements Initializable {
                     }
                     grid1isDone = true;
                     macroBoard.add(newB, 0, 0);
-                    System.out.println("GRID 1");
+ 
                 }
                 break;
 
@@ -467,7 +467,6 @@ public class GameboardController implements Initializable {
                     }
                     grid2isDone = true;
                     macroBoard.add(newB, 1, 0);
-                    System.out.println("GRID 2");
                 }
                 break;
             case 3:
