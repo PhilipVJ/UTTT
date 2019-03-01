@@ -5,21 +5,25 @@
  */
 package uttt.GUI.Controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.InnerShadow;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import uttt.game.GameManager;
 import uttt.game.GameState;
 import uttt.move.Move;
@@ -51,7 +55,6 @@ public class GameboardController implements Initializable {
     private GridPane gridPane8;
     @FXML
     private GridPane gridPane9;
-
     @FXML
     private Label lblXWins;
     @FXML
@@ -62,18 +65,14 @@ public class GameboardController implements Initializable {
     private Label winnerIs;
     @FXML
     private Label lblPlayerTurn;
-    
-    
-    private String[][] mBoard;
+    @FXML
+    private Button btnBackToMainScr;
 
-
+       
+    private Stage stage;
     private GameManager gManager;
 
-    private int currentPlayer = 0;
-    private int gMode;
-
     private boolean gameOver = false;
-
     private boolean grid1isDone = false;
     private boolean grid9isDone = false;
     private boolean grid8isDone = false;
@@ -87,9 +86,10 @@ public class GameboardController implements Initializable {
     private int numberOfXWins = 0;
     private int numberOfOWins = 0;
     private int numberOfDraws = 0;
+    private int currentPlayer = 0;
+    private int gMode;
     
-    
-    
+    private String[][] mBoard;
     
 
     /**
@@ -235,9 +235,20 @@ public class GameboardController implements Initializable {
         grid3isDone = false;
         grid2isDone = false;
    
-
     }
 
+    @FXML
+    void backToMainScr(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/uttt/GUI/View/MainView.fxml"));
+        Parent root = loader.load();
+        
+        stage = (Stage) btnBackToMainScr.getScene().getWindow();
+        Scene scene = new Scene(root);
+
+        stage.setScene(scene);
+        stage.show();
+    }
+    
     public void boardLight(int activeMicroboard) {
         /* case 10 er hele gridpane som lyser op og ellers så hver case passer til
          hvert sit grid "nummer" */
