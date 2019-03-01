@@ -271,9 +271,9 @@
             <Image url="@../../../Picture/PlayerX.png" />
          </image>
       </ImageView>
-      <Label fx:id="winnerIs" alignment="CENTER" layoutX="60.0" layoutY="412.0" prefHeight="53.0" prefWidth="680.0" textAlignment="CENTER" textFill="#ff00c2" AnchorPane.bottomAnchor="405.0" AnchorPane.leftAnchor="60.0">
+      <Label fx:id="winnerIs" alignment="CENTER" layoutX="144.0" layoutY="808.0" prefHeight="53.0" prefWidth="507.0" textAlignment="CENTER" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="144.0">
          <font>
-            <Font size="36.0" />
+            <Font name="Consolas" size="36.0" />
          </font>
       </Label>
       <Label fx:id="lblPlayerTurn" alignment="CENTER" contentDisplay="CENTER" layoutX="298.0" layoutY="811.0" prefHeight="46.0" prefWidth="204.0" textAlignment="CENTER">

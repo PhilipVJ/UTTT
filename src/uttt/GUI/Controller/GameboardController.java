@@ -122,6 +122,7 @@ public class GameboardController implements Initializable {
                 DropShadow h = new DropShadow();
                 h.setColor(Color.BLACK);
                 macroBoard.setEffect(h);
+                playerTurnDis();
             }
             if (currentPlayer == 0) {
                 InnerShadow bolle = new InnerShadow(25, Color.BLUE);
@@ -162,6 +163,14 @@ public class GameboardController implements Initializable {
         if (currentPlayer == 1)
         {
             lblPlayerTurn.setText("Player X turn");
+        } 
+    }
+    
+    public void playerTurnDis()
+    {
+        if (gameOver == true)
+        {
+            lblPlayerTurn.setVisible(false);
         }
     }
     
@@ -214,7 +223,8 @@ public class GameboardController implements Initializable {
         setGameManager(gMode,currentPlayer);
         gameOver = false;
         winnerIs.setVisible(false);
-
+        lblPlayerTurn.setVisible(true);
+        
         grid1isDone = false;
         grid9isDone = false;
         grid8isDone = false;
