@@ -69,8 +69,7 @@ public class Field implements IField {
         List<IMove> availableMoves = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
             for (int k = 0; k < 9; k++) {
-                if(board[i][k] == AVAILABLE_FIELD)
-                {
+                if (board[i][k] == AVAILABLE_FIELD) {
                     availableMoves.add(new Move(i, k));
                 }
             }
@@ -197,10 +196,18 @@ public class Field implements IField {
             activeMicroboard = 10;
 
             makeAllEmptyFieldsToMinusOne(newBoard);
+
+        }
+        System.out.println("HERE AM I");
+        if (checkIfActiveMicroboardIsDraw(activeMicroboard) == true) {
+            activeMicroboard = 10;
+            System.out.println("BINGO");
+
+            makeAllEmptyFieldsToMinusOne(newBoard);
         }
 
         prevLines = numberOfLines;
-printBoard();
+
         this.board = newBoard;
 
     }
@@ -839,6 +846,60 @@ printBoard();
             }
         }
 
+    }
+
+    private boolean checkIfActiveMicroboardIsDraw(int activeMicroboard) {
+
+        boolean isADraw = false;
+        switch (activeMicroboard) {
+            case 1:
+                if (macroBoard[0][0] == ".") {
+                    isADraw = true;
+
+                }
+                break;
+            case 2:
+                if (macroBoard[0][1] == ".") {
+                    isADraw = true;
+                }
+                break;
+            case 3:
+                if (macroBoard[0][2] == ".") {
+                    isADraw = true;
+                }
+                break;
+            case 4:
+                if (macroBoard[1][0] == ".") {
+                    isADraw = true;
+                }
+                break;
+            case 5:
+                if (macroBoard[1][1] == ".") {
+                    isADraw = true;
+                }
+                break;
+            case 6:
+                if (macroBoard[1][2] == ".") {
+                    isADraw = true;
+                }
+                break;
+            case 7:
+                if (macroBoard[2][0] == ".") {
+                    isADraw = true;
+                }
+                break;
+            case 8:
+                if (macroBoard[2][1] == ".") {
+                    isADraw = true;
+                }
+                break;
+            case 9:
+                if (macroBoard[2][2] == ".") {
+                    isADraw = true;
+                }
+                break;
+        }
+        return isADraw;
     }
 
 }
