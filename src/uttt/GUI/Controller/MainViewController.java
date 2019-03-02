@@ -29,12 +29,6 @@ public class MainViewController implements Initializable
     private Stage stage;
 
     @FXML
-    private Button btnHvH;
-    @FXML
-    private Button btnHvB;
-    @FXML
-    private Button btnBvB;
-    @FXML
     private AnchorPane anchorPane;
 
     /**

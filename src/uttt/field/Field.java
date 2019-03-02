@@ -200,7 +200,7 @@ public class Field implements IField {
         }
 
         prevLines = numberOfLines;
-
+printBoard();
         this.board = newBoard;
 
     }

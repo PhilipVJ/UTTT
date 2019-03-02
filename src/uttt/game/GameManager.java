@@ -18,6 +18,7 @@ public class GameManager
 {
 
     private int moveCounter;
+    private String lastBotMove;
 
     /**
      * Three different game modes.
@@ -103,14 +104,15 @@ public class GameManager
         updateBoard(move);
         updateMacroboard(move);
 
-   
+     System.out.println("Player: "+currentPlayer+"  Activemicroboard:"+currentState.getField().getActiveMicroboard());
+     boolean winChecker = checkForWin();
         
-        if (checkForWin() == true)
+        if (winChecker== true)
         {
             System.out.println("VINDER FUNDET");
         }
         
-        if(currentState.getField().isFull()==true)
+        if(currentState.getField().isFull()==true && winChecker==false)
         {
             System.out.println("UAFGJORT");
             winnerIs=2;
@@ -120,6 +122,8 @@ public class GameManager
         currentPlayer = (currentPlayer + 1) % 2;
         moveCounter++;
         currentState.setMoveNumber(moveCounter);
+        
+      
       
 
         return true;
@@ -144,7 +148,9 @@ public class GameManager
             IMove botMove = bot.doMove(currentState);
 
             //Be aware that your bots might perform illegal moves.
-            return updateGame(botMove);
+            lastBotMove=""+botMove.getX()+"."+botMove.getY();
+            boolean done = updateGame(botMove);
+            return done;
         }
 
         //Check bot is not equal to null, and throw an exception if it is.
@@ -152,7 +158,12 @@ public class GameManager
         assert (bot2 != null);
 
         //TODO: Implement a bot vs bot Update.
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(mode == GameMode.BotVsBot)
+        {
+            return false;
+        }
+
+        return false;
     }
 
     private Boolean verifyMoveLegality(IMove move)
@@ -277,6 +288,10 @@ public class GameManager
     public IGameState getCurrentState()
     {
         return currentState;
+    }
+
+    public String getLastBotMove() {
+        return lastBotMove;
     }
     
 
