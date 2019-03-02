@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,6 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.InnerShadow;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -262,6 +265,7 @@ public class GameboardController implements Initializable {
     private Button btnClear;
 
     private HashMap buttonHashMap;
+    private int numberOfBotPlays;
 
     /**
      * Initializes the controller class.
@@ -277,7 +281,7 @@ public class GameboardController implements Initializable {
 
     private void setBotMark() {
         String lastMove = gManager.getLastBotMove();
-        System.out.println("Last move" + lastMove);
+ 
         Button btn = (Button) buttonHashMap.get(lastMove);
         InnerShadow kryds = new InnerShadow(20, Color.RED);
         btn.setEffect(kryds);
@@ -285,6 +289,60 @@ public class GameboardController implements Initializable {
         btn.setText("X");
 
     }
+
+    private void setBotVsBotMark(int player) {
+        String lastMove = gManager.getLastBotMove();
+
+        Button btn = (Button) buttonHashMap.get(lastMove);
+        ;
+        btn.setStyle("-fx-font-size: 34px;");
+
+        if (player == 1) {
+            InnerShadow kryds = new InnerShadow(20, Color.RED);
+            btn.setEffect(kryds);
+            btn.setText("X");
+        }
+        if (player == 0) {
+            InnerShadow bolle = new InnerShadow(25, Color.BLUE);
+            btn.setEffect(bolle);
+            btn.setText("O");
+        }
+
+    }
+
+    private void startBotFight() {
+        
+
+        if (gManager.updateGame()) {
+            mBoard = gManager.getCurrentState().getField().getMacroboard();
+            setBotVsBotMark(currentPlayer);
+            
+
+            setWinner();
+
+            currentPlayer = (currentPlayer + 1) % 2;
+
+            if (gameOver) {
+                DropShadow h = new DropShadow();
+                h.setColor(Color.GREEN);
+                macroBoard.setEffect(h);
+                numberOfBotPlays--;
+                if(numberOfBotPlays>0){
+                clearTheBoard(new ActionEvent());
+                }
+                
+
+            }
+            if(numberOfBotPlays>0){
+            startBotFight();
+            return;
+            }
+            fixBigMarkings();
+
+        }
+
+    }
+
 
     public enum GameMode {
         HumanVsHuman,
@@ -294,6 +352,9 @@ public class GameboardController implements Initializable {
 
     @FXML
     private void buttonPressed(ActionEvent event) {
+        if (gameMode == GameMode.BotVsBot) {
+            return;
+        }
         Button btn = (Button) event.getSource();
         Integer[] coordinates = makeCoordinates(btn);
         Move toDo = new Move(coordinates[0], coordinates[1]);
@@ -346,7 +407,7 @@ public class GameboardController implements Initializable {
                             macroBoard.setEffect(h);
                             playerTurnDis();
                         }
-                        
+
                     }
 
                 }
@@ -386,7 +447,7 @@ public class GameboardController implements Initializable {
         }
     }
 
-    public void setGameManager(int gMode, int playerToStart) {
+    public void setGameManager(int gMode, int playerToStart, int bPlays) {
         this.gMode = gMode;
         // Mangler kode i 2 og 3
         switch (gMode) {
@@ -401,9 +462,16 @@ public class GameboardController implements Initializable {
                 currentPlayer = 0;
                 playerTurn();
                 break;
-//            case 3:
-//                gManager = new GameManager(new GameState(), bot, bot2);
-//                break;
+            case 3:
+                gManager = new GameManager(new GameState(), new RandomBot(), new RandomBot());
+                gameMode = GameMode.BotVsBot;
+
+                this.numberOfBotPlays = bPlays;
+                startBotFight();
+                lblPlayerTurn.setVisible(false);
+                btnClear.setVisible(false);
+
+                break;
         }
     }
 
@@ -435,10 +503,22 @@ public class GameboardController implements Initializable {
         clearLight();
         startLight();
         clearButtons();
-        setGameManager(gMode, currentPlayer);
+        if (gameMode == GameMode.BotVsBot) {
+            currentPlayer = 0;
+        }
+        if(gameMode!=GameMode.BotVsBot){
+
+        setGameManager(gMode, currentPlayer, 0);
+        }
+        if(gameMode==GameMode.BotVsBot)
+        {
+        setGameManager(gMode, currentPlayer,numberOfBotPlays);
+        }
         gameOver = false;
         winnerIs.setVisible(false);
-        lblPlayerTurn.setVisible(true);
+        if (gameMode != GameMode.BotVsBot) {
+            lblPlayerTurn.setVisible(true);
+        }
 
         grid1isDone = false;
         grid9isDone = false;

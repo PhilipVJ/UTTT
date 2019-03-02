@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -23,31 +24,36 @@ import javafx.stage.Stage;
  *
  * @author Bruger
  */
-public class MainViewController implements Initializable
-{
+public class MainViewController implements Initializable {
 
     private Stage stage;
 
     @FXML
     private AnchorPane anchorPane;
+    @FXML
+    private Button btnHvH;
+    @FXML
+    private Button btnHvB;
+    @FXML
+    private Button btnBvB;
+    @FXML
+    private TextField fights;
 
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
 
     @FXML
-    private void gameAgainstHuman(ActionEvent event) throws IOException
-    {
+    private void gameAgainstHuman(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/uttt/GUI/View/Gameboard.fxml"));
         Parent root = loader.load();
         GameboardController con = loader.getController();
-        
-        con.setGameManager(1,0);
+
+        con.setGameManager(1, 0, 0);
 
         stage = (Stage) anchorPane.getScene().getWindow();
         Scene scene = new Scene(root);
@@ -57,13 +63,12 @@ public class MainViewController implements Initializable
     }
 
     @FXML
-    private void gameAgainstBot(ActionEvent event) throws IOException
-    {
+    private void gameAgainstBot(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/uttt/GUI/View/Gameboard.fxml"));
         Parent root = loader.load();
         GameboardController con = loader.getController();
-        
-        con.setGameManager(2,0);
+
+        con.setGameManager(2, 0, 0);
 
         stage = (Stage) anchorPane.getScene().getWindow();
         Scene scene = new Scene(root);
@@ -74,20 +79,24 @@ public class MainViewController implements Initializable
     }
 
     @FXML
-    private void botVsBot(ActionEvent event) throws IOException
-    {
+    private void botVsBot(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/uttt/GUI/View/Gameboard.fxml"));
         Parent root = loader.load();
         GameboardController con = loader.getController();
-        con.setGameManager(3,0);
+        String numberOfFights = fights.getText();
+        try {
+            int number = Integer.parseInt(numberOfFights);
 
-        stage = (Stage) anchorPane.getScene().getWindow();
-        Scene scene = new Scene(root);
+            con.setGameManager(3, 0, number);
+            stage = (Stage) anchorPane.getScene().getWindow();
+            Scene scene = new Scene(root);
 
-        stage.setScene(scene);
-        stage.show();
+            stage.setScene(scene);
+            stage.show();
+        } catch (NumberFormatException e) {
+            fights.setText("Type a number here");
+        }
 
     }
-
 
 }

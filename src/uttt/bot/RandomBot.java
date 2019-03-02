@@ -24,8 +24,6 @@ public class RandomBot implements IBot
        int moveSize = moves.size();
        Double randomNumber = Math.random()*moveSize;
        int rNumber = randomNumber.intValue();
-        System.out.println("ARRAY SIZE: "+moveSize);
-        System.out.println("R NUMBER:"+rNumber);
        return moves.get(rNumber);
        
     }

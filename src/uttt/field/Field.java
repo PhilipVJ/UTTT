@@ -183,30 +183,12 @@ public class Field implements IField {
 
             makePlayableFieldsToMinusOne(newBoard);
         }
-        int numberOfLines = checkForWinInMicro(newBoard);
-
-        // Makes sure that if you ends up in same microboard after a LINE it will set to microboard 10
-        if (numberOfLines > prevLines && activeMicroboard == prevActiveMicroBoard) {
+        checkForWinInMicro(newBoard);
+        
+        if (getAvailableMoves().size() == 0) {
             activeMicroboard = 10;
-
             makeAllEmptyFieldsToMinusOne(newBoard);
         }
-
-        if (numberOfLines == 1 && prevLines == 1 && prevActiveMicroBoard == activeMicroboard) {
-            activeMicroboard = 10;
-
-            makeAllEmptyFieldsToMinusOne(newBoard);
-
-        }
-        System.out.println("HERE AM I");
-        if (checkIfActiveMicroboardIsDraw(activeMicroboard) == true) {
-            activeMicroboard = 10;
-            System.out.println("BINGO");
-
-            makeAllEmptyFieldsToMinusOne(newBoard);
-        }
-
-        prevLines = numberOfLines;
 
         this.board = newBoard;
 
@@ -367,18 +349,17 @@ public class Field implements IField {
      * @param newBoard
      * @return
      */
-    private int checkForWinInMicro(String[][] newBoard) {
-        int lines1 = checkForHorizontalWin(newBoard);
-        int lines2 = checkForVerticalWin(newBoard);
-        int lines3 = checkForDiagonalWin(newBoard);
-        int total = lines1 + lines2 + lines3;
+    private void checkForWinInMicro(String[][] newBoard) {
+        checkForHorizontalWin(newBoard);
+        checkForVerticalWin(newBoard);
+        checkForDiagonalWin(newBoard);
+        
         checkForDrawSetToMacro();
-        return total;
 
     }
 
-    private int checkForDiagonalWin(String[][] newBoard) {
-        int numberOfLines = 0;
+    private void checkForDiagonalWin(String[][] newBoard) {
+     
         // checker for en diagonal sejr
         for (int w = 0; w < 2; w++) {
             String player = "" + w;
@@ -387,42 +368,42 @@ public class Field implements IField {
                 makeAllFieldsToOneOrZero(w, 1, newBoard);
                 macroBoard[0][0] = player;
                 micro1Done = true;
-                numberOfLines++;
+                
             }
 
             if (board[0][2].equals(player) && board[1][1].equals(player) && board[2][0].equals(player) && !micro1Done) {
                 makeAllFieldsToOneOrZero(w, 1, newBoard);
                 macroBoard[0][0] = player;
                 micro1Done = true;
-                numberOfLines++;
+                
             }
             // microboard 2
             if (board[0][3].equals(player) && board[1][4].equals(player) && board[2][5].equals(player) && !micro2Done) {
                 makeAllFieldsToOneOrZero(w, 2, newBoard);
                 macroBoard[0][1] = player;
                 micro2Done = true;
-                numberOfLines++;
+                
             }
 
             if (board[0][5].equals(player) && board[1][4].equals(player) && board[2][3].equals(player) && !micro2Done) {
                 makeAllFieldsToOneOrZero(w, 2, newBoard);
                 macroBoard[0][1] = player;
                 micro2Done = true;
-                numberOfLines++;
+                
             }
             // microboard 3
             if (board[0][6].equals(player) && board[1][7].equals(player) && board[2][8].equals(player) && !micro3Done) {
                 makeAllFieldsToOneOrZero(w, 3, newBoard);
                 macroBoard[0][2] = player;
                 micro3Done = true;
-                numberOfLines++;
+                
             }
 
             if (board[0][8].equals(player) && board[1][7].equals(player) && board[2][6].equals(player) && !micro3Done) {
                 makeAllFieldsToOneOrZero(w, 3, newBoard);
                 macroBoard[0][2] = player;
                 micro3Done = true;
-                numberOfLines++;
+                
 
             }
             // microboard 4
@@ -430,91 +411,91 @@ public class Field implements IField {
                 makeAllFieldsToOneOrZero(w, 4, newBoard);
                 macroBoard[1][0] = player;
                 micro4Done = true;
-                numberOfLines++;
+                
             }
 
             if (board[3][2].equals(player) && board[4][1].equals(player) && board[5][0].equals(player) && !micro4Done) {
                 makeAllFieldsToOneOrZero(w, 4, newBoard);
                 macroBoard[1][0] = player;
                 micro4Done = true;
-                numberOfLines++;
+                
             }
             // microboard 5
             if (board[3][3].equals(player) && board[4][4].equals(player) && board[5][5].equals(player) && !micro5Done) {
                 makeAllFieldsToOneOrZero(w, 5, newBoard);
                 macroBoard[1][1] = player;
                 micro5Done = true;
-                numberOfLines++;
+                
             }
 
             if (board[3][5].equals(player) && board[4][4].equals(player) && board[5][3].equals(player) && !micro5Done) {
                 makeAllFieldsToOneOrZero(w, 5, newBoard);
                 macroBoard[1][1] = player;
                 micro5Done = true;
-                numberOfLines++;
+                
             }
             // microboard 6
             if (board[3][6].equals(player) && board[4][7].equals(player) && board[5][8].equals(player) && !micro6Done) {
                 makeAllFieldsToOneOrZero(w, 6, newBoard);
                 macroBoard[1][2] = player;
                 micro6Done = true;
-                numberOfLines++;
+                
             }
 
             if (board[3][8].equals(player) && board[4][7].equals(player) && board[5][6].equals(player) && !micro6Done) {
                 makeAllFieldsToOneOrZero(w, 6, newBoard);
                 macroBoard[1][2] = player;
                 micro6Done = true;
-                numberOfLines++;
+                
             }
             // microboard 7
             if (board[6][0].equals(player) && board[7][1].equals(player) && board[8][2].equals(player) && !micro7Done) {
                 makeAllFieldsToOneOrZero(w, 7, newBoard);
                 macroBoard[2][0] = player;
                 micro7Done = true;
-                numberOfLines++;
+                
             }
 
             if (board[6][2].equals(player) && board[7][1].equals(player) && board[8][0].equals(player) && !micro7Done) {
                 makeAllFieldsToOneOrZero(w, 7, newBoard);
                 macroBoard[2][0] = player;
                 micro7Done = true;
-                numberOfLines++;
+                
             }
             // microboard 8
             if (board[6][3].equals(player) && board[7][4].equals(player) && board[8][5].equals(player) && !micro8Done) {
                 makeAllFieldsToOneOrZero(w, 8, newBoard);
                 macroBoard[2][1] = player;
                 micro8Done = true;
-                numberOfLines++;
+                
             }
 
             if (board[6][5].equals(player) && board[7][4].equals(player) && board[8][3].equals(player) && !micro8Done) {
                 makeAllFieldsToOneOrZero(w, 8, newBoard);
                 macroBoard[2][1] = player;
                 micro8Done = true;
-                numberOfLines++;
+                
             }
             // microboard 9
             if (board[6][6].equals(player) && board[7][7].equals(player) && board[8][8].equals(player) && !micro9Done) {
                 makeAllFieldsToOneOrZero(w, 9, newBoard);
                 macroBoard[2][2] = player;
                 micro9Done = true;
-                numberOfLines++;
+                
             }
 
             if (board[6][8].equals(player) && board[7][7].equals(player) && board[8][6].equals(player) && !micro9Done) {
                 makeAllFieldsToOneOrZero(w, 9, newBoard);
                 macroBoard[2][2] = player;
                 micro9Done = true;
-                numberOfLines++;
+                
             }
         }
-        return numberOfLines;
+   
     }
 
-    private int checkForVerticalWin(String[][] newBoard) {
-        int numberOfLines = 0;
+    private void checkForVerticalWin(String[][] newBoard) {
+       
         // checker for en lodret sejr
         for (int k = 0; k < 2; k++) {
             String player = "" + k;
@@ -524,73 +505,73 @@ public class Field implements IField {
                     makeAllFieldsToOneOrZero(k, 1, newBoard);
                     macroBoard[0][0] = player;
                     micro1Done = true;
-                    numberOfLines++;
+                    
                 }
                 // microboard 2
                 if (newBoard[0][i + 3].equals(player) && newBoard[1][i + 3].equals(player) && newBoard[2][i + 3].equals(player) && !micro2Done) {
                     makeAllFieldsToOneOrZero(k, 2, newBoard);
                     macroBoard[0][1] = player;
                     micro2Done = true;
-                    numberOfLines++;
+                    
                 }
                 // microboard 3
                 if (newBoard[0][i + 6].equals(player) && newBoard[1][i + 6].equals(player) && newBoard[2][i + 6].equals(player) && !micro3Done) {
                     makeAllFieldsToOneOrZero(k, 3, newBoard);
                     macroBoard[0][2] = player;
                     micro3Done = true;
-                    numberOfLines++;
+                    
                 }
                 // microboard 4
                 if (newBoard[3][i].equals(player) && newBoard[4][i].equals(player) && newBoard[5][i].equals(player) && !micro4Done) {
                     makeAllFieldsToOneOrZero(k, 4, newBoard);
                     macroBoard[1][0] = player;
                     micro4Done = true;
-                    numberOfLines++;
+                    
                 }
                 // microboard 5
                 if (newBoard[3][i + 3].equals(player) && newBoard[4][i + 3].equals(player) && newBoard[5][i + 3].equals(player) && !micro5Done) {
                     makeAllFieldsToOneOrZero(k, 5, newBoard);
                     macroBoard[1][1] = player;
                     micro5Done = true;
-                    numberOfLines++;
+                    
                 }
                 // microboard 6
                 if (newBoard[3][i + 6].equals(player) && newBoard[4][i + 6].equals(player) && newBoard[5][i + 6].equals(player) && !micro6Done) {
                     makeAllFieldsToOneOrZero(k, 6, newBoard);
                     macroBoard[1][2] = player;
                     micro6Done = true;
-                    numberOfLines++;
+                    
                 }
                 // microboard 7
                 if (newBoard[6][i].equals(player) && newBoard[7][i].equals(player) && newBoard[8][i].equals(player) && !micro7Done) {
                     makeAllFieldsToOneOrZero(k, 7, newBoard);
                     macroBoard[2][0] = player;
                     micro7Done = true;
-                    numberOfLines++;
+                    
                 }
                 // microboard 8
                 if (newBoard[6][i + 3].equals(player) && newBoard[7][i + 3].equals(player) && newBoard[8][i + 3].equals(player) && !micro8Done) {
                     makeAllFieldsToOneOrZero(k, 8, newBoard);
                     macroBoard[2][1] = player;
                     micro8Done = true;
-                    numberOfLines++;
+                    
                 }
                 // microboard 9
                 if (newBoard[6][i + 6].equals(player) && newBoard[7][i + 6].equals(player) && newBoard[8][i + 6].equals(player) && !micro9Done) {
                     makeAllFieldsToOneOrZero(k, 9, newBoard);
                     macroBoard[2][2] = player;
                     micro9Done = true;
-                    numberOfLines++;
+                    
                 }
 
             }
         }
-        return numberOfLines;
+        
     }
 
-    private int checkForHorizontalWin(String[][] newBoard) {
+    private void checkForHorizontalWin(String[][] newBoard) {
         //        checker for en vandret  sejr
-        int numberOfLines = 0;
+       
         for (int w = 0; w < 2; w++) {
             String player = "" + w;
             for (int i = 0; i < 3; i++) {
@@ -599,14 +580,14 @@ public class Field implements IField {
                     makeAllFieldsToOneOrZero(w, 1, newBoard);
                     macroBoard[0][0] = player;
                     micro1Done = true;
-                    numberOfLines++;
+                    
                 }
                 // microboard 2
                 if (newBoard[i][3].equals(player) && newBoard[i][4].equals(player) && newBoard[i][5].equals(player) && !micro2Done) {
                     makeAllFieldsToOneOrZero(w, 2, newBoard);
                     macroBoard[0][1] = player;
                     micro2Done = true;
-                    numberOfLines++;
+
 
                 }
                 // microboard 3
@@ -614,7 +595,7 @@ public class Field implements IField {
                     makeAllFieldsToOneOrZero(w, 3, newBoard);
                     macroBoard[0][2] = player;
                     micro3Done = true;
-                    numberOfLines++;
+                    
 
                 }
 
@@ -623,21 +604,21 @@ public class Field implements IField {
                     makeAllFieldsToOneOrZero(w, 4, newBoard);
                     macroBoard[1][0] = player;
                     micro4Done = true;
-                    numberOfLines++;
+                    
                 }
                 // microboard 5
                 if (newBoard[i + 3][3].equals(player) && newBoard[i + 3][4].equals(player) && newBoard[i + 3][5].equals(player) && !micro5Done) {
                     makeAllFieldsToOneOrZero(w, 5, newBoard);
                     macroBoard[1][1] = player;
                     micro5Done = true;
-                    numberOfLines++;
+                    
                 }
                 // microboard 6
                 if (newBoard[i + 3][6].equals(player) && newBoard[i + 3][7].equals(player) && newBoard[i + 3][8].equals(player) && !micro6Done) {
                     makeAllFieldsToOneOrZero(w, 6, newBoard);
                     macroBoard[1][2] = player;
                     micro6Done = true;
-                    numberOfLines++;
+                    
                 }
 
                 // microboard 7
@@ -645,26 +626,26 @@ public class Field implements IField {
                     makeAllFieldsToOneOrZero(w, 7, newBoard);
                     macroBoard[2][0] = player;
                     micro7Done = true;
-                    numberOfLines++;
+                    
                 }
                 // microboard 8
                 if (newBoard[i + 6][3].equals(player) && newBoard[i + 6][4].equals(player) && newBoard[i + 6][5].equals(player) && !micro8Done) {
                     makeAllFieldsToOneOrZero(w, 8, newBoard);
                     macroBoard[2][1] = player;
                     micro8Done = true;
-                    numberOfLines++;
+                    
                 }
                 // microboard 9
                 if (newBoard[i + 6][6].equals(player) && newBoard[i + 6][7].equals(player) && newBoard[i + 6][8].equals(player) && !micro9Done) {
                     makeAllFieldsToOneOrZero(w, 9, newBoard);
                     macroBoard[2][2] = player;
                     micro9Done = true;
-                    numberOfLines++;
+                    
                 }
 
             }
         }
-        return numberOfLines;
+        
     }
 
     /**
@@ -693,7 +674,7 @@ public class Field implements IField {
      * Prints the macro board - used for testing
      */
     private void printBoard() {
-        System.out.println("PRINT MICRO");
+
         for (int i = 0; i < 9; i++) {
             for (int k = 0; k < 9; k++) {
                 System.out.println("" + board[i][k]);
@@ -848,58 +829,5 @@ public class Field implements IField {
 
     }
 
-    private boolean checkIfActiveMicroboardIsDraw(int activeMicroboard) {
-
-        boolean isADraw = false;
-        switch (activeMicroboard) {
-            case 1:
-                if (macroBoard[0][0] == ".") {
-                    isADraw = true;
-
-                }
-                break;
-            case 2:
-                if (macroBoard[0][1] == ".") {
-                    isADraw = true;
-                }
-                break;
-            case 3:
-                if (macroBoard[0][2] == ".") {
-                    isADraw = true;
-                }
-                break;
-            case 4:
-                if (macroBoard[1][0] == ".") {
-                    isADraw = true;
-                }
-                break;
-            case 5:
-                if (macroBoard[1][1] == ".") {
-                    isADraw = true;
-                }
-                break;
-            case 6:
-                if (macroBoard[1][2] == ".") {
-                    isADraw = true;
-                }
-                break;
-            case 7:
-                if (macroBoard[2][0] == ".") {
-                    isADraw = true;
-                }
-                break;
-            case 8:
-                if (macroBoard[2][1] == ".") {
-                    isADraw = true;
-                }
-                break;
-            case 9:
-                if (macroBoard[2][2] == ".") {
-                    isADraw = true;
-                }
-                break;
-        }
-        return isADraw;
-    }
-
+ 
 }
