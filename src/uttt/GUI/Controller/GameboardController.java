@@ -281,7 +281,7 @@ public class GameboardController implements Initializable {
 
     private void setBotMark() {
         String lastMove = gManager.getLastBotMove();
- 
+
         Button btn = (Button) buttonHashMap.get(lastMove);
         InnerShadow kryds = new InnerShadow(20, Color.RED);
         btn.setEffect(kryds);
@@ -310,13 +310,11 @@ public class GameboardController implements Initializable {
 
     }
 
-    private void startBotFight() {
-        
+    private void startBotFight() throws InterruptedException {
 
         if (gManager.updateGame()) {
             mBoard = gManager.getCurrentState().getField().getMacroboard();
             setBotVsBotMark(currentPlayer);
-            
 
             setWinner();
 
@@ -325,24 +323,47 @@ public class GameboardController implements Initializable {
             if (gameOver) {
                 DropShadow h = new DropShadow();
                 h.setColor(Color.GREEN);
-                macroBoard.setEffect(h);
-                numberOfBotPlays--;
-                if(numberOfBotPlays>0){
-                clearTheBoard(new ActionEvent());
-                }
-                
+                macroBoard.setEffect(h);                
+                return;
+               
 
             }
-            if(numberOfBotPlays>0){
             startBotFight();
-            return;
+              
             }
-            fixBigMarkings();
-
-        }
 
     }
 
+    private void initBotFight() throws InterruptedException {
+        for (int i = numberOfBotPlays; i > 0; i--) {
+            startBotFight();
+            gManager=new GameManager(new GameState(), new RandomBot(), new RandomBot());
+            if(i>1){
+            cleanUpStage();}
+        }
+        fixBigMarkings();
+    }
+
+    private void cleanUpStage() {
+        clearLight();
+        startLight();
+        clearButtons();
+
+        currentPlayer = 0;
+
+        gameOver = false;
+        winnerIs.setVisible(false);
+
+        grid1isDone = false;
+        grid9isDone = false;
+        grid8isDone = false;
+        grid7isDone = false;
+        grid6isDone = false;
+        grid5isDone = false;
+        grid4isDone = false;
+        grid3isDone = false;
+        grid2isDone = false;
+    }
 
     public enum GameMode {
         HumanVsHuman,
@@ -447,7 +468,7 @@ public class GameboardController implements Initializable {
         }
     }
 
-    public void setGameManager(int gMode, int playerToStart, int bPlays) {
+    public void setGameManager(int gMode, int playerToStart, int bPlays) throws InterruptedException {
         this.gMode = gMode;
         // Mangler kode i 2 og 3
         switch (gMode) {
@@ -467,7 +488,8 @@ public class GameboardController implements Initializable {
                 gameMode = GameMode.BotVsBot;
 
                 this.numberOfBotPlays = bPlays;
-                startBotFight();
+                initBotFight();
+
                 lblPlayerTurn.setVisible(false);
                 btnClear.setVisible(false);
 
@@ -499,20 +521,19 @@ public class GameboardController implements Initializable {
     }
 
     @FXML
-    private void clearTheBoard(ActionEvent event) {
+    private void clearTheBoard(ActionEvent event) throws InterruptedException {
         clearLight();
         startLight();
         clearButtons();
         if (gameMode == GameMode.BotVsBot) {
             currentPlayer = 0;
         }
-        if(gameMode!=GameMode.BotVsBot){
+        if (gameMode != GameMode.BotVsBot) {
 
-        setGameManager(gMode, currentPlayer, 0);
+            setGameManager(gMode, currentPlayer, 0);
         }
-        if(gameMode==GameMode.BotVsBot)
-        {
-        setGameManager(gMode, currentPlayer,numberOfBotPlays);
+        if (gameMode == GameMode.BotVsBot) {
+            setGameManager(gMode, currentPlayer, numberOfBotPlays);
         }
         gameOver = false;
         winnerIs.setVisible(false);

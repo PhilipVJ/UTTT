@@ -48,7 +48,7 @@ public class MainViewController implements Initializable {
     }
 
     @FXML
-    private void gameAgainstHuman(ActionEvent event) throws IOException {
+    private void gameAgainstHuman(ActionEvent event) throws IOException, InterruptedException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/uttt/GUI/View/Gameboard.fxml"));
         Parent root = loader.load();
         GameboardController con = loader.getController();
@@ -63,7 +63,7 @@ public class MainViewController implements Initializable {
     }
 
     @FXML
-    private void gameAgainstBot(ActionEvent event) throws IOException {
+    private void gameAgainstBot(ActionEvent event) throws IOException, InterruptedException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/uttt/GUI/View/Gameboard.fxml"));
         Parent root = loader.load();
         GameboardController con = loader.getController();
@@ -79,7 +79,7 @@ public class MainViewController implements Initializable {
     }
 
     @FXML
-    private void botVsBot(ActionEvent event) throws IOException {
+    private void botVsBot(ActionEvent event) throws IOException, InterruptedException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/uttt/GUI/View/Gameboard.fxml"));
         Parent root = loader.load();
         GameboardController con = loader.getController();
