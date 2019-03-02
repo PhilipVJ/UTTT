@@ -17,6 +17,8 @@ import uttt.move.IMove;
 public class GameManager
 {
 
+    private int moveCounter;
+
     /**
      * Three different game modes.
      */
@@ -116,6 +118,9 @@ public class GameManager
 
         //Update currentPlayer
         currentPlayer = (currentPlayer + 1) % 2;
+        moveCounter++;
+        currentState.setMoveNumber(moveCounter);
+      
 
         return true;
     }

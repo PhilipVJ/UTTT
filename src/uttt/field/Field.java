@@ -9,6 +9,7 @@ import java.time.Clock;
 import java.util.ArrayList;
 import java.util.List;
 import uttt.move.IMove;
+import uttt.move.Move;
 
 /**
  *
@@ -64,7 +65,17 @@ public class Field implements IField {
 
     @Override
     public List<IMove> getAvailableMoves() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String[][] boardToLookIn = board;
+        List<IMove> availableMoves = new ArrayList<>();
+        for (int i = 0; i < 9; i++) {
+            for (int k = 0; k < 9; k++) {
+                if(board[i][k] == AVAILABLE_FIELD)
+                {
+                    availableMoves.add(new Move(i, k));
+                }
+            }
+        }
+        return availableMoves;
     }
 
     @Override
@@ -122,21 +133,20 @@ public class Field implements IField {
             for (int i = 0; i < 9; i++) {
                 if (curBoard[i].equals(coordinate)) {
                     isInBoard = true;
-                   
+
                     indexOfCoordinateInMicroBoard = i;
                 }
             }
             if (isInBoard == true && board[x][y] == AVAILABLE_FIELD) {
                 activeMicroboard = indexOfCoordinateInMicroBoard + 1;
-                
 
                 if (checkForFullMicroBoard() == true) {
                     arrivedAtFullMicroBoard();
-                    
+
                 }
                 if (checkForAlreadyWonMicroBoard() == true) {
                     activeMicroboard = 10;
-                    
+
                 }
                 return true;
 
@@ -190,10 +200,8 @@ public class Field implements IField {
         }
 
         prevLines = numberOfLines;
-      
-        this.board = newBoard;
 
-      
+        this.board = newBoard;
 
     }
 

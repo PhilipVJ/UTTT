@@ -43,6 +43,7 @@ public class GameState implements IGameState
     public void setMoveNumber(int moveNumber)
     {
        this.moveNumber = moveNumber;
+       
     }
 
     @Override
