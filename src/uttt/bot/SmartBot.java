@@ -9,10 +9,9 @@ import java.util.List;
 import static uttt.field.IField.AVAILABLE_FIELD;
 import uttt.game.IGameState;
 import uttt.move.IMove;
-import uttt.move.Move;
 
 /**
- *
+ * This bot will try to get a line. If it isn't possible it will throw a random move.
  * @author Philip
  */
 public class SmartBot implements IBot {

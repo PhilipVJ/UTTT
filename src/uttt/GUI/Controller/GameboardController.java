@@ -33,6 +33,7 @@ import javafx.stage.Stage;
 import uttt.bot.IBot;
 import uttt.bot.RandomBot;
 import uttt.bot.SmartBot;
+import uttt.bot.SmarterBot;
 import uttt.game.GameManager;
 import uttt.game.GameState;
 import uttt.move.Move;
@@ -42,7 +43,8 @@ import uttt.move.Move;
  *
  * @author Philip
  */
-public class GameboardController implements Initializable {
+public class GameboardController implements Initializable
+{
 
     @FXML
     private GridPane macroBoard;
@@ -280,7 +282,8 @@ public class GameboardController implements Initializable {
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)
+    {
         startLight();
         playerTurn();
         buttonHashMap = new HashMap();
@@ -288,7 +291,8 @@ public class GameboardController implements Initializable {
 
     }
 
-    private void setBotMark() {
+    private void setBotMark()
+    {
         String lastMove = gManager.getLastBotMove();
 
         Button btn = (Button) buttonHashMap.get(lastMove);
@@ -299,19 +303,22 @@ public class GameboardController implements Initializable {
 
     }
 
-    private void setBotVsBotMark(int player) {
+    private void setBotVsBotMark(int player)
+    {
         String lastMove = gManager.getLastBotMove();
 
         Button btn = (Button) buttonHashMap.get(lastMove);
         ;
         btn.setStyle("-fx-font-size: 34px;");
 
-        if (player == 1) {
+        if (player == 1)
+        {
             InnerShadow kryds = new InnerShadow(20, Color.RED);
             btn.setEffect(kryds);
             btn.setText("X");
         }
-        if (player == 0) {
+        if (player == 0)
+        {
             InnerShadow bolle = new InnerShadow(25, Color.BLUE);
             btn.setEffect(bolle);
             btn.setText("O");
@@ -319,9 +326,11 @@ public class GameboardController implements Initializable {
 
     }
 
-    private void startBotFight() throws InterruptedException {
+    private void startBotFight() throws InterruptedException
+    {
 
-        if (gManager.updateGame()) {
+        if (gManager.updateGame())
+        {
             mBoard = gManager.getCurrentState().getField().getMacroboard();
             setBotVsBotMark(currentPlayer);
 
@@ -329,7 +338,8 @@ public class GameboardController implements Initializable {
 
             currentPlayer = (currentPlayer + 1) % 2;
 
-            if (gameOver) {
+            if (gameOver)
+            {
                 DropShadow h = new DropShadow();
                 h.setColor(Color.GREEN);
                 macroBoard.setEffect(h);
@@ -346,18 +356,22 @@ public class GameboardController implements Initializable {
 
     }
 
-    private void initBotFight() throws InterruptedException {
-        for (int i = numberOfBotPlays; i > 0; i--) {
+    private void initBotFight() throws InterruptedException
+    {
+        for (int i = numberOfBotPlays; i > 0; i--)
+        {
             startBotFight();
             gManager = new GameManager(new GameState(), AIBot1, AIBot2);
-            if (i > 1) {
+            if (i > 1)
+            {
                 cleanUpStage();
             }
         }
         fixBigMarkings();
     }
 
-    private void cleanUpStage() {
+    private void cleanUpStage()
+    {
         clearLight();
         startLight();
         clearButtons();
@@ -379,62 +393,79 @@ public class GameboardController implements Initializable {
     }
 
     @FXML
-    private void start(MouseEvent event) throws InterruptedException {
+    private void start(MouseEvent event) throws InterruptedException
+    {
         initBotFight();
     }
 
-    private void createBots(String botToPlay, String botToPlay2) {
-        switch (botToPlay) {
+    private void createBots(String botToPlay, String botToPlay2)
+    {
+        switch (botToPlay)
+        {
             case "RandomBot":
                 AIBot1 = new RandomBot();
                 break;
             case "SmartBot":
                 AIBot1 = new SmartBot();
                 break;
+            case "SmarterBot":
+                AIBot1 = new SmarterBot();
+
         }
-        switch (botToPlay2) {
+        switch (botToPlay2)
+        {
             case "RandomBot":
                 AIBot2 = new RandomBot();
                 break;
             case "SmartBot":
                 AIBot2 = new SmartBot();
                 break;
+            case "SmarterBot":
+                AIBot2 = new SmarterBot();
 
         }
     }
 
-    public enum GameMode {
+    public enum GameMode
+    {
         HumanVsHuman,
         HumanVsBot,
         BotVsBot
     }
 
     @FXML
-    private void buttonPressed(ActionEvent event) {
-        if (gameMode == GameMode.BotVsBot) {
+    private void buttonPressed(ActionEvent event)
+    {
+        if (gameMode == GameMode.BotVsBot)
+        {
             return;
         }
         Button btn = (Button) event.getSource();
         Integer[] coordinates = makeCoordinates(btn);
         Move toDo = new Move(coordinates[0], coordinates[1]);
-        if (gameOver == true) {
+        if (gameOver == true)
+        {
             return;
         }
 
-        if (gManager.updateGame(toDo) == true) {
+        if (gManager.updateGame(toDo) == true)
+        {
             setWinner();
             mBoard = gManager.getCurrentState().getField().getMacroboard();
-            if (!gameOver) {
+            if (!gameOver)
+            {
                 clearLight();
                 boardLight(gManager.getCurrentState().getField().getActiveMicroboard());
             }
-            if (gameOver) {
+            if (gameOver)
+            {
                 DropShadow h = new DropShadow();
                 h.setColor(Color.GREEN);
                 macroBoard.setEffect(h);
                 playerTurnDis();
             }
-            if (currentPlayer == 0) {
+            if (currentPlayer == 0)
+            {
                 InnerShadow bolle = new InnerShadow(25, Color.BLUE);
                 btn.setEffect(bolle);
                 btn.setStyle("-fx-font-size: 34px;");
@@ -443,8 +474,10 @@ public class GameboardController implements Initializable {
                 currentPlayer = 1;
                 fixBigMarkings();
                 playerTurn();
-                if (gameMode == GameMode.HumanVsBot && gameOver == false) {
-                    if (gManager.updateGame()) {
+                if (gameMode == GameMode.HumanVsBot && gameOver == false)
+                {
+                    if (gManager.updateGame())
+                    {
                         setBotMark();
 
                         fixBigMarkings();
@@ -454,13 +487,15 @@ public class GameboardController implements Initializable {
                         currentPlayer = 0;
                         playerTurn();
 
-                        if (!gameOver) {
+                        if (!gameOver)
+                        {
                             clearLight();
                             boardLight(gManager.getCurrentState().getField().getActiveMicroboard());
                             return;
                         }
 
-                        if (gameOver) {
+                        if (gameOver)
+                        {
                             DropShadow h = new DropShadow();
                             h.setColor(Color.GREEN);
                             macroBoard.setEffect(h);
@@ -474,7 +509,8 @@ public class GameboardController implements Initializable {
                 return;
             }
 
-            if (currentPlayer == 1) {
+            if (currentPlayer == 1)
+            {
                 InnerShadow kryds = new InnerShadow(20, Color.RED);
                 btn.setEffect(kryds);
                 btn.setStyle("-fx-font-size: 34px;");
@@ -491,28 +527,35 @@ public class GameboardController implements Initializable {
 
     }
 
-    public void playerTurn() {
-        if (currentPlayer == 0) {
+    public void playerTurn()
+    {
+        if (currentPlayer == 0)
+        {
             lblPlayerTurn.setText("Player O turn");
         }
-        if (currentPlayer == 1) {
+        if (currentPlayer == 1)
+        {
             lblPlayerTurn.setText("Player X turn");
         }
     }
 
-    public void playerTurnDis() {
-        if (gameOver == true) {
+    public void playerTurnDis()
+    {
+        if (gameOver == true)
+        {
             lblPlayerTurn.setVisible(false);
         }
     }
 
-    public void setGameManager(int gMode, int playerToStart, int bPlays, String botToPlay, String botToPlay2) throws InterruptedException {
+    public void setGameManager(int gMode, int playerToStart, int bPlays, String botToPlay, String botToPlay2) throws InterruptedException
+    {
         this.gMode = gMode;
-        bot1=botToPlay;
-        bot2=botToPlay2;
+        bot1 = botToPlay;
+        bot2 = botToPlay2;
         createBots(botToPlay, botToPlay2);
 
-        switch (gMode) {
+        switch (gMode)
+        {
             case 1:
                 gManager = new GameManager(new GameState(), playerToStart);
                 gameMode = GameMode.HumanVsHuman;
@@ -539,7 +582,8 @@ public class GameboardController implements Initializable {
         }
     }
 
-    private Integer[] makeCoordinates(Button btn) {
+    private Integer[] makeCoordinates(Button btn)
+    {
         Integer row = GridPane.getRowIndex((Node) btn);
         Integer col = GridPane.getColumnIndex((Node) btn);
 
@@ -563,23 +607,28 @@ public class GameboardController implements Initializable {
     }
 
     @FXML
-    private void clearTheBoard(ActionEvent event) throws InterruptedException {
+    private void clearTheBoard(ActionEvent event) throws InterruptedException
+    {
         clearLight();
         startLight();
         clearButtons();
-        if (gameMode == GameMode.BotVsBot) {
+        if (gameMode == GameMode.BotVsBot)
+        {
             currentPlayer = 0;
         }
-        if (gameMode != GameMode.BotVsBot) {
+        if (gameMode != GameMode.BotVsBot)
+        {
 
             setGameManager(gMode, currentPlayer, 0, bot1, bot2);
         }
-        if (gameMode == GameMode.BotVsBot) {
+        if (gameMode == GameMode.BotVsBot)
+        {
             setGameManager(gMode, currentPlayer, numberOfBotPlays, bot1, bot2);
         }
         gameOver = false;
         winnerIs.setVisible(false);
-        if (gameMode != GameMode.BotVsBot) {
+        if (gameMode != GameMode.BotVsBot)
+        {
             lblPlayerTurn.setVisible(true);
         }
 
@@ -596,7 +645,8 @@ public class GameboardController implements Initializable {
     }
 
     @FXML
-    void backToMainScr(ActionEvent event) throws IOException {
+    void backToMainScr(ActionEvent event) throws IOException
+    {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/uttt/GUI/View/MainView.fxml"));
         Parent root = loader.load();
 
@@ -607,13 +657,15 @@ public class GameboardController implements Initializable {
         stage.show();
     }
 
-    public void boardLight(int activeMicroboard) {
+    public void boardLight(int activeMicroboard)
+    {
         /* case 10 er hele gridpane som lyser op og ellers så hver case passer til
          hvert sit grid "nummer" */
 
         DropShadow grid = new DropShadow();
         grid.setColor(Color.GREEN);
-        switch (activeMicroboard) {
+        switch (activeMicroboard)
+        {
 
             case 1:
 
@@ -658,11 +710,13 @@ public class GameboardController implements Initializable {
         }
     }
 
-    private void setWinner() {
+    private void setWinner()
+    {
 
         String winner = "" + gManager.getWinnerIs();
 
-        if (winner.equals("" + 0)) {
+        if (winner.equals("" + 0))
+        {
             winnerIs.setVisible(true);
             winnerIs.setText("Vinderen er spiller: O");
             numberOfOWins++;
@@ -670,7 +724,8 @@ public class GameboardController implements Initializable {
             gameOver = true;
 
         }
-        if (winner.equals("" + 1)) {
+        if (winner.equals("" + 1))
+        {
             winnerIs.setVisible(true);
             winnerIs.setText("Vinderen er spiller: X");
             numberOfXWins++;
@@ -678,7 +733,8 @@ public class GameboardController implements Initializable {
             gameOver = true;
 
         }
-        if (winner.equals("" + 2)) {
+        if (winner.equals("" + 2))
+        {
             winnerIs.setVisible(true);
             winnerIs.setText("Uafgjort");
             numberOfDraws++;
@@ -689,7 +745,8 @@ public class GameboardController implements Initializable {
 
     }
 
-    private void clearLight() {
+    private void clearLight()
+    {
 
         DropShadow grid = new DropShadow();
         grid.setColor(Color.WHITE);
@@ -715,12 +772,15 @@ public class GameboardController implements Initializable {
 
     }
 
-    private void clearButtons() {
+    private void clearButtons()
+    {
         removeAllBigWinButtons();
 
-        for (Node n : macroBoard.getChildren()) {
+        for (Node n : macroBoard.getChildren())
+        {
             GridPane pane = (GridPane) n;
-            for (Node k : pane.getChildren()) {
+            for (Node k : pane.getChildren())
+            {
                 Button btn = (Button) k;
                 btn.setText("");
                 btn.setEffect(null);
@@ -730,54 +790,66 @@ public class GameboardController implements Initializable {
         }
     }
 
-    private void setBigLight(DropShadow grid) {
+    private void setBigLight(DropShadow grid)
+    {
 
         ArrayList<Integer> availableGrids = new ArrayList<>();
         String playerX = "" + 1;
         String playerO = "" + 0;
         String draw = ".";
         Integer boardNumber = 0;
-        for (int i = 0; i < 3; i++) {
-            for (int k = 0; k < 3; k++) {
+        for (int i = 0; i < 3; i++)
+        {
+            for (int k = 0; k < 3; k++)
+            {
                 boardNumber++;
                 String mMarking = mBoard[i][k];
-                if (!mMarking.equals(playerX) && !mMarking.equals(playerO) && !mMarking.equals(draw)) {
+                if (!mMarking.equals(playerX) && !mMarking.equals(playerO) && !mMarking.equals(draw))
+                {
                     availableGrids.add(boardNumber);
                 }
             }
         }
-        for (Integer x : availableGrids) {
+        for (Integer x : availableGrids)
+        {
             boardLight(x);
         }
 
     }
 
-    private void startLight() {
+    private void startLight()
+    {
 
         DropShadow grid = new DropShadow();
         grid.setColor(Color.GREEN);
         macroBoard.setEffect(grid);
     }
 
-    public void fixBigMarkings() {
+    public void fixBigMarkings()
+    {
 
         int boardNumber = 0;
         String playerX = "" + 1;
         String playerO = "" + 0;
         String draw = ".";
 
-        for (int i = 0; i < 3; i++) {
-            for (int k = 0; k < 3; k++) {
+        for (int i = 0; i < 3; i++)
+        {
+            for (int k = 0; k < 3; k++)
+            {
                 boardNumber++;
                 String mMarking = mBoard[i][k];
 
-                if (mMarking.equals(playerX)) {
+                if (mMarking.equals(playerX))
+                {
                     fixBigGrids(boardNumber, playerX);
                 }
-                if (mMarking.equals(playerO)) {
+                if (mMarking.equals(playerO))
+                {
                     fixBigGrids(boardNumber, playerO);
                 }
-                if (mMarking.equals(draw)) {
+                if (mMarking.equals(draw))
+                {
                     fixBigGrids(boardNumber, draw);
                 }
             }
@@ -785,22 +857,28 @@ public class GameboardController implements Initializable {
 
     }
 
-    public void fixBigGrids(int grid, String player) {
+    public void fixBigGrids(int grid, String player)
+    {
         Button newB = new Button();
         newB.setStyle("-fx-font-size: 34px;");
         newB.setPrefSize(224, 245);
 
-        switch (grid) {
+        switch (grid)
+        {
 
             case 1:
-                if (!grid1isDone) {
-                    if (player.equals("" + 1)) {
+                if (!grid1isDone)
+                {
+                    if (player.equals("" + 1))
+                    {
                         makeBigXButton(newB);
                     }
-                    if (player.equals("" + 0)) {
+                    if (player.equals("" + 0))
+                    {
                         makeBigOButton(newB);
                     }
-                    if (player.equals(".")) {
+                    if (player.equals("."))
+                    {
                         makeBigDrawButton(newB);
                     }
                     grid1isDone = true;
@@ -810,14 +888,18 @@ public class GameboardController implements Initializable {
                 break;
 
             case 2:
-                if (!grid2isDone) {
-                    if (player.equals("" + 1)) {
+                if (!grid2isDone)
+                {
+                    if (player.equals("" + 1))
+                    {
                         makeBigXButton(newB);
                     }
-                    if (player.equals("" + 0)) {
+                    if (player.equals("" + 0))
+                    {
                         makeBigOButton(newB);
                     }
-                    if (player.equals(".")) {
+                    if (player.equals("."))
+                    {
                         makeBigDrawButton(newB);
                     }
                     grid2isDone = true;
@@ -825,14 +907,18 @@ public class GameboardController implements Initializable {
                 }
                 break;
             case 3:
-                if (!grid3isDone) {
-                    if (player.equals("" + 1)) {
+                if (!grid3isDone)
+                {
+                    if (player.equals("" + 1))
+                    {
                         makeBigXButton(newB);
                     }
-                    if (player.equals("" + 0)) {
+                    if (player.equals("" + 0))
+                    {
                         makeBigOButton(newB);
                     }
-                    if (player.equals(".")) {
+                    if (player.equals("."))
+                    {
                         makeBigDrawButton(newB);
                     }
                     grid3isDone = true;
@@ -840,14 +926,18 @@ public class GameboardController implements Initializable {
                 }
                 break;
             case 4:
-                if (!grid4isDone) {
-                    if (player.equals("" + 1)) {
+                if (!grid4isDone)
+                {
+                    if (player.equals("" + 1))
+                    {
                         makeBigXButton(newB);
                     }
-                    if (player.equals("" + 0)) {
+                    if (player.equals("" + 0))
+                    {
                         makeBigOButton(newB);
                     }
-                    if (player.equals(".")) {
+                    if (player.equals("."))
+                    {
                         makeBigDrawButton(newB);
                     }
                     grid4isDone = true;
@@ -855,15 +945,19 @@ public class GameboardController implements Initializable {
                 }
                 break;
             case 5:
-                if (!grid5isDone) {
-                    if (player.equals("" + 1)) {
+                if (!grid5isDone)
+                {
+                    if (player.equals("" + 1))
+                    {
                         makeBigXButton(newB);
 
                     }
-                    if (player.equals("" + 0)) {
+                    if (player.equals("" + 0))
+                    {
                         makeBigOButton(newB);
                     }
-                    if (player.equals(".")) {
+                    if (player.equals("."))
+                    {
                         makeBigDrawButton(newB);
                     }
                     grid5isDone = true;
@@ -872,15 +966,19 @@ public class GameboardController implements Initializable {
                 break;
 
             case 6:
-                if (!grid6isDone) {
-                    if (player.equals("" + 1)) {
+                if (!grid6isDone)
+                {
+                    if (player.equals("" + 1))
+                    {
                         makeBigXButton(newB);
 
                     }
-                    if (player.equals("" + 0)) {
+                    if (player.equals("" + 0))
+                    {
                         makeBigOButton(newB);
                     }
-                    if (player.equals(".")) {
+                    if (player.equals("."))
+                    {
                         makeBigDrawButton(newB);
                     }
                     grid6isDone = true;
@@ -888,14 +986,18 @@ public class GameboardController implements Initializable {
                 }
                 break;
             case 7:
-                if (!grid7isDone) {
-                    if (player.equals("" + 1)) {
+                if (!grid7isDone)
+                {
+                    if (player.equals("" + 1))
+                    {
                         makeBigXButton(newB);
                     }
-                    if (player.equals("" + 0)) {
+                    if (player.equals("" + 0))
+                    {
                         makeBigOButton(newB);
                     }
-                    if (player.equals(".")) {
+                    if (player.equals("."))
+                    {
                         makeBigDrawButton(newB);
                     }
                     grid7isDone = true;
@@ -903,14 +1005,18 @@ public class GameboardController implements Initializable {
                 }
                 break;
             case 8:
-                if (!grid8isDone) {
-                    if (player.equals("" + 1)) {
+                if (!grid8isDone)
+                {
+                    if (player.equals("" + 1))
+                    {
                         makeBigXButton(newB);
                     }
-                    if (player.equals("" + 0)) {
+                    if (player.equals("" + 0))
+                    {
                         makeBigOButton(newB);
                     }
-                    if (player.equals(".")) {
+                    if (player.equals("."))
+                    {
                         makeBigDrawButton(newB);
                     }
                     grid8isDone = true;
@@ -918,14 +1024,18 @@ public class GameboardController implements Initializable {
                 }
                 break;
             case 9:
-                if (!grid9isDone) {
-                    if (player.equals("" + 1)) {
+                if (!grid9isDone)
+                {
+                    if (player.equals("" + 1))
+                    {
                         makeBigXButton(newB);
                     }
-                    if (player.equals("" + 0)) {
+                    if (player.equals("" + 0))
+                    {
                         makeBigOButton(newB);
                     }
-                    if (player.equals(".")) {
+                    if (player.equals("."))
+                    {
                         makeBigDrawButton(newB);
                     }
                     grid9isDone = true;
@@ -936,35 +1046,41 @@ public class GameboardController implements Initializable {
         }
     }
 
-    private void makeBigOButton(Button newB) {
+    private void makeBigOButton(Button newB)
+    {
         newB.setText("O");
         InnerShadow bolle = new InnerShadow(25, Color.BLUE);
         newB.setEffect(bolle);
         newB.setStyle("-fx-font-size: 34px;");
     }
 
-    private void makeBigDrawButton(Button newB) {
+    private void makeBigDrawButton(Button newB)
+    {
         newB.setText("DRAW");
         InnerShadow draw = new InnerShadow(25, Color.YELLOW);
         newB.setEffect(draw);
         newB.setStyle("-fx-font-size: 34px;");
     }
 
-    private void makeBigXButton(Button newB) {
+    private void makeBigXButton(Button newB)
+    {
         newB.setText("X");
         InnerShadow kryds = new InnerShadow(20, Color.RED);
         newB.setEffect(kryds);
         newB.setStyle("-fx-font-size: 34px;");
     }
 
-    private void removeAllBigWinButtons() {
+    private void removeAllBigWinButtons()
+    {
         ObservableList<Node> allnodes = macroBoard.getChildren();
 
         ArrayList<Node> toDelList = new ArrayList<>();
 
-        for (Node x : allnodes) {
+        for (Node x : allnodes)
+        {
 
-            if (x instanceof Button) {
+            if (x instanceof Button)
+            {
                 toDelList.add(x);
             }
 
@@ -972,14 +1088,16 @@ public class GameboardController implements Initializable {
 
         int sizeOfList = toDelList.size();
 
-        for (int i = sizeOfList - 1; i > -1; i--) {
+        for (int i = sizeOfList - 1; i > -1; i--)
+        {
 
             macroBoard.getChildren().remove(toDelList.get(i));
         }
 
     }
 
-    private void makeButtonHashMap() {
+    private void makeButtonHashMap()
+    {
         buttonHashMap.put("0.0", btn00);
         buttonHashMap.put("0.1", btn01);
         buttonHashMap.put("0.2", btn02);

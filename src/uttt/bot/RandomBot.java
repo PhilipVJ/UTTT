@@ -11,7 +11,7 @@ import uttt.game.IGameState;
 import uttt.move.IMove;
 
 /**
- *
+ * All this does is throwing random moves.
  * @author Philip
  */
 public class RandomBot implements IBot
