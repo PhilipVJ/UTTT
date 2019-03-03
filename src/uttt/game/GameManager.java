@@ -142,10 +142,19 @@ public class GameManager {
 
         //TODO: Implement a bot vs bot Update.
         if (mode == GameMode.BotVsBot) {
+            if(currentPlayer==0){
             IMove botMove = bot.doMove(currentState);
             lastBotMove = "" + botMove.getX() + "." + botMove.getY(); 
             boolean done = updateGame(botMove);
             return done;
+            }
+            if(currentPlayer==1){
+              IMove botMove = bot2.doMove(currentState);
+            lastBotMove = "" + botMove.getX() + "." + botMove.getY(); 
+            boolean done = updateGame(botMove);
+            return done;
+              
+            }
         }
 
         return false;

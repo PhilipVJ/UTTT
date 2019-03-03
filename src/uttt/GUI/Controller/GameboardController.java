@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
@@ -29,7 +30,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import uttt.bot.IBot;
 import uttt.bot.RandomBot;
+import uttt.bot.SmartBot;
 import uttt.game.GameManager;
 import uttt.game.GameState;
 import uttt.move.Move;
@@ -267,6 +270,12 @@ public class GameboardController implements Initializable {
     private HashMap buttonHashMap;
     private int numberOfBotPlays;
 
+    private String bot1;
+    private String bot2;
+
+    private IBot AIBot1;
+    private IBot AIBot2;
+
     /**
      * Initializes the controller class.
      */
@@ -323,23 +332,27 @@ public class GameboardController implements Initializable {
             if (gameOver) {
                 DropShadow h = new DropShadow();
                 h.setColor(Color.GREEN);
-                macroBoard.setEffect(h);                
+                macroBoard.setEffect(h);
                 return;
-               
 
             }
+            // These alerts are used for testing, when you want to see a bots move step by step. Disable initBotFight in setGameManager also
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setX(0);
+//            alert.showAndWait();
             startBotFight();
-              
-            }
+
+        }
 
     }
 
     private void initBotFight() throws InterruptedException {
         for (int i = numberOfBotPlays; i > 0; i--) {
             startBotFight();
-            gManager=new GameManager(new GameState(), new RandomBot(), new RandomBot());
-            if(i>1){
-            cleanUpStage();}
+            gManager = new GameManager(new GameState(), AIBot1, AIBot2);
+            if (i > 1) {
+                cleanUpStage();
+            }
         }
         fixBigMarkings();
     }
@@ -363,6 +376,31 @@ public class GameboardController implements Initializable {
         grid4isDone = false;
         grid3isDone = false;
         grid2isDone = false;
+    }
+
+    @FXML
+    private void start(MouseEvent event) throws InterruptedException {
+        initBotFight();
+    }
+
+    private void createBots(String botToPlay, String botToPlay2) {
+        switch (botToPlay) {
+            case "RandomBot":
+                AIBot1 = new RandomBot();
+                break;
+            case "SmartBot":
+                AIBot1 = new SmartBot();
+                break;
+        }
+        switch (botToPlay2) {
+            case "RandomBot":
+                AIBot2 = new RandomBot();
+                break;
+            case "SmartBot":
+                AIBot2 = new SmartBot();
+                break;
+
+        }
     }
 
     public enum GameMode {
@@ -468,23 +506,27 @@ public class GameboardController implements Initializable {
         }
     }
 
-    public void setGameManager(int gMode, int playerToStart, int bPlays) throws InterruptedException {
+    public void setGameManager(int gMode, int playerToStart, int bPlays, String botToPlay, String botToPlay2) throws InterruptedException {
         this.gMode = gMode;
-        // Mangler kode i 2 og 3
+        bot1=botToPlay;
+        bot2=botToPlay2;
+        createBots(botToPlay, botToPlay2);
+
         switch (gMode) {
             case 1:
                 gManager = new GameManager(new GameState(), playerToStart);
                 gameMode = GameMode.HumanVsHuman;
                 break;
             case 2:
-                gManager = new GameManager(new GameState(), new RandomBot());
+                gManager = new GameManager(new GameState(), AIBot1);
                 gameMode = GameMode.HumanVsBot;
                 // Sets the starting player to be human
                 currentPlayer = 0;
                 playerTurn();
                 break;
             case 3:
-                gManager = new GameManager(new GameState(), new RandomBot(), new RandomBot());
+
+                gManager = new GameManager(new GameState(), AIBot1, AIBot2);
                 gameMode = GameMode.BotVsBot;
 
                 this.numberOfBotPlays = bPlays;
@@ -530,10 +572,10 @@ public class GameboardController implements Initializable {
         }
         if (gameMode != GameMode.BotVsBot) {
 
-            setGameManager(gMode, currentPlayer, 0);
+            setGameManager(gMode, currentPlayer, 0, bot1, bot2);
         }
         if (gameMode == GameMode.BotVsBot) {
-            setGameManager(gMode, currentPlayer, numberOfBotPlays);
+            setGameManager(gMode, currentPlayer, numberOfBotPlays, bot1, bot2);
         }
         gameOver = false;
         winnerIs.setVisible(false);

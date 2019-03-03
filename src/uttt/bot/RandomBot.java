@@ -20,6 +20,7 @@ public class RandomBot implements IBot
     @Override
     public IMove doMove(IGameState state)
     {
+        System.out.println("RANDOM BOT");
         List<IMove> moves = state.getField().getAvailableMoves();
        int moveSize = moves.size();
        Double randomNumber = Math.random()*moveSize;
