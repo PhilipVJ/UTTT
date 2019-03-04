@@ -351,7 +351,7 @@ public class GameboardController implements Initializable
 //            Alert alert = new Alert(Alert.AlertType.ERROR);
 //            alert.setX(0);
 //            alert.showAndWait();
-            
+//            
             
             startBotFight();
 
@@ -569,8 +569,6 @@ public class GameboardController implements Initializable
         bot1 = botToPlay;
         bot2 = botToPlay2;
         createBots(botToPlay, botToPlay2);
-
-                
 
         switch (gMode)
         {
