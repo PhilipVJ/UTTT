@@ -331,7 +331,9 @@ public class SmartestBot implements IBot
         System.out.println("ANTAL GODE TRÆK: " + allGoodMoves.size());
         Double rNum = Math.random() * allGoodMoves.size();
         int rNumInt = rNum.intValue();
+        if(allGoodMoves.size()>0){
         moveToDo = allGoodMoves.get(rNumInt);
+        }
         return foundMove;
     }
 
