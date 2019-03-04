@@ -53,7 +53,7 @@ public class Terminator implements IBot {
         availableMoves = state.getField().getAvailableMoves();
         setPlayerId();
 
-        boolean gotADrawMove=false;
+        boolean gotADrawMove = false;
         if (!checkIfItsPossibleToWin()) {
             // starting defense mode
             int otherPlayer;
@@ -66,16 +66,14 @@ public class Terminator implements IBot {
                 copyBoards();
                 if (checkMove(x, otherPlayer)) {
                     moveToDo = x;
-                    gotADrawMove=true;
+                    gotADrawMove = true;
                     break;
                 }
             }
-            
-            
 
         }
-        if(gotADrawMove==false){
-        calculateMove();
+        if (gotADrawMove == false) {
+            calculateMove();
         }
 
         return moveToDo;
@@ -113,18 +111,30 @@ public class Terminator implements IBot {
         boolean foundValidMove = false;
         // Attack move
 
+        List<IMove> attackMoves = new ArrayList<>();
         for (IMove x : availableMoves) {
             copyBoards();
-
             if (checkMove(x, playerId)) {
                 foundValidMove = true;
-                moveToDo = x;
-
-                break;
+                attackMoves.add(x);
             }
         }
+        // if attackmoves has been found we here choose one here. We choose one which doesn't give a free line to the opponent next round.
+        
+        if (foundValidMove == true) {
+
+            boolean bingo = findGoodMove(attackMoves);
+            if (bingo == false) {
+                Double rNum = Math.random() * attackMoves.size();
+                int rNumInt = rNum.intValue();
+                moveToDo = attackMoves.get(rNumInt);
+            }
+
+        }
+
         // Defense move
         if (foundValidMove == false) {
+
             int otherPlayer;
             if (playerId == 1) {
                 otherPlayer = 0;
@@ -147,7 +157,7 @@ public class Terminator implements IBot {
         // Make sure the next move doesn't give the opponent a free line
         if (foundValidMove == false) {
 
-            if (findGoodMove() == true) {
+            if (findGoodMove(availableMoves) == true) {
                 foundValidMove = true;
             }
         }
@@ -221,7 +231,7 @@ public class Terminator implements IBot {
 
     }
 
-    private boolean findGoodMove() {
+    private boolean findGoodMove(List<IMove> moves) {
         boolean foundMove = false;
         int otherPlayer;
         if (playerId == 1) {
@@ -232,7 +242,7 @@ public class Terminator implements IBot {
         // Tager hver move objekt som er tilgængeligt
         List<IMove> allGoodMoves = new ArrayList<>();
 
-        for (IMove x : availableMoves) {
+        for (IMove x : moves) {
             // laver en kopi af banen (både micro og macro)
             copyBoards();
             // Laver en kopi af kopien
@@ -778,18 +788,25 @@ public class Terminator implements IBot {
 
             }
         }
-        if (bestOfTheBest.size() > 0) {
-            Double rNum = Math.random() * bestMoves.size();
-            int rNumInt = rNum.intValue();
-            return bestMoves.get(rNumInt);
-        }
+        Double random = Math.random() * 10;
+        //Det sikrer noget tilfældighed
+        if (random > 3) {
+            System.out.println("Calculated");
+            if (bestOfTheBest.size() > 0) {
+                Double rNum = Math.random() * bestMoves.size();
+                int rNumInt = rNum.intValue();
+                return bestMoves.get(rNumInt);
+            }
 
-        if (bestMoves.size() > 0) {
-            Double rNum = Math.random() * bestMoves.size();
-            int rNumInt = rNum.intValue();
-            return bestMoves.get(rNumInt);
+            if (bestMoves.size() > 0) {
+                Double rNum = Math.random() * bestMoves.size();
+                int rNumInt = rNum.intValue();
+                return bestMoves.get(rNumInt);
+            }
+
         }
         // Hvis det ikke lykkes så bare retur en tilfældig fra den oprindelige liste
+        System.out.println("Random move");
         Double rNum = Math.random() * moves.size();
         int rNumInt = rNum.intValue();
         return moves.get(rNumInt);
