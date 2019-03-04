@@ -30,6 +30,9 @@ public class SmartestBot implements IBot
     boolean setPlayerId = false;
     private String[][] copyBoard = new String[9][9];
     private String[][] copyMacro = new String[3][3];
+    private String[][] copyCopyBoard = new String[9][9];
+    private String[][] copyCopyMacro = new String[3][3];
+
     private IGameState currentState;
     private ArrayList<String[]> microBoards = new ArrayList<>();
     private int activeMicroBoard = 0;
@@ -38,7 +41,7 @@ public class SmartestBot implements IBot
     public IMove doMove(IGameState state)
     {
         setMicroboardCoordinates();
-        System.out.println("SMARTER BOT");
+        System.out.println("SMARTEST BOT");
         board = state.getField().getBoard();
         currentState = state;
         macroBoard = state.getField().getMacroboard();
@@ -129,9 +132,11 @@ public class SmartestBot implements IBot
 
         }
         // Make sure the next move doesn't give the opponent a free line
+        if(foundValidMove==false){
         if (findGoodMove() == true)
         {
             foundValidMove = true;
+        }
         }
 
         // Random move
@@ -232,35 +237,44 @@ public class SmartestBot implements IBot
             otherPlayer = 1;
         }
         // Tager hver move objekt som er tilgængeligt
+        List<IMove> allGoodMoves = new ArrayList<>();
+
         for (IMove x : availableMoves)
         {
             // laver en kopi af banen (både micro og macro)
             copyBoards();
+            copyCopyBoard();
             // Sætter det pågældende move på microboardKopien
             copyBoard[x.getX()][x.getY()] = "" + playerId;
+
+            System.out.println("MOVE TO TEST: " + x.getX() + "." + x.getY());
             // Udregn de næste gyldige træk
-            
+
             List<IMove> newAvailableMoves = new ArrayList<>();
-            
+
             activeMicroBoard = findMicroBoard(x.getX(), x.getY());
-            System.out.println("HER PRINT:"+activeMicroBoard);
-            System.out.println("ACTIVEMICROBOARD"+activeMicroBoard);
+            System.out.println("NEW ACTIVE: "+activeMicroBoard);
+
+            System.out.println("ACTIVEMICROBOARD: " + activeMicroBoard);
             String[] curBoard = microBoards.get(activeMicroBoard - 1);
-            
+
             String coordinate = "" + x.getX() + "." + x.getY();
 
             int indexOfCoordinateInMicroBoard = 100;
 
             for (int i = 0; i < 9; i++)
             {
-                System.out.println("PRINTING THIS: "+curBoard[i] + coordinate);
+
                 if (curBoard[i].equals(coordinate))
                 {
                     indexOfCoordinateInMicroBoard = i;
                 }
             }
+
+            System.out.println("INDEX OF COORDINATE " + indexOfCoordinateInMicroBoard);
             activeMicroBoard = indexOfCoordinateInMicroBoard + 1;
-            System.out.println("PRINTING HERE:"+activeMicroBoard);
+            System.out.println("New currentMicroboar: PRINTING HERE:" + activeMicroBoard);
+            // alt overstående virker
             String[] currentMicroBoard = microBoards.get(activeMicroBoard - 1);
             // Laver alle moves til det nye activeMicroBoard
             for (int i = 0; i < 9; i++)
@@ -269,25 +283,35 @@ public class SmartestBot implements IBot
 
                 char xCor = coor.charAt(0);
                 char yCor = coor.charAt(2);
+
                 int xCoord = Character.getNumericValue(xCor);
                 int yCoord = Character.getNumericValue(yCor);
 
                 Move move = new Move(xCoord, yCoord);
-                newAvailableMoves.add(move);
+                if (copyBoard[xCoord][yCoord] == "-1" || copyBoard[xCoord][yCoord] == ".")
+                {
+                    newAvailableMoves.add(move);
+                }
 
             }
 
-            // MANGLER MERE
-            
-            
+            System.out.println("TJEKTJEK:" + newAvailableMoves.size());
+            for (IMove j : newAvailableMoves)
+            {
+                System.out.println("X:" + j.getX() + "   Y:" + j.getY());
+            }
+            // KOMMET HERTIL
+
             // Tjek om nogle af de nye træk vil kunne give 3 på stribe for modstanderen senere
             System.out.println("Checking if opponent can get 3 in a line");
             boolean opponentGotLine = false;
             for (IMove y : newAvailableMoves)
             {
-
+                makeCopyOriginalAgain();
+                System.out.println("CHECKCHECKCHECK");
                 if (checkMove(y, otherPlayer))
                 {
+                    System.out.println("3 på stribe fundet");
                     opponentGotLine = true;
                     break;
                 }
@@ -296,11 +320,18 @@ public class SmartestBot implements IBot
 
             if (opponentGotLine == false)
             {
-                moveToDo = x;
+                allGoodMoves.add(x);
+                System.out.println("ADDING MOVE");
                 foundMove = true;
-                break;
+
             }
+
         }
+        System.out.println("Fundet gyldigt træk:" + foundMove);
+        System.out.println("ANTAL GODE TRÆK: " + allGoodMoves.size());
+        Double rNum = Math.random() * allGoodMoves.size();
+        int rNumInt = rNum.intValue();
+        moveToDo = allGoodMoves.get(rNumInt);
         return foundMove;
     }
 
@@ -599,16 +630,16 @@ public class SmartestBot implements IBot
     public int findMicroBoard(int x, int y)
     {
         String coordinate = "" + x + "." + y;
-        System.out.println("Coordinate to search "+coordinate);
+        int counter=0;
         for (String[] k : microBoards)
         {
+counter++;
             for (int i = 0; i < 9; i++)
             {
-                System.out.println("PRINTING K:"+k[1]);
+                System.out.println("PRINTING " + k[i]);
                 if (k[i].equals(coordinate))
                 {
-                    ;
-                    return i + 1;
+                    return counter;
                 }
 
             }
@@ -675,6 +706,46 @@ public class SmartestBot implements IBot
         microBoards.add(m7);
         microBoards.add(m8);
         microBoards.add(m9);
+    }
+
+    private void copyCopyBoard()
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            for (int k = 0; k < 9; k++)
+            {
+                copyCopyBoard[i][k] = copyBoard[i][k];
+            }
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            for (int k = 0; k < 3; k++)
+            {
+                copyCopyMacro[i][k] = copyMacro[i][k];
+            }
+        }
+    }
+
+    private void makeCopyOriginalAgain()
+    {
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                for (int k = 0; k < 9; k++)
+                {
+                    copyBoard[i][k] = copyCopyBoard[i][k];
+                }
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                for (int k = 0; k < 3; k++)
+                {
+                    copyMacro[i][k] = copyCopyMacro[i][k];
+                }
+            }
+        }
     }
 
 }

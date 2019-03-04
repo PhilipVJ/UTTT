@@ -348,9 +348,11 @@ public class GameboardController implements Initializable
 
             }
             // These alerts are used for testing, when you want to see a bots move step by step. Disable initBotFight in setGameManager also
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setX(0);
-            alert.showAndWait();
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setX(0);
+//            alert.showAndWait();
+            
+            
             startBotFight();
 
         }
@@ -401,10 +403,13 @@ public class GameboardController implements Initializable
 
     private void createBots(String botToPlay, String botToPlay2)
     {
+        System.out.println("Bot to play.: "+botToPlay);
+        System.out.println("Bot to play 2: "+botToPlay2);
         switch (botToPlay)
         {
             case "RandomBot":
                 AIBot1 = new RandomBot();
+                System.out.println("Creating random bot");
                 break;
             case "SmartBot":
                 AIBot1 = new SmartBot();
@@ -417,6 +422,7 @@ public class GameboardController implements Initializable
                 break;
 
         }
+        System.out.println("DOING THIS");
         switch (botToPlay2)
         {
             case "RandomBot":
@@ -429,7 +435,8 @@ public class GameboardController implements Initializable
                 AIBot2 = new SmarterBot();
                 break;
             case "SmartestBot":
-                AIBot1 = new SmartestBot();
+                AIBot2 = new SmartestBot();
+                
                 break;
 
         }
@@ -563,6 +570,8 @@ public class GameboardController implements Initializable
         bot2 = botToPlay2;
         createBots(botToPlay, botToPlay2);
 
+                
+
         switch (gMode)
         {
             case 1:
@@ -582,7 +591,7 @@ public class GameboardController implements Initializable
                 gameMode = GameMode.BotVsBot;
 
                 this.numberOfBotPlays = bPlays;
-//                initBotFight();
+                initBotFight();
 
                 lblPlayerTurn.setVisible(false);
                 btnClear.setVisible(false);
