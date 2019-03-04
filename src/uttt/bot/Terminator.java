@@ -36,10 +36,12 @@ public class Terminator implements IBot {
     private ArrayList<String[]> microBoards = new ArrayList<>();
     private int activeMicroBoard = 0;
     private String[] badMoves;
+    private String[] otherBadMoves;
 
     @Override
     public IMove doMove(IGameState state) {
         setBadMoves();
+        setOtherBadMoves();
         setMicroboardCoordinates();
         System.out.println("TERMINATOR");
         board = state.getField().getBoard();
@@ -711,7 +713,7 @@ public class Terminator implements IBot {
             boolean isBad = false;
             for (int i = 0; i < 9; i++) {
                 String badMove = badMoves[i];
-                
+
                 char xCor = badMove.charAt(0);
                 char yCor = badMove.charAt(2);
 
@@ -722,22 +724,49 @@ public class Terminator implements IBot {
                     isBad = true;
                 }
             }
-            if(isBad==false)
-            {
+            if (isBad == false) {
                 bestMoves.add(move);
             }
 
         }
-        if(bestMoves.size()>0){
-        Double rNum = Math.random() * bestMoves.size();
-        int rNumInt = rNum.intValue();
-        return bestMoves.get(rNumInt);
+        List<IMove> bestOfTheBest = new ArrayList<>();
+        if (bestMoves.size() > 0) {
+            for (IMove move : bestMoves) {
+                boolean isBad = false;
+                for (int i = 0; i < 36; i++) {
+                    String badMove = otherBadMoves[i];
+
+                    char xCor = badMove.charAt(0);
+                    char yCor = badMove.charAt(2);
+
+                    int xCoord = Character.getNumericValue(xCor);
+                    int yCoord = Character.getNumericValue(yCor);
+
+                    if (move.getX() == xCoord && move.getY() == yCoord) {
+                        isBad = true;
+                    }
+                }
+                if (isBad == false) {
+                    bestOfTheBest.add(move);
+                }
+
+            }
+        }
+        if (bestOfTheBest.size() > 0) {
+            Double rNum = Math.random() * bestMoves.size();
+            int rNumInt = rNum.intValue();
+            return bestMoves.get(rNumInt);
+        }
+
+        if (bestMoves.size() > 0) {
+            Double rNum = Math.random() * bestMoves.size();
+            int rNumInt = rNum.intValue();
+            return bestMoves.get(rNumInt);
         }
         // Hvis det ikke lykkes så bare retur en tilfældig fra den oprindelige liste
         Double rNum = Math.random() * moves.size();
         int rNumInt = rNum.intValue();
         return moves.get(rNumInt);
-        
 
     }
 
@@ -752,6 +781,55 @@ public class Terminator implements IBot {
         badMoves[6] = "" + 7 + "." + 1;
         badMoves[7] = "" + 7 + "." + 4;
         badMoves[8] = "" + 7 + "." + 7;
+
+    }
+
+    private void setOtherBadMoves() {
+        otherBadMoves = new String[36];
+        otherBadMoves[0] = "" + 1 + "." + 0;
+        otherBadMoves[1] = "" + 0 + "." + 1;
+        otherBadMoves[2] = "" + 1 + "." + 2;
+        otherBadMoves[3] = "" + 2 + "." + 1;
+
+        otherBadMoves[4] = "" + 3 + "." + 1;
+        otherBadMoves[5] = "" + 4 + "." + 0;
+        otherBadMoves[6] = "" + 4 + "." + 2;
+        otherBadMoves[7] = "" + 5 + "." + 1;
+
+        otherBadMoves[8] = "" + 6 + "." + 1;
+        otherBadMoves[9] = "" + 7 + "." + 2;
+        otherBadMoves[10] = "" + 8 + "." + 1;
+        otherBadMoves[11] = "" + 7 + "." + 0;
+
+        otherBadMoves[12] = "" + 0 + "." + 4;
+        otherBadMoves[13] = "" + 1 + "." + 3;
+        otherBadMoves[14] = "" + 2 + "." + 4;
+        otherBadMoves[15] = "" + 1 + "." + 5;
+
+        otherBadMoves[16] = "" + 3 + "." + 4;
+        otherBadMoves[17] = "" + 4 + "." + 5;
+        otherBadMoves[18] = "" + 5 + "." + 4;
+        otherBadMoves[19] = "" + 4 + "." + 3;
+
+        otherBadMoves[20] = "" + 6 + "." + 4;
+        otherBadMoves[21] = "" + 7 + "." + 5;
+        otherBadMoves[22] = "" + 8 + "." + 4;
+        otherBadMoves[23] = "" + 7 + "." + 3;
+
+        otherBadMoves[24] = "" + 0 + "." + 7;
+        otherBadMoves[25] = "" + 1 + "." + 6;
+        otherBadMoves[26] = "" + 1 + "." + 8;
+        otherBadMoves[27] = "" + 2 + "." + 7;
+
+        otherBadMoves[28] = "" + 3 + "." + 7;
+        otherBadMoves[29] = "" + 4 + "." + 8;
+        otherBadMoves[30] = "" + 5 + "." + 7;
+        otherBadMoves[31] = "" + 4 + "." + 6;
+
+        otherBadMoves[32] = "" + 6 + "." + 7;
+        otherBadMoves[33] = "" + 7 + "." + 8;
+        otherBadMoves[34] = "" + 8 + "." + 7;
+        otherBadMoves[35] = "" + 7 + "." + 6;
 
     }
 }
