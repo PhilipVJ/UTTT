@@ -34,6 +34,7 @@ import uttt.bot.IBot;
 import uttt.bot.RandomBot;
 import uttt.bot.SmartBot;
 import uttt.bot.SmarterBot;
+import uttt.bot.SmartestBot;
 import uttt.game.GameManager;
 import uttt.game.GameState;
 import uttt.move.Move;
@@ -347,9 +348,9 @@ public class GameboardController implements Initializable
 
             }
             // These alerts are used for testing, when you want to see a bots move step by step. Disable initBotFight in setGameManager also
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setX(0);
-//            alert.showAndWait();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setX(0);
+            alert.showAndWait();
             startBotFight();
 
         }
@@ -410,6 +411,10 @@ public class GameboardController implements Initializable
                 break;
             case "SmarterBot":
                 AIBot1 = new SmarterBot();
+                break;
+            case "SmartestBot":
+                AIBot1 = new SmartestBot();
+                break;
 
         }
         switch (botToPlay2)
@@ -422,6 +427,10 @@ public class GameboardController implements Initializable
                 break;
             case "SmarterBot":
                 AIBot2 = new SmarterBot();
+                break;
+            case "SmartestBot":
+                AIBot1 = new SmartestBot();
+                break;
 
         }
     }
@@ -573,7 +582,7 @@ public class GameboardController implements Initializable
                 gameMode = GameMode.BotVsBot;
 
                 this.numberOfBotPlays = bPlays;
-                initBotFight();
+//                initBotFight();
 
                 lblPlayerTurn.setVisible(false);
                 btnClear.setVisible(false);

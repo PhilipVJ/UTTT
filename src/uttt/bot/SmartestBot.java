@@ -5,19 +5,23 @@
  */
 package uttt.bot;
 
+import java.util.ArrayList;
 import java.util.List;
 import static uttt.field.IField.AVAILABLE_FIELD;
 import uttt.game.IGameState;
 import uttt.move.IMove;
+import uttt.move.Move;
 
 /**
- * This bot first tries to get a line. If that isn't possible it will try to block the opponent. 
- * If that doesn't work it will do a random move.
+ * This bot first tries to get a line. If that isn't possible it will try to
+ * block the opponent. If that doesn't work it will do a random move.
+ *
  * @author Philip
  */
-public class SmarterBot implements IBot
+public class SmartestBot implements IBot
 {
-    private String botName = "SmarterBot";
+
+    private String botName = "SmartestBot";
     private String[][] board;
     private String[][] macroBoard;
     private List<IMove> availableMoves;
@@ -27,10 +31,13 @@ public class SmarterBot implements IBot
     private String[][] copyBoard = new String[9][9];
     private String[][] copyMacro = new String[3][3];
     private IGameState currentState;
+    private ArrayList<String[]> microBoards = new ArrayList<>();
+    private int activeMicroBoard = 0;
 
     @Override
     public IMove doMove(IGameState state)
     {
+        setMicroboardCoordinates();
         System.out.println("SMARTER BOT");
         board = state.getField().getBoard();
         currentState = state;
@@ -99,13 +106,12 @@ public class SmarterBot implements IBot
         if (foundValidMove == false)
         {
             int otherPlayer;
-            if(playerId==1)
+            if (playerId == 1)
             {
-                otherPlayer=0;
-            }
-            else
+                otherPlayer = 0;
+            } else
             {
-                otherPlayer=1;
+                otherPlayer = 1;
             }
             System.out.println("Looking for DEFENSE MOVE");
             for (IMove x : availableMoves)
@@ -121,8 +127,13 @@ public class SmarterBot implements IBot
                 }
             }
 
-
         }
+        // Make sure the next move doesn't give the opponent a free line
+        if (findGoodMove() == true)
+        {
+            foundValidMove = true;
+        }
+
         // Random move
         if (foundValidMove == false)
         {
@@ -131,6 +142,13 @@ public class SmarterBot implements IBot
 
     }
 
+    /**
+     * Returns true if the given move gives a line to the specified player
+     *
+     * @param move
+     * @param player
+     * @return
+     */
     private boolean checkMove(IMove move, int player)
     {
         int x = move.getX();
@@ -200,6 +218,90 @@ public class SmarterBot implements IBot
         checkForVerticalWin(player);
         checkForDiagonalWin(player);
 
+    }
+
+    private boolean findGoodMove()
+    {
+        boolean foundMove = false;
+        int otherPlayer;
+        if (playerId == 1)
+        {
+            otherPlayer = 0;
+        } else
+        {
+            otherPlayer = 1;
+        }
+        // Tager hver move objekt som er tilgængeligt
+        for (IMove x : availableMoves)
+        {
+            // laver en kopi af banen (både micro og macro)
+            copyBoards();
+            // Sætter det pågældende move på microboardKopien
+            copyBoard[x.getX()][x.getY()] = "" + playerId;
+            // Udregn de næste gyldige træk
+            
+            List<IMove> newAvailableMoves = new ArrayList<>();
+            
+            activeMicroBoard = findMicroBoard(x.getX(), x.getY());
+            System.out.println("HER PRINT:"+activeMicroBoard);
+            System.out.println("ACTIVEMICROBOARD"+activeMicroBoard);
+            String[] curBoard = microBoards.get(activeMicroBoard - 1);
+            
+            String coordinate = "" + x.getX() + "." + x.getY();
+
+            int indexOfCoordinateInMicroBoard = 100;
+
+            for (int i = 0; i < 9; i++)
+            {
+                System.out.println("PRINTING THIS: "+curBoard[i] + coordinate);
+                if (curBoard[i].equals(coordinate))
+                {
+                    indexOfCoordinateInMicroBoard = i;
+                }
+            }
+            activeMicroBoard = indexOfCoordinateInMicroBoard + 1;
+            System.out.println("PRINTING HERE:"+activeMicroBoard);
+            String[] currentMicroBoard = microBoards.get(activeMicroBoard - 1);
+            // Laver alle moves til det nye activeMicroBoard
+            for (int i = 0; i < 9; i++)
+            {
+                String coor = currentMicroBoard[i];
+
+                char xCor = coor.charAt(0);
+                char yCor = coor.charAt(2);
+                int xCoord = Character.getNumericValue(xCor);
+                int yCoord = Character.getNumericValue(yCor);
+
+                Move move = new Move(xCoord, yCoord);
+                newAvailableMoves.add(move);
+
+            }
+
+            // MANGLER MERE
+            
+            
+            // Tjek om nogle af de nye træk vil kunne give 3 på stribe for modstanderen senere
+            System.out.println("Checking if opponent can get 3 in a line");
+            boolean opponentGotLine = false;
+            for (IMove y : newAvailableMoves)
+            {
+
+                if (checkMove(y, otherPlayer))
+                {
+                    opponentGotLine = true;
+                    break;
+                }
+
+            }
+
+            if (opponentGotLine == false)
+            {
+                moveToDo = x;
+                foundMove = true;
+                break;
+            }
+        }
+        return foundMove;
     }
 
     private void checkForDiagonalWin(int playerId)
@@ -494,6 +596,85 @@ public class SmarterBot implements IBot
         return botName;
     }
 
+    public int findMicroBoard(int x, int y)
+    {
+        String coordinate = "" + x + "." + y;
+        System.out.println("Coordinate to search "+coordinate);
+        for (String[] k : microBoards)
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                System.out.println("PRINTING K:"+k[1]);
+                if (k[i].equals(coordinate))
+                {
+                    ;
+                    return i + 1;
+                }
 
+            }
+
+        }
+        //Couldn't find coordinate - returns 100 - shouldn't happen
+        return 100;
+    }
+
+    public void setMicroboardCoordinates()
+    {
+        String[] m1
+                =
+                {
+                    "0.0", "0.1", "0.2", "1.0", "1.1", "1.2", "2.0", "2.1", "2.2"
+                };
+        String[] m2
+                =
+                {
+                    "0.3", "0.4", "0.5", "1.3", "1.4", "1.5", "2.3", "2.4", "2.5"
+                };
+        String[] m3
+                =
+                {
+                    "0.6", "0.7", "0.8", "1.6", "1.7", "1.8", "2.6", "2.7", "2.8"
+                };
+        String[] m4
+                =
+                {
+                    "3.0", "3.1", "3.2", "4.0", "4.1", "4.2", "5.0", "5.1", "5.2"
+                };
+        String[] m5
+                =
+                {
+                    "3.3", "3.4", "3.5", "4.3", "4.4", "4.5", "5.3", "5.4", "5.5"
+                };
+        String[] m6
+                =
+                {
+                    "3.6", "3.7", "3.8", "4.6", "4.7", "4.8", "5.6", "5.7", "5.8"
+                };
+        String[] m7
+                =
+                {
+                    "6.0", "6.1", "6.2", "7.0", "7.1", "7.2", "8.0", "8.1", "8.2"
+                };
+        String[] m8
+                =
+                {
+                    "6.3", "6.4", "6.5", "7.3", "7.4", "7.5", "8.3", "8.4", "8.5"
+                };
+        String[] m9
+                =
+                {
+                    "6.6", "6.7", "6.8", "7.6", "7.7", "7.8", "8.6", "8.7", "8.8"
+                };
+
+        microBoards.add(m1);
+        microBoards.add(m2);
+        microBoards.add(m3);
+        microBoards.add(m4);
+        microBoards.add(m5);
+        microBoards.add(m6);
+        microBoards.add(m7);
+        microBoards.add(m8);
+        microBoards.add(m9);
+    }
 
 }

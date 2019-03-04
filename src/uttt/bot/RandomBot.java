@@ -16,7 +16,7 @@ import uttt.move.IMove;
  */
 public class RandomBot implements IBot
 {
-
+private String botName = "RandomBot";
     @Override
     public IMove doMove(IGameState state)
     {
@@ -27,6 +27,12 @@ public class RandomBot implements IBot
        int rNumber = randomNumber.intValue();
        return moves.get(rNumber);
        
+    }
+
+    @Override
+    public String getBotName()
+    {
+      return botName;
     }
 
 

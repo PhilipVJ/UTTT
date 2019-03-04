@@ -24,6 +24,7 @@ public class SmartBot implements IBot {
     boolean setPlayerId = false;
     private String[][] copyBoard = new String[9][9];
     private String[][] copyMacro = new String[3][3];
+    private String botName = "SmartBot";
 
     @Override
     public IMove doMove(IGameState state) {
@@ -398,6 +399,12 @@ public class SmartBot implements IBot {
 
             }
         }
+
+    @Override
+    public String getBotName()
+    {
+       return botName;
+    }
 
     
 
