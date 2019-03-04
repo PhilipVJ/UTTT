@@ -18,9 +18,9 @@ import uttt.move.Move;
  *
  * @author Philip
  */
-public class SmartestBot implements IBot {
+public class Terminator implements IBot {
 
-    private String botName = "SmartestBot";
+    private String botName = "Terminator";
     private String[][] board;
     private String[][] macroBoard;
     private List<IMove> availableMoves;
@@ -35,11 +35,13 @@ public class SmartestBot implements IBot {
     private IGameState currentState;
     private ArrayList<String[]> microBoards = new ArrayList<>();
     private int activeMicroBoard = 0;
+    private String[] badMoves;
 
     @Override
     public IMove doMove(IGameState state) {
+        setBadMoves();
         setMicroboardCoordinates();
-        System.out.println("SMARTEST BOT");
+        System.out.println("TERMINATOR");
         board = state.getField().getBoard();
         currentState = state;
         macroBoard = state.getField().getMacroboard();
@@ -71,10 +73,9 @@ public class SmartestBot implements IBot {
         if (numberOfEmptyFields == 81) {
             playerId = 0;
 
-
         } else {
             playerId = 1;
-          
+
         }
         setPlayerId = true;
     }
@@ -83,14 +84,14 @@ public class SmartestBot implements IBot {
         // Always goes for a move which gives a line
         boolean foundValidMove = false;
         // Attack move
-     
+
         for (IMove x : availableMoves) {
             copyBoards();
 
             if (checkMove(x, playerId)) {
                 foundValidMove = true;
                 moveToDo = x;
-           
+
                 break;
             }
         }
@@ -102,14 +103,14 @@ public class SmartestBot implements IBot {
             } else {
                 otherPlayer = 1;
             }
-      
+
             for (IMove x : availableMoves) {
                 copyBoards();
 
                 if (checkMove(x, otherPlayer)) {
                     foundValidMove = true;
                     moveToDo = x;
-    
+
                     break;
                 }
             }
@@ -168,10 +169,7 @@ public class SmartestBot implements IBot {
 
     private void setRandomMove() {
 
-        int moveSize = availableMoves.size();
-        Double randomNumber = Math.random() * moveSize;
-        int rNumber = randomNumber.intValue();
-        moveToDo = availableMoves.get(rNumber);
+        moveToDo = setBestMove(availableMoves);
     }
 
     private void copyBoards() {
@@ -234,9 +232,8 @@ public class SmartestBot implements IBot {
             // ActiveMicroBoard after a specific move
             activeMicroBoard = indexOfCoordinateInMicroBoard + 1;
             //Check if activeMicroBoard should be the entire field
-       
-            if(checkForWinOrDrawOnMicro(activeMicroBoard))
-            {
+
+            if (checkForWinOrDrawOnMicro(activeMicroBoard)) {
 
                 continue;
             }
@@ -280,7 +277,8 @@ public class SmartestBot implements IBot {
         Double rNum = Math.random() * allGoodMoves.size();
         int rNumInt = rNum.intValue();
         if (allGoodMoves.size() > 0) {
-            moveToDo = allGoodMoves.get(rNumInt);
+
+            moveToDo = setBestMove(allGoodMoves);
         }
         return foundMove;
     }
@@ -632,76 +630,128 @@ public class SmartestBot implements IBot {
     }
 
     private boolean checkForWinOrDrawOnMicro(int activeMicroBoard) {
-        boolean foundWinOrDraw=false;
-   
-        
-        
-        switch (activeMicroBoard){
-            case 1: if(!copyMacro[0][0].equals("-1"))
-            {
+        boolean foundWinOrDraw = false;
 
-                foundWinOrDraw=true;              
-            }
-            break;
-            
-            case 2: if(!copyMacro[0][1].equals("-1"))
-            {
-   
-                foundWinOrDraw=true;              
-            }
-            break;
-            
-            case 3: if(!copyMacro[0][2].equals("-1"))
-            {
-     
-                foundWinOrDraw=true;              
-            }
-            break;
-            
-            case 4: if(!copyMacro[1][0].equals("-1"))
-            {
+        switch (activeMicroBoard) {
+            case 1:
+                if (!copyMacro[0][0].equals("-1")) {
 
-                foundWinOrDraw=true;              
-            }
-            break;
-            
-            case 5: 
-                if(!copyMacro[1][1].equals("-1"))
-            {
-     
-                foundWinOrDraw=true;              
-            }
-            break;
-            
-            case 6: if(!copyMacro[1][2].equals("-1"))
-            {
-    
-                foundWinOrDraw=true;              
-            }           
-            break;
-            
-            case 7: if(!copyMacro[2][0].equals("-1"))
-            {
-         
-                foundWinOrDraw=true;              
-            }
-            break;
-            
-            case 8: if(!copyMacro[2][1].equals("-1"))
-            {
-              
-      
-                foundWinOrDraw=true;              
-            }
-            break;
-            
-            case 9: if(!copyMacro[2][2].equals("-1"))
-            {
-            
-                foundWinOrDraw=true;              
-            }
-            break;
+                    foundWinOrDraw = true;
+                }
+                break;
+
+            case 2:
+                if (!copyMacro[0][1].equals("-1")) {
+
+                    foundWinOrDraw = true;
+                }
+                break;
+
+            case 3:
+                if (!copyMacro[0][2].equals("-1")) {
+
+                    foundWinOrDraw = true;
+                }
+                break;
+
+            case 4:
+                if (!copyMacro[1][0].equals("-1")) {
+
+                    foundWinOrDraw = true;
+                }
+                break;
+
+            case 5:
+                if (!copyMacro[1][1].equals("-1")) {
+
+                    foundWinOrDraw = true;
+                }
+                break;
+
+            case 6:
+                if (!copyMacro[1][2].equals("-1")) {
+
+                    foundWinOrDraw = true;
+                }
+                break;
+
+            case 7:
+                if (!copyMacro[2][0].equals("-1")) {
+
+                    foundWinOrDraw = true;
+                }
+                break;
+
+            case 8:
+                if (!copyMacro[2][1].equals("-1")) {
+
+                    foundWinOrDraw = true;
+                }
+                break;
+
+            case 9:
+                if (!copyMacro[2][2].equals("-1")) {
+
+                    foundWinOrDraw = true;
+                }
+                break;
+        }
+        return foundWinOrDraw;
     }
-     return foundWinOrDraw;  
+
+    /**
+     * Removes moves which is in the middle of a microboard
+     *
+     * @param allGoodMoves
+     * @return
+     */
+    private IMove setBestMove(List<IMove> moves) {
+        List<IMove> bestMoves = new ArrayList<>();
+        for (IMove move : moves) {
+            boolean isBad = false;
+            for (int i = 0; i < 9; i++) {
+                String badMove = badMoves[i];
+                
+                char xCor = badMove.charAt(0);
+                char yCor = badMove.charAt(2);
+
+                int xCoord = Character.getNumericValue(xCor);
+                int yCoord = Character.getNumericValue(yCor);
+
+                if (move.getX() == xCoord && move.getY() == yCoord) {
+                    isBad = true;
+                }
+            }
+            if(isBad==false)
+            {
+                bestMoves.add(move);
+            }
+
+        }
+        if(bestMoves.size()>0){
+        Double rNum = Math.random() * bestMoves.size();
+        int rNumInt = rNum.intValue();
+        return bestMoves.get(rNumInt);
+        }
+        // Hvis det ikke lykkes så bare retur en tilfældig fra den oprindelige liste
+        Double rNum = Math.random() * moves.size();
+        int rNumInt = rNum.intValue();
+        return moves.get(rNumInt);
+        
+
+    }
+
+    private void setBadMoves() {
+        badMoves = new String[9];
+        badMoves[0] = "" + 1 + "." + 1;
+        badMoves[1] = "" + 1 + "." + 4;
+        badMoves[2] = "" + 1 + "." + 7;
+        badMoves[3] = "" + 4 + "." + 1;
+        badMoves[4] = "" + 4 + "." + 4;
+        badMoves[5] = "" + 4 + "." + 7;
+        badMoves[6] = "" + 7 + "." + 1;
+        badMoves[7] = "" + 7 + "." + 4;
+        badMoves[8] = "" + 7 + "." + 7;
+
     }
 }

@@ -35,6 +35,7 @@ import uttt.bot.RandomBot;
 import uttt.bot.SmartBot;
 import uttt.bot.SmarterBot;
 import uttt.bot.SmartestBot;
+import uttt.bot.Terminator;
 import uttt.game.GameManager;
 import uttt.game.GameState;
 import uttt.move.Move;
@@ -403,8 +404,7 @@ public class GameboardController implements Initializable
 
     private void createBots(String botToPlay, String botToPlay2)
     {
-        System.out.println("Bot to play.: "+botToPlay);
-        System.out.println("Bot to play 2: "+botToPlay2);
+
         switch (botToPlay)
         {
             case "RandomBot":
@@ -420,9 +420,11 @@ public class GameboardController implements Initializable
             case "SmartestBot":
                 AIBot1 = new SmartestBot();
                 break;
+            case "Terminator":
+                AIBot1 = new Terminator();
 
         }
-        System.out.println("DOING THIS");
+
         switch (botToPlay2)
         {
             case "RandomBot":
@@ -435,9 +437,10 @@ public class GameboardController implements Initializable
                 AIBot2 = new SmarterBot();
                 break;
             case "SmartestBot":
-                AIBot2 = new SmartestBot();
-                
+                AIBot2 = new SmartestBot();                
                 break;
+            case "Terminator":
+                AIBot2 = new Terminator();
 
         }
     }

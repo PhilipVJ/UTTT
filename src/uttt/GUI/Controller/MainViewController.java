@@ -60,6 +60,7 @@ public class MainViewController implements Initializable {
         botNames.add("SmartBot");
         botNames.add("SmarterBot");
         botNames.add("SmartestBot");
+        botNames.add("Terminator");
         botVsBotChoice.setItems(botNames);
         humanVsBotChoice.setItems(botNames);
         botVsBotChoice2.setItems(botNames);
