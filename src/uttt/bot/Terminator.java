@@ -6,6 +6,7 @@
 package uttt.bot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import static uttt.field.IField.AVAILABLE_FIELD;
 import uttt.game.IGameState;
@@ -40,17 +41,42 @@ public class Terminator implements IBot {
 
     @Override
     public IMove doMove(IGameState state) {
+
         setBadMoves();
         setOtherBadMoves();
         setMicroboardCoordinates();
         System.out.println("TERMINATOR");
+
         board = state.getField().getBoard();
         currentState = state;
         macroBoard = state.getField().getMacroboard();
         availableMoves = state.getField().getAvailableMoves();
         setPlayerId();
 
+        boolean gotADrawMove=false;
+        if (!checkIfItsPossibleToWin()) {
+            // starting defense mode
+            int otherPlayer;
+            if (playerId == 1) {
+                otherPlayer = 0;
+            } else {
+                otherPlayer = 1;
+            }
+            for (IMove x : availableMoves) {
+                copyBoards();
+                if (checkMove(x, otherPlayer)) {
+                    moveToDo = x;
+                    gotADrawMove=true;
+                    break;
+                }
+            }
+            
+            
+
+        }
+        if(gotADrawMove==false){
         calculateMove();
+        }
 
         return moveToDo;
 
@@ -831,5 +857,47 @@ public class Terminator implements IBot {
         otherBadMoves[34] = "" + 8 + "." + 7;
         otherBadMoves[35] = "" + 7 + "." + 6;
 
+    }
+
+    /**
+     * Check if it is possible to even win
+     */
+    private boolean checkIfItsPossibleToWin() {
+
+        String[][] grid = this.macroBoard;
+
+        String player = "" + playerId;
+        String empty = "-1";
+        List<String> check = Arrays.asList(player, empty);
+
+        // checker om det er muligt at få en diagonal sejr
+        if (check.contains(grid[0][0]) && check.contains(grid[1][1]) && check.contains(grid[2][2])) {
+
+            return true;
+        }
+
+        if (check.contains(grid[0][2]) && check.contains(grid[1][1]) && check.contains(grid[2][0])) {
+
+            return true;
+        }
+
+        // checker om det er muligt at få en vandret sejr
+        for (int i = 0; i < 3; i++) {
+            if (check.contains(grid[i][0]) && check.contains(grid[i][1]) && check.contains(grid[i][2])) {
+
+                return true;
+            }
+
+        }
+
+        // checker om det er muligt at få en lodret sejr
+        for (int i = 0; i < grid.length; i++) {
+            if (check.contains(grid[0][i]) && check.contains(grid[1][i]) && check.contains(grid[2][i])) {
+
+                return true;
+            }
+        }
+
+        return false;
     }
 }

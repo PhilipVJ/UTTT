@@ -68,12 +68,12 @@ public class SmarterBot implements IBot
         if (numberOfEmptyFields == 81)
         {
             playerId = 0;
-            System.out.println("PlayerId is 0");
+ 
 
         } else
         {
             playerId = 1;
-            System.out.println("PlayerId is 1");
+ 
         }
         setPlayerId = true;
     }
@@ -91,7 +91,7 @@ public class SmarterBot implements IBot
             {
                 foundValidMove = true;
                 moveToDo = x;
-                System.out.println("SETTING GOOD MOVE");
+       
                 break;
             }
         }
@@ -107,7 +107,7 @@ public class SmarterBot implements IBot
             {
                 otherPlayer=1;
             }
-            System.out.println("Looking for DEFENSE MOVE");
+      
             for (IMove x : availableMoves)
             {
                 copyBoards();
@@ -116,7 +116,7 @@ public class SmarterBot implements IBot
                 {
                     foundValidMove = true;
                     moveToDo = x;
-                    System.out.println("SETTING DEFENCE MOVE");
+                
                     break;
                 }
             }
@@ -168,7 +168,7 @@ public class SmarterBot implements IBot
 
     private void setRandomMove()
     {
-        System.out.println("Doing random move");
+  
         int moveSize = availableMoves.size();
         Double randomNumber = Math.random() * moveSize;
         int rNumber = randomNumber.intValue();
