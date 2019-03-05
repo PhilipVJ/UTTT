@@ -55,8 +55,6 @@ public class Terminator implements IBot
         availableMoves = state.getField().getAvailableMoves();
         setPlayerId();
 
-
-
         boolean gotADrawMove = false;
         if (!checkIfItsPossibleToWin())
         {
@@ -941,26 +939,25 @@ public class Terminator implements IBot
 
             }
         }
-        Double random = Math.random() * 10;
-        //Det sikrer noget tilfældighed
-        if (random > 5)
+
+        //Måske tilføje lidt tilfældighed her?
+
+        if (bestOfTheBest.size() > 0)
         {
-            System.out.println("Calculated");
-            if (bestOfTheBest.size() > 0)
-            {
-                Double rNum = Math.random() * bestMoves.size();
-                int rNumInt = rNum.intValue();
-                return bestMoves.get(rNumInt);
-            }
+            Double rNum = Math.random() * bestOfTheBest.size();
+            int rNumInt = rNum.intValue();
 
-            if (bestMoves.size() > 0)
-            {
-                Double rNum = Math.random() * bestMoves.size();
-                int rNumInt = rNum.intValue();
-                return bestMoves.get(rNumInt);
-            }
-
+            return bestOfTheBest.get(rNumInt);
         }
+
+        if (bestMoves.size() > 0)
+        {
+            Double rNum = Math.random() * bestMoves.size();
+            int rNumInt = rNum.intValue();
+            return bestMoves.get(rNumInt);
+        }
+        System.out.println("GOING HERE");
+
         // Hvis det ikke lykkes så bare retur en tilfældig fra den oprindelige liste
         System.out.println("Random move");
         Double rNum = Math.random() * moves.size();
