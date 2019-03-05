@@ -25,12 +25,11 @@ public class Terminator implements IBot {
     private IMove moveToDo;
     private int playerId;
     boolean setPlayerId = false;
-    private String[][] copyBoard = new String[9][9];
-    private String[][] copyMacro = new String[3][3];
-    private String[][] copyCopyBoard = new String[9][9];
-    private String[][] copyCopyMacro = new String[3][3];
-
-    private ArrayList<String[]> microBoards = new ArrayList<>();
+    private final String[][] copyBoard = new String[9][9];
+    private final String[][] copyMacro = new String[3][3];
+    private final String[][] copyCopyBoard = new String[9][9];
+    private final String[][] copyCopyMacro = new String[3][3];
+    private final ArrayList<String[]> microBoards = new ArrayList<>();
     private int activeMicroBoard = 0;
     private String[] badMoves;
     private String[] otherBadMoves;
@@ -41,9 +40,7 @@ public class Terminator implements IBot {
         setBadMoves();
         setOtherBadMoves();
         setMicroboardCoordinates();
-
         board = state.getField().getBoard();
-
         macroBoard = state.getField().getMacroboard();
         availableMoves = state.getField().getAvailableMoves();
         setPlayerId();
@@ -65,13 +62,11 @@ public class Terminator implements IBot {
                     break;
                 }
             }
-
         }
 
         if (gotADrawMove == false) {
             calculateMove();
         }
-
         return moveToDo;
 
     }
@@ -103,10 +98,8 @@ public class Terminator implements IBot {
     }
 
     private void calculateMove() {
-        // Always goes for a move which gives a line
         boolean foundValidMove = false;
         // Attack move
-
         List<IMove> attackMoves = new ArrayList<>();
         for (IMove x : availableMoves) {
             copyBoards();
@@ -116,39 +109,30 @@ public class Terminator implements IBot {
             }
         }
         // Check if available attackmoves results in a macro win
-
         IMove winningMove = checkForAMacroWin(attackMoves);
-
         if (winningMove != null) {
             moveToDo = winningMove;
             return;
         }
-
         // if attackmoves has been found we here choose one here. We choose one which doesn't give a free line to the opponent next round.
         if (foundValidMove == true) {
-
             boolean bingo = findGoodMove(attackMoves);
             if (bingo == false) {
                 Double rNum = Math.random() * attackMoves.size();
                 int rNumInt = rNum.intValue();
                 moveToDo = attackMoves.get(rNumInt);
             }
-
         }
-
         // Defense move
         if (foundValidMove == false) {
-
             int otherPlayer;
             if (playerId == 1) {
                 otherPlayer = 0;
             } else {
                 otherPlayer = 1;
             }
-
             for (IMove x : availableMoves) {
                 copyBoards();
-
                 if (checkMove(x, otherPlayer)) {
                     foundValidMove = true;
                     moveToDo = x;
@@ -156,7 +140,6 @@ public class Terminator implements IBot {
                     break;
                 }
             }
-
         }
         // Make sure the next move doesn't give the opponent a free line
         if (foundValidMove == false) {
@@ -165,12 +148,10 @@ public class Terminator implements IBot {
                 foundValidMove = true;
             }
         }
-
-        // Random good move
+        // Random - yet good - move
         if (foundValidMove == false) {
             setRandomMove();
         }
-
     }
 
     /**
@@ -305,19 +286,13 @@ public class Terminator implements IBot {
                     opponentGotLine = true;
                     break;
                 }
-
             }
 
             if (opponentGotLine == false) {
                 allGoodMoves.add(x);
                 foundMove = true;
-
             }
-
         }
-
-        Double rNum = Math.random() * allGoodMoves.size();
-        int rNumInt = rNum.intValue();
         if (allGoodMoves.size() > 0) {
 
             moveToDo = setBestMove(allGoodMoves);
@@ -326,117 +301,79 @@ public class Terminator implements IBot {
     }
 
     private void checkForDiagonalWin(int playerId) {
-
         // checker for en diagonal sejr
         String player = "" + playerId;
         // microboard 1
         if (copyBoard[0][0].equals(player) && copyBoard[1][1].equals(player) && copyBoard[2][2].equals(player)) {
-
             copyMacro[0][0] = player;
-
         }
 
         if (copyBoard[0][2].equals(player) && copyBoard[1][1].equals(player) && copyBoard[2][0].equals(player)) {
-
             copyMacro[0][0] = player;
-
         }
         // microboard 2
         if (copyBoard[0][3].equals(player) && copyBoard[1][4].equals(player) && copyBoard[2][5].equals(player)) {
-
             copyMacro[0][1] = player;
-
         }
 
         if (copyBoard[0][5].equals(player) && copyBoard[1][4].equals(player) && copyBoard[2][3].equals(player)) {
-
             copyMacro[0][1] = player;
-            ;
-
         }
         // microboard 3
         if (copyBoard[0][6].equals(player) && copyBoard[1][7].equals(player) && copyBoard[2][8].equals(player)) {
-
             copyMacro[0][2] = player;
-
         }
 
         if (copyBoard[0][8].equals(player) && copyBoard[1][7].equals(player) && copyBoard[2][6].equals(player)) {
-
             copyMacro[0][2] = player;
-
         }
         // microboard 4
         if (copyBoard[3][0].equals(player) && copyBoard[4][1].equals(player) && copyBoard[5][2].equals(player)) {
-
             copyMacro[1][0] = player;
-
         }
 
         if (copyBoard[3][2].equals(player) && copyBoard[4][1].equals(player) && copyBoard[5][0].equals(player)) {
-
             copyMacro[1][0] = player;
-
         }
         // microboard 5
         if (copyBoard[3][3].equals(player) && copyBoard[4][4].equals(player) && copyBoard[5][5].equals(player)) {
-
             copyMacro[1][1] = player;
-
         }
 
         if (copyBoard[3][5].equals(player) && copyBoard[4][4].equals(player) && copyBoard[5][3].equals(player)) {
-
             copyMacro[1][1] = player;
-
         }
         // microboard 6
         if (copyBoard[3][6].equals(player) && copyBoard[4][7].equals(player) && copyBoard[5][8].equals(player)) {
-
             copyMacro[1][2] = player;
-
         }
 
         if (copyBoard[3][8].equals(player) && copyBoard[4][7].equals(player) && copyBoard[5][6].equals(player)) {
-
             copyMacro[1][2] = player;
-
         }
         // microboard 7
         if (copyBoard[6][0].equals(player) && copyBoard[7][1].equals(player) && copyBoard[8][2].equals(player)) {
-
             copyMacro[2][0] = player;
-
         }
 
         if (copyBoard[6][2].equals(player) && copyBoard[7][1].equals(player) && copyBoard[8][0].equals(player)) {
-
             copyMacro[2][0] = player;
-
         }
         // microboard 8
         if (copyBoard[6][3].equals(player) && copyBoard[7][4].equals(player) && copyBoard[8][5].equals(player)) {
-
             copyMacro[2][1] = player;
-
         }
 
         if (copyBoard[6][5].equals(player) && copyBoard[7][4].equals(player) && copyBoard[8][3].equals(player)) {
-
             copyMacro[2][1] = player;
-
         }
         // microboard 9
         if (copyBoard[6][6].equals(player) && copyBoard[7][7].equals(player) && copyBoard[8][8].equals(player)) {
-
             copyMacro[2][2] = player;
-
         }
 
         if (copyBoard[6][8].equals(player) && copyBoard[7][7].equals(player) && copyBoard[8][6].equals(player)) {
-
             copyMacro[2][2] = player;
-
         }
 
     }
@@ -448,61 +385,41 @@ public class Terminator implements IBot {
         for (int i = 0; i < 3; i++) {
             // microboard 1
             if (copyBoard[0][i].equals(player) && copyBoard[1][i].equals(player) && copyBoard[2][i].equals(player)) {
-
                 copyMacro[0][0] = player;
-
             }
             // microboard 2
             if (copyBoard[0][i + 3].equals(player) && copyBoard[1][i + 3].equals(player) && copyBoard[2][i + 3].equals(player)) {
-
                 copyMacro[0][1] = player;
-
             }
             // microboard 3
             if (copyBoard[0][i + 6].equals(player) && copyBoard[1][i + 6].equals(player) && copyBoard[2][i + 6].equals(player)) {
-
                 copyMacro[0][2] = player;
-
             }
             // microboard 4
             if (copyBoard[3][i].equals(player) && copyBoard[4][i].equals(player) && copyBoard[5][i].equals(player)) {
-
                 copyMacro[1][0] = player;
-
             }
             // microboard 5
             if (copyBoard[3][i + 3].equals(player) && copyBoard[4][i + 3].equals(player) && copyBoard[5][i + 3].equals(player)) {
-
                 copyMacro[1][1] = player;
-
             }
             // microboard 6
             if (copyBoard[3][i + 6].equals(player) && copyBoard[4][i + 6].equals(player) && copyBoard[5][i + 6].equals(player)) {
-
                 copyMacro[1][2] = player;
-
             }
             // microboard 7
             if (copyBoard[6][i].equals(player) && copyBoard[7][i].equals(player) && copyBoard[8][i].equals(player)) {
-
                 copyMacro[2][0] = player;
-
             }
             // microboard 8
             if (copyBoard[6][i + 3].equals(player) && copyBoard[7][i + 3].equals(player) && copyBoard[8][i + 3].equals(player)) {
-
                 copyMacro[2][1] = player;
-
             }
             // microboard 9
             if (copyBoard[6][i + 6].equals(player) && copyBoard[7][i + 6].equals(player) && copyBoard[8][i + 6].equals(player)) {
-
                 copyMacro[2][2] = player;
-
             }
-
         }
-
     }
 
     private void checkForHorizontalWin(int playerId) {
@@ -512,61 +429,41 @@ public class Terminator implements IBot {
         for (int i = 0; i < 3; i++) {
             // microboard 1
             if (copyBoard[i][0].equals(player) && copyBoard[i][1].equals(player) && copyBoard[i][2].equals(player)) {
-
                 copyMacro[0][0] = player;
-
             }
             // microboard 2
             if (copyBoard[i][3].equals(player) && copyBoard[i][4].equals(player) && copyBoard[i][5].equals(player)) {
-
                 copyMacro[0][1] = player;
-
             }
             // microboard 3
             if (copyBoard[i][6].equals(player) && copyBoard[i][7].equals(player) && copyBoard[i][8].equals(player)) {
-
                 copyMacro[0][2] = player;
-
             }
 
             // microboard 4
             if (copyBoard[i + 3][0].equals(player) && copyBoard[i + 3][1].equals(player) && copyBoard[i + 3][2].equals(player)) {
-
                 copyMacro[1][0] = player;
-
             }
             // microboard 5
             if (copyBoard[i + 3][3].equals(player) && copyBoard[i + 3][4].equals(player) && copyBoard[i + 3][5].equals(player)) {
-
                 copyMacro[1][1] = player;
-
             }
             // microboard 6
             if (copyBoard[i + 3][6].equals(player) && copyBoard[i + 3][7].equals(player) && copyBoard[i + 3][8].equals(player)) {
-
                 copyMacro[1][2] = player;
-
             }
-
             // microboard 7
             if (copyBoard[i + 6][0].equals(player) && copyBoard[i + 6][1].equals(player) && copyBoard[i + 6][2].equals(player)) {
-
                 copyMacro[2][0] = player;
-
             }
             // microboard 8
             if (copyBoard[i + 6][3].equals(player) && copyBoard[i + 6][4].equals(player) && copyBoard[i + 6][5].equals(player)) {
-
                 copyMacro[2][1] = player;
-
             }
             // microboard 9
             if (copyBoard[i + 6][6].equals(player) && copyBoard[i + 6][7].equals(player) && copyBoard[i + 6][8].equals(player)) {
-
                 copyMacro[2][2] = player;
-
             }
-
         }
     }
 
@@ -584,9 +481,7 @@ public class Terminator implements IBot {
                 if (k[i].equals(coordinate)) {
                     return counter;
                 }
-
             }
-
         }
         //Couldn't find coordinate - returns 100 - shouldn't happen
         return 100;
@@ -677,63 +572,54 @@ public class Terminator implements IBot {
         switch (activeMicroBoard) {
             case 1:
                 if (!copyMacro[0][0].equals("-1")) {
-
                     foundWinOrDraw = true;
                 }
                 break;
 
             case 2:
                 if (!copyMacro[0][1].equals("-1")) {
-
                     foundWinOrDraw = true;
                 }
                 break;
 
             case 3:
                 if (!copyMacro[0][2].equals("-1")) {
-
                     foundWinOrDraw = true;
                 }
                 break;
 
             case 4:
                 if (!copyMacro[1][0].equals("-1")) {
-
                     foundWinOrDraw = true;
                 }
                 break;
 
             case 5:
                 if (!copyMacro[1][1].equals("-1")) {
-
                     foundWinOrDraw = true;
                 }
                 break;
 
             case 6:
                 if (!copyMacro[1][2].equals("-1")) {
-
                     foundWinOrDraw = true;
                 }
                 break;
 
             case 7:
                 if (!copyMacro[2][0].equals("-1")) {
-
                     foundWinOrDraw = true;
                 }
                 break;
 
             case 8:
                 if (!copyMacro[2][1].equals("-1")) {
-
                     foundWinOrDraw = true;
                 }
                 break;
 
             case 9:
                 if (!copyMacro[2][2].equals("-1")) {
-
                     foundWinOrDraw = true;
                 }
                 break;
@@ -753,13 +639,10 @@ public class Terminator implements IBot {
             boolean isBad = false;
             for (int i = 0; i < 9; i++) {
                 String badMove = badMoves[i];
-
                 char xCor = badMove.charAt(0);
                 char yCor = badMove.charAt(2);
-
                 int xCoord = Character.getNumericValue(xCor);
                 int yCoord = Character.getNumericValue(yCor);
-
                 if (move.getX() == xCoord && move.getY() == yCoord) {
                     isBad = true;
                 }
@@ -767,7 +650,6 @@ public class Terminator implements IBot {
             if (isBad == false) {
                 bestMoves.add(move);
             }
-
         }
         List<IMove> bestOfTheBest = new ArrayList<>();
         if (bestMoves.size() > 0) {
@@ -775,13 +657,10 @@ public class Terminator implements IBot {
                 boolean isBad = false;
                 for (int i = 0; i < 36; i++) {
                     String badMove = otherBadMoves[i];
-
                     char xCor = badMove.charAt(0);
                     char yCor = badMove.charAt(2);
-
                     int xCoord = Character.getNumericValue(xCor);
                     int yCoord = Character.getNumericValue(yCor);
-
                     if (move.getX() == xCoord && move.getY() == yCoord) {
                         isBad = true;
                     }
@@ -797,7 +676,6 @@ public class Terminator implements IBot {
         if (bestOfTheBest.size() > 0) {
             Double rNum = Math.random() * bestOfTheBest.size();
             int rNumInt = rNum.intValue();
-
             return bestOfTheBest.get(rNumInt);
         }
 
@@ -811,7 +689,6 @@ public class Terminator implements IBot {
         Double rNum = Math.random() * moves.size();
         int rNumInt = rNum.intValue();
         return moves.get(rNumInt);
-
     }
 
     private void setBadMoves() {
@@ -890,53 +767,40 @@ public class Terminator implements IBot {
 
         // checker om det er muligt at få en diagonal sejr
         if (check.contains(grid[0][0]) && check.contains(grid[1][1]) && check.contains(grid[2][2])) {
-
             return true;
         }
 
         if (check.contains(grid[0][2]) && check.contains(grid[1][1]) && check.contains(grid[2][0])) {
-
             return true;
         }
 
         // checker om det er muligt at få en vandret sejr
         for (int i = 0; i < 3; i++) {
             if (check.contains(grid[i][0]) && check.contains(grid[i][1]) && check.contains(grid[i][2])) {
-
                 return true;
             }
-
         }
 
         // checker om det er muligt at få en lodret sejr
         for (int i = 0; i < grid.length; i++) {
             if (check.contains(grid[0][i]) && check.contains(grid[1][i]) && check.contains(grid[2][i])) {
-
                 return true;
             }
         }
-
         return false;
     }
 
     private IMove checkForAMacroWin(List<IMove> attackMoves) {
         IMove toWin = null;
-
         for (IMove x : attackMoves) {
-
             copyBoards();
             copyBoard[x.getX()][x.getY()] = "" + playerId;
             checkForWinInMicro(playerId);
-            boolean foundWinningMove = false;
             if (checkForWin(copyMacro, playerId) == true) {
                 toWin = x;
-                foundWinningMove = true;
                 break;
-
             }
-
             copyBoards();
-
         }
         return toWin;
     }
@@ -945,34 +809,26 @@ public class Terminator implements IBot {
 
         String[][] grid = macro;
         // checker for en vandret sejr
-
         String player = "" + playerId;
         for (int i = 0; i < 3; i++) {
             if (grid[i][0].equals(player) && grid[i][1].equals(player) && grid[i][2].equals(player)) {
-
                 return true;
             }
         }
-
         // checker for en lodret sejr
         for (int i = 0; i < grid.length; i++) {
             if (grid[0][i].equals(player) && grid[1][i].equals(player) && grid[2][i].equals(player)) {
-
                 return true;
             }
         }
-
         // checker for en diagonal sejr
         if (grid[0][0].equals(player) && grid[1][1].equals(player) && grid[2][2].equals(player)) {
-
             return true;
         }
 
         if (grid[0][2].equals(player) && grid[1][1].equals(player) && grid[2][0].equals(player)) {
-
             return true;
         }
-
         return false;
     }
 }
