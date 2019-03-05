@@ -55,6 +55,8 @@ public class Terminator implements IBot
         availableMoves = state.getField().getAvailableMoves();
         setPlayerId();
 
+
+
         boolean gotADrawMove = false;
         if (!checkIfItsPossibleToWin())
         {
@@ -199,7 +201,7 @@ public class Terminator implements IBot
             }
         }
 
-        // Random move
+        // Random good move
         if (foundValidMove == false)
         {
             setRandomMove();
@@ -941,7 +943,7 @@ public class Terminator implements IBot
         }
         Double random = Math.random() * 10;
         //Det sikrer noget tilfældighed
-        if (random > 3)
+        if (random > 5)
         {
             System.out.println("Calculated");
             if (bestOfTheBest.size() > 0)
