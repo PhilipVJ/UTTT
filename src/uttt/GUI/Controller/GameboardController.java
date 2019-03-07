@@ -396,11 +396,6 @@ public class GameboardController implements Initializable
         grid2isDone = false;
     }
 
-    @FXML
-    private void start(MouseEvent event) throws InterruptedException
-    {
-        initBotFight();
-    }
 
     private void createBots(String botToPlay, String botToPlay2)
     {
